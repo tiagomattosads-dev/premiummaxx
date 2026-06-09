@@ -143,20 +143,13 @@ const headerComponent = `
                 </div>
               </div>
             </li>
-            <li class="hasDropdown">
-              <a href="#">carreiras
-                <svg class="setinha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </a>
+            <li>
+              <a href="#" class="openDevModalTrigger">carreiras</a>
             </li>
-            <li class="hasDropdown">
-              <a href="#">temas atuais
-                <svg class="setinha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </a>
+            <li>
+              <a href="#" class="openDevModalTrigger">temas atuais</a>
             </li>
+
           </ul>
         </nav>
 
@@ -207,7 +200,7 @@ renderGlobalHeader();
 
 // ==========================================
 // 0.2 COMPONENTE FOOTER (RODAPÉ GLOBAL)
-// ==========================================
+// =======================================3===
 const footerComponent = `
   <footer class="siteFooter">
     <div class="container">
@@ -224,8 +217,8 @@ const footerComponent = `
           <ul>
             <li><a href="#">Quem Somos</a></li>
             <li><a href="#">Nossos Serviços</a></li>
-            <li><a href="#">Carreiras</a></li>
-            <li><a href="#">Temas Atuais</a></li>
+            <li><a href="#" class="openDevModalTrigger">Carreiras</a></li>
+            <li><a href="#" class="openDevModalTrigger">Temas Atuais</a></li>
           </ul>
         </div>
 
@@ -236,6 +229,7 @@ const footerComponent = `
             <li><a href="/servicos/consultoria-tributaria/index.html" target="_blank">Consultoria Tributária</a></li>
             <li><a href="/servicos/planejamento-tributario/index.html" target="_blank">Planejamento Tributário</a></li>
             <li><a href="/servicos/consultoria-empresarial/index.html" target="_blank">Consultoria Empresarial</a></li>
+            <li><a href="/servicos/contabilidade/index.html" target="_blank">Contabilidade</a></li>
           </ul>
         </div>
 
@@ -1158,7 +1152,62 @@ function initModalLogic() {
 // Inicia o motor
 renderGlobalModal();
 
+// =======================================================
+// 0.4 COMPONENTE MODAL DE DESENVOLVIMENTO (EM BREVE)
+// =======================================================
+const devModalComponent = `
+    <div class="glassModal" id="devGlassModal">
+      <div class="glassModalContent" style="text-align: center; max-width: 450px; padding: 60px 40px;">
+        <button class="closeModalBtn" id="closeDevModal">&times;</button>
+        
+        <svg viewBox="0 0 24 24" fill="none" stroke="#03FAD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 64px; height: 64px; margin-bottom: 24px;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        
+        <h3 style="color: #ffffff; font-size: 26px; margin-bottom: 16px;">Área em Desenvolvimento</h3>
+        <p style="color: #b3b3b3; font-size: 16px; line-height: 1.6; margin-bottom: 35px;">Nossos especialistas estão a preparar uma área exclusiva com novos conteúdos. Novidades em breve!</p>
+        
+        <button class="btnCyan" id="btnOkDev" style="width: 100%;">Entendi</button>
+      </div>
+    </div>
+`;
 
+function renderDevModal() {
+  if (!document.getElementById('devGlassModal')) {
+    document.body.insertAdjacentHTML('beforeend', devModalComponent);
+    
+    const devModal = document.getElementById('devGlassModal');
+    const closeBtn = document.getElementById('closeDevModal');
+    const okBtn = document.getElementById('btnOkDev');
+    
+    // Função de fechamento suave
+    function closeDev() {
+        devModal.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeDev);
+    okBtn.addEventListener('click', closeDev);
+    
+    // Fecha ao clicar fora da caixa
+    devModal.addEventListener('click', (e) => {
+        if (e.target === devModal) closeDev();
+    });
+    
+    // Escuta global pelo clique nos links do menu e rodapé
+    document.body.addEventListener('click', (e) => {
+        if (e.target.classList.contains('openDevModalTrigger') || e.target.closest('.openDevModalTrigger')) {
+            e.preventDefault();
+            devModal.classList.add('is-open');
+            document.body.style.overflow = 'hidden'; // Trava o scroll do site
+        }
+    });
+  }
+}
+
+// Inicia o motor do Modal de Desenvolvimento
+renderDevModal();
 
 
 // =======================================================
