@@ -839,7 +839,7 @@ a {
 
 /* 1. A pista invisível que permite rolar para baixo */
 .stickyScrollSpace {
-  height: 200vh; /* 4 Seções = 4 telas de rolagem vertical */
+  height: 300vh; /* 4 Seções = 4 telas de rolagem vertical */
   position: relative;
 }
 
