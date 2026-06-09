@@ -1,0 +1,488 @@
+/* ==========================================
+   PÁGINAS DE SERVIÇO (LAYOUT BASE)
+========================================== */
+.servicePageWrapper {
+  background-color: #ffffff; 
+  color: #111111;
+  overflow-x: hidden; 
+}
+
+/* --- 1. HERO SECTION --- */
+.serviceHero {
+  padding: 0 20px 60px 20px; 
+  margin-top: 15px; 
+  display: flex;
+  justify-content: left;
+  align-items: left; 
+}
+
+.sHeroBg {
+  position: relative;
+  width: 100%;
+  max-width: 1900 px; /* A largura exata do seu Figma! */
+  height: 889px; /* A altura exata do seu Figma! */
+  border-radius: 32px; 
+  overflow: hidden;
+  display: flex;
+  
+  /* A MÁGICA DO POSICIONAMENTO: */
+  align-items: flex-end; /* Joga a caixa de texto toda para baixo */
+  padding-bottom: 120px; /* Distância exata do texto para o "chão" da imagem */
+}
+
+.sHeroImg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.sHeroOverlay {
+  position: absolute;
+  inset: 0;
+  /* Duplo gradiente: escurece a lateral esquerda E a base para o texto brilhar perfeito */
+  background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%),
+              linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 40%);
+  z-index: 2;
+}
+
+.sHeroContent {
+  position: relative;
+  z-index: 3;
+  padding-left: 100px; 
+  max-width: 850px; 
+  width: 100%;
+  
+  /* A MÁGICA QUE ANULA A CENTRALIZAÇÃO: */
+  margin: 0; 
+  text-align: left; 
+}
+
+.sHeroTitle {
+  font-size: clamp(32px, 4vw, 48px);
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.sHeroSubtitle {
+  font-size: clamp(16px, 1.2vw, 18px);
+  color: #cccccc;
+  margin-bottom: 40px; /* Dei um espacinho um pouco maior para o botão respirar */
+  line-height: 1.6;
+}
+
+/* --- 2 E 3. TEXT REVEAL + HORIZONTAL SCROLL --- */
+.horizontalScrollSection {
+  background-color: #ffffff;
+}
+
+.hScrollSticky {
+  height: 100vh; 
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.hScrollTrack {
+  display: flex;
+  height: 100vh; 
+}
+
+.hScrollPanel {
+  width: 100vw; 
+  height: 100vh;
+  flex-shrink: 0; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.hPanelContent {
+  max-width: 1300px;
+  padding: 0 60px;
+}
+
+/* O TEXTO GERAL */
+.revealText {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(32px, 4vw, 45px);
+  font-weight: 500;
+  letter-spacing: -1.57px;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* O ROBÔ: Classes geradas automaticamente no JavaScript */
+.wordWrapper {
+  display: inline-block;
+  white-space: nowrap; 
+}
+
+.charBase {
+  color: #CECECE; /* A cor cinza sólida de todas as letras no início */
+}
+
+/* O GRADIENTE MESTRE (Fica na tag pai, e não nas letrinhas!) */
+.highlightGradient {
+  background: linear-gradient(90deg, #0EF0CE 0%, #077867 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Não usamos color: transparent aqui para o cinza das filhas poder aparecer primeiro */
+}
+
+/* --- 4. PINNED SHOWCASE --- */
+.pinnedShowcaseSection {
+  padding: 140px 0;
+  background: #ffffff;
+}
+
+.pinnedContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 80px;
+  align-items: center; /* Mantém tudo alinhado ao centro agora */
+}
+
+.pinnedLeft {
+  /* Removemos o position sticky daqui porque o GSAP vai travar a seção INTEIRA */
+  height: 70vh;
+  max-height: 650px;
+}
+
+.imageStackWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Removemos o border-radius, o overflow e o background daqui! 
+     Agora essa caixa é só um fantasma invisível que segura as cartas. */
+}
+
+.stackImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0; 
+  
+  /* A MÁGICA: Cada imagem agora é o seu próprio cartão físico! */
+  border-radius: 32px; 
+  
+  /* BÔNUS: Adicionei uma sombra super elegante para dar volume. 
+     Quando elas subirem, vai parecer que estão flutuando! */
+  box-shadow: 0 20px 50px rgba(0,0,0, 0.08);
+}
+
+.stackImg:first-child {
+  opacity: 1;
+}
+
+/* O LADO DIREITO (Onde a mágica do texto parado acontece) */
+.pinnedRight {
+  position: relative;
+  height: 70vh; /* Mesma altura da caixa de imagens */
+  max-height: 650px;
+  display: flex;
+  align-items: center; /* Alinha o texto no meio da tela */
+}
+
+.textStackWrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.stackTextBlock {
+  position: absolute; /* Empilha todos como cartas de baralho! */
+  top: 50%;
+  transform: translateY(-50%); /* Centraliza perfeitamente no eixo Y */
+  left: 0;
+  width: 100%;
+  opacity: 0; 
+  visibility: hidden; /* Impede que botões invisíveis sejam clicados */
+}
+
+/* Deixa o primeiro texto visível por padrão antes do GSAP agir */
+.stackTextBlock:first-child {
+  opacity: 1; 
+  visibility: visible;
+}
+
+.stackTextBlock h3 {
+  font-size: clamp(26px, 2.8vw, 36px);
+  margin-bottom: 24px;
+  color: #111111;
+  letter-spacing: -0.5px;
+}
+
+.stackTextBlock p {
+  font-size: 18px;
+  color: #555555;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* --- 5. CTA SECTION (Ajustes Finais) --- */
+.serviceCtaSection {
+  padding: 100px 0 160px 0;
+  background: #ffffff;
+}
+
+.sCtaContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px; /* Respiro maior entre o texto e o formulário */
+  align-items: center; /* Centraliza a altura do form com o texto */
+}
+
+.sCtaLeft h2 {
+  font-size: clamp(32px, 3.5vw, 48px);
+  color: #111111;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.sCtaLeft p {
+  font-size: 18px;
+  color: #555555;
+}
+
+/* O CARD DO FORMULÁRIO */
+.formCtaWrapper {
+  background: #ffffff;
+  border-radius: 32px; /* Acompanha o design do restante do site */
+  padding: 48px;
+  
+  /* Sombra de vidro maravilhosa (igual aos cartões de serviço) */
+  box-shadow: 0 20px 50px rgba(0,0,0, 0.08);
+  border: 1px solid rgba(0,0,0, 0.04);
+}
+
+/* Garante que o form que você colar preencha toda a caixa */
+.formCtaWrapper form {
+  width: 100%;
+}
+
+/* ==========================================
+   PÁGINAS INTERNAS DE DETALHE DE SERVIÇO
+========================================== */
+
+/* 2. CENÁRIO / A DOR (Layout Editorial) */
+.sdPainSection {
+  padding: 80px 0 120px 0;
+}
+
+.sdPainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.sdPainLeft h2 {
+  font-size: clamp(32px, 3.5vw, 44px);
+  color: #111111;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  position: sticky;
+  top: 120px; /* Faz o título grudar enquanto você lê o texto! */
+}
+
+.sdPainRight p {
+  font-size: 20px;
+  color: #555555;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   3 & 4. SEÇÃO COMBINADA (SOLUÇÃO + CARROSSEL)
+========================================== */
+.sdCombinedSection {
+  padding: 100px 0;
+  background-color: #f8f8f8; /* Fundo cinza super claro da referência */
+  margin: 0 20px; /* Respiro lateral para não colar na tela inteira */
+  border-radius: 40px;
+}
+
+.sdCombinedGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide a tela exatamente no meio */
+  gap: 60px;
+  align-items: center;
+}
+
+/* A Imagem da Esquerda */
+.sdCombinedImage {
+  width: 100%;
+  height: 100%;
+  min-height: 650px;
+  background-color: #e0e0e0; 
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.sdCombinedImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* O Conteúdo da Direita */
+.sdCombinedContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Distância exata entre o texto de cima e os cards de baixo */
+  /* Impede que o carrossel estique a tela inteira causando scroll horizontal na página */
+  max-width: 100%; 
+  overflow: hidden; 
+}
+
+.sdCombinedText h2 {
+  font-size: clamp(32px, 3.5vw, 42px);
+  color: #111111;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+
+.sdCombinedText p {
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* O Carrossel e a Pista */
+.sdCardsCarousel {
+  width: 100%;
+  overflow-x: auto; 
+  
+  /* A MÁGICA: O Respiro para não cortar o topo nem a sombra */
+  padding-top: 20px; 
+  padding-bottom: 40px; 
+  
+  /* Puxa a caixa para cima para compensar o padding-top e não desalinhar do texto */
+  margin-top: -20px; 
+  
+  scrollbar-width: none; 
+}
+
+.sdCardsCarousel::-webkit-scrollbar {
+  display: none; 
+}
+
+.sdCardsTrack {
+  display: flex;
+  gap: 20px;
+  width: max-content; /* Permite que a pista cresça o quanto for necessário */
+}
+
+/* Os Cards Dark Encolhidos */
+.sdDarkCard {
+  background-color: #0a0a0a; 
+  border-radius: 24px;
+  padding: 32px;
+  
+  /* A MÁGICA DO TAMANHO FIXO: */
+  width: 270px; 
+  min-width: 270px; 
+  flex-shrink: 0; 
+  
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  white-space: normal; /* Garante que o texto quebre a linha corretamente */
+}
+
+.sdDarkIcon {
+  width: 48px;
+  height: 48px;
+  background-color: #03FAD5; 
+  border-radius: 12px;
+  margin-bottom: 24px;
+  /* ADICIONE ESTAS 3 LINHAS PARA CENTRALIZAR O SVG: */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdDarkCard h3 {
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.sdDarkCard p {
+  font-size: 14px;
+  color: #b3b3b3;
+  line-height: 1.6;
+}
+/* ==========================================
+   BLINDAGEM DO ARRASTE (UX)
+========================================== */
+.sdCardsCarousel.is-dragging {
+  user-select: none; /* Impede o texto de ficar azul */
+  -webkit-user-select: none;
+}
+
+.sdCardsCarousel.is-dragging .sdDarkCard {
+  pointer-events: none; /* Desliga cliques e hovers acidentais enquanto arrasta */
+}
+
+/* ==========================================
+   ANIMAÇÕES DE SCROLL (REVEAL BIDIRECIONAL)
+========================================== */
+
+/* 1. O Estado Escondido (Transparente e empurrado para baixo) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* 2. O Estado Visível (Aparece suavemente) */
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3. O Estado Seguro para o Carrossel (Fade-In Puro) */
+.reveal-opacity-only {
+  opacity: 0;
+  transition: opacity 1.2s ease 0.2s; /* 0.2s de delay para o título subir primeiro */
+  will-change: opacity;
+}
+
+.reveal-opacity-only.is-visible {
+  opacity: 1;
+}
+
+/* Responsividade Básica */
+@media (max-width: 992px) {
+  .sdCombinedGrid {
+    grid-template-columns: 1fr; /* Empilha no celular */
+  }
+  .sdCombinedImage {
+    min-height: 400px;
+  }
+}
+
+/* Responsividade Básica para Celular */
+@media (max-width: 992px) {
+  .sdPainGrid, .sdSolutionGrid, .sdBenefitsGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .sdHeroBanner { padding: 40px 20px; }
+  .sdPainLeft h2 { position: static; }
+}

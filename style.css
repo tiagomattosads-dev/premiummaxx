@@ -1,0 +1,1948 @@
+/* --- IMPORTAÇÃO DAS FONTES LOCAIS --- */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DMSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DMSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/DMSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* --- VARIÁVEIS DE COR E FONTE --- */
+:root {
+  --bg-dark: #0a0a0a;
+  --bg-darker: #050505;
+  --text-light: #ffffff;
+  --text-gray: #b3b3b3;
+  --accent-cyan: #03FAD5; 
+  --font-main: 'DM Sans', sans-serif;
+}
+
+/* --- RESET BÁSICO --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* --- A TRAVA MESTRA DO ESPAÇO BRANCO --- */
+html, body {
+  max-width: 100%;
+  /* MÁGICA: Mudamos de hidden para clip. Isso corta o vazamento sem quebrar a "cola" do scroll! */
+  overflow-x: clip; 
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: #f4f4f4; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-light);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* --- TOP BAR --- */
+.siteHeader {
+  position: relative;
+  z-index: 999;
+}
+
+.topBar {
+  background-color: var(--bg-darker);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 0;
+}
+
+.topBarLinks {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end; 
+  gap: 40px; 
+}
+
+.topBarLinks li a {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  font-size: 13px; 
+  font-weight: 400; 
+  color: var(--text-gray); 
+  transition: color 0.3s ease;
+}
+
+.topBarLinks li a:hover {
+  color: var(--text-light); /* O texto fica 100% branco */
+}
+
+.topBarLinks img {
+  width: 14px; 
+  opacity: 0.6; /* Baixei um pouco para combinar perfeitamente com o texto cinza inativo */
+  filter: brightness(0) invert(1);
+  transition: opacity 0.3s ease; /* Adicionamos a mesma suavidade do texto no ícone */
+}
+
+/* O SEGREDO: Quando passar o mouse no link, o ícone acende junto! */
+.topBarLinks li a:hover img {
+  opacity: 1; /* O ícone fica 100% branco e brilhante */
+}
+
+/* --- MAIN HEADER --- */
+.mainHeader {
+  background-color: var(--bg-dark);
+  padding: 22px 0;
+  position: relative;
+  width: 100%;
+  /* Transição sedosa para o encolhimento do padding e para o sumiço do header */
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+}
+
+/* ESTADO FIXO: Quando rola a página, ele desgruda e gruda na tela */
+.mainHeader.is-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 12px 0; /* Encolhe levemente para não roubar muito espaço de leitura */
+  box-shadow: 0 4px 30px rgba(0,0,0,0.8); /* Sombra elegante no fundo do site */
+}
+
+/* ESTADO OCULTO: Quando entra nos serviços, ele sobe e some */
+.mainHeader.is-hidden {
+  transform: translateY(-100%); /* Mantenha o movimento para cima */
+  opacity: 0; /* ADICIONADO: Fica 100% transparente */
+  visibility: hidden; /* ADICIONADO: Impede que cliques "batam" nele */
+  pointer-events: none; /* ADICIONADO: Garante que o mouse passe direto */
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, visibility 0s 0.4s;
+}
+
+.mainHeaderFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 32px;
+}
+
+/* --- NAVEGAÇÃO PRINCIPAL --- */
+.mainNav ul {
+  list-style: none;
+  display: flex;
+  gap: 45px;
+}
+
+.mainNav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  transition: color 0.3s ease;
+}
+
+.mainNav ul li a:hover {
+  color: var(--accent-cyan);
+}
+
+.setinha {
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  /* Adicionamos o stroke na transição para a cor mudar suavemente */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+  stroke: #ffffff; /* Força o branco padrão (ignora o currentColor do HTML) */
+}
+
+/* Quando o menu abre, gira e fica com o seu azul */
+.hasDropdown.open .setinha {
+  transform: rotate(180deg);
+  stroke: #03FAD5; 
+}
+
+/* O texto fica azul quando aberto */
+.hasDropdown.open > a {
+  color: #03FAD5; 
+}
+
+/* BÔNUS: Garante que a setinha acompanhe o azul do texto ao passar o mouse! */
+.mainNav ul li a:hover .setinha {
+  stroke: #03FAD5;
+}
+
+.hasDropdown.open > a {
+  color: #03FAD5;
+}
+
+/* --- BARRA DE PESQUISA BLINDADA (GLOBAL SPOTLIGHT) --- */
+.globalSpotlight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.globalSpotlight input {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  height: 46px;
+  width: 280px;
+  padding: 0 16px;
+  color: var(--text-light);
+  font-family: var(--font-main);
+  font-size: 15px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden; 
+}
+
+.globalSpotlight input:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.globalSpotlight input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+.globalSpotlight button {
+  background: linear-gradient(to bottom, #03FAD5, #06C5A9);
+  border: none;
+  border-radius: 10px; 
+  width: 46px; 
+  height: 46px; 
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.globalSpotlight button img {
+  width: 22px; 
+}
+
+.globalSpotlight button:hover {
+  opacity: 0.8;
+}
+
+/* No estado do Painel Aberto, encolhe a caixa de pesquisa principal */
+.headerSearchActive .globalSpotlight input {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  border-color: transparent;
+}
+
+/* --- PAINEL DE PESQUISA (OVERLAY) --- */
+.searchOverlay {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--bg-dark); /* Fundo preto idêntico ao cabeçalho */
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Linha divisória sutil */
+  padding: 40px 0 60px 0;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8); /* Sombra forte para o modo dark */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+  z-index: 100;
+}
+
+.searchOverlay.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.headerSearchActive .searchBox input {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  border-color: transparent;
+}
+
+/* --- INPUT DO PAINEL --- */
+.panelSearchWrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+}
+
+.panelSearchWrapper input {
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borda clara visível no fundo escuro */
+  background: transparent;
+  padding: 0 20px;
+  font-size: 18px;
+  color: var(--text-light); /* O texto digitado agora é branco */
+  font-family: var(--font-main);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.panelSearchWrapper input:focus {
+  border-color: var(--accent-cyan);
+}
+
+/* Estilo do placeholder animado com baixa opacidade */
+.panelSearchWrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+.panelSearchIcon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  filter: brightness(0) invert(1); /* A lupa agora fica 100% branca */
+}
+
+/* --- CAROUSEL E CARDS --- */
+.searchSuggestions h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-light); /* Título agora é branco */
+  margin-bottom: 20px;
+}
+
+.carouselContainer {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-top: 10px; 
+  padding-bottom: 20px;
+  scroll-behavior: smooth;
+  scrollbar-width: none; 
+
+  /* --- O TRUQUE DA NETFLIX (Full Width) --- */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Espaçamento padrão para telas menores */
+  padding-left: 40px; 
+  padding-right: 40px;
+}
+
+/* Calcula o espaço extra em telas grandes para alinhar o primeiro card com o input */
+@media (min-width: 1400px) {
+  .carouselContainer {
+    /* 1320px é o tamanho útil do seu container (1400 - 80 de padding) */
+    padding-left: calc((100vw - 1320px) / 2);
+    padding-right: calc((100vw - 1320px) / 2);
+  }
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.searchCard {
+  min-width: 260px; /* Aumentamos a largura */
+  height: 320px; /* Aumentamos a altura */
+  background-color: #cccccc; /* Área reservada para as futuras imagens */
+  border-radius: 16px; /* Borda um pouco mais arredondada */
+  display: flex;
+  align-items: flex-end;
+  opacity: 0.4;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden; /* Garante que o gradiente não vaze pelas bordas arredondadas */
+}
+
+.searchCard .cardContent {
+  /* Trocamos o cinza chapado pelo gradiente chumbo (de baixo para cima) */
+  background: linear-gradient(to top, #111111, #2b2b2b); 
+  width: 100%;
+  padding: 20px 15px; 
+  color: var(--text-gray);
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.4s ease;
+  border-radius: 16px 16px 0px 0px;
+}
+
+.searchCard.active {
+  opacity: 1; 
+}
+
+.searchCard.active .cardContent,
+.searchCard:hover .cardContent {
+  background: linear-gradient(to top, #06C5A9, #03FAD5);
+  color: #000000; 
+}
+
+.carouselContainer.hoverMode .searchCard {
+  opacity: 1;
+}
+
+.searchCard:hover {
+  transform: translateY(-5px);
+}
+
+/* --- COMPORTAMENTO DO DROPDOWN (MEGA MENU) --- */
+.hasDropdown {}
+
+.megaMenu {
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: 100%; 
+  background-color: #2D2D2D; 
+  border-top: 1px solid rgba(255, 255, 255, 0.05); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); 
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-5px); 
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+.hasDropdown.open .megaMenu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* --- ESTRUTURA INTERNA (SIDEBAR E PAINEL) --- */
+.megaMenuContainer {
+  display: flex;
+  gap: 0; 
+  max-width: 1400px; 
+  margin: 0 auto;    
+  padding: 30px 40px;
+}
+
+.megaMenuSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 320px; 
+  flex-shrink: 0;
+}
+
+.megaTab {
+  background-color: #0F0F0F; 
+  color: #b3b3b3;
+  border: none;
+  padding: 16px 20px;
+  text-align: left;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: calc(100% - 15px); 
+}
+
+.megaTab:hover {
+  color: #ffffff;
+}
+
+.megaTab.active {
+  color: #03FAD5;
+  background-color: #0F0F0F; 
+  border-left: 3px solid #03FAD5; 
+  width: 100%; 
+}
+
+.megaMenuContent {
+  background-color: #0F0F0F; 
+  flex-grow: 1;
+  position: relative;
+  padding: 30px;
+  min-height: 280px;
+  overflow: hidden;
+}
+
+.megaPane {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  opacity: 0;
+  pointer-events: none; /* Inativo por padrão */
+  transform: translateX(40px); 
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.megaPane.active {
+  opacity: 1;
+  /* Removemos o pointer-events: auto que ficava aqui! */
+  transform: translateX(0); 
+  transition-delay: 0.05s; 
+}
+
+/* A MÁGICA: O painel só fica clicável se o menu estiver de fato ABERTO */
+.hasDropdown.open .megaPane.active {
+  pointer-events: auto;
+}
+
+.paneGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 30px;
+}
+
+.paneGrid a {
+  color: var(--text-gray);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.paneGrid a:hover {
+  color: #03FAD5;
+  transform: translateX(6px); 
+}
+
+/* =========================================
+   ESTRUTURA DA PÁGINA (MAIN)
+========================================= */
+
+/* =========================================
+   SEÇÃO 1: HERO
+========================================= */
+.heroSection {
+  width: 100%;
+  height: 100vh; 
+  background-color: #0a0a0a; 
+  position: relative;
+  
+  /* Flexbox para centralizar o texto no meio exato da tela */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; 
+}
+
+/* O Vídeo vai para o fundo (z-index: 1) */
+.heroVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 00px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  z-index: 1; 
+}
+
+/* A Película Escura (z-index: 2) */
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Escurece 65% do vídeo para dar um contraste perfeito com o texto branco */
+  background: rgba(0, 0, 0, 0.65); 
+  z-index: 2; 
+}
+
+/* O Texto (z-index: 3) */
+.heroContent {
+  position: relative;
+  z-index: 3; 
+  text-align: center;
+  max-width: 800px; /* Limita a largura para o parágrafo quebrar bonito */
+  padding: 0 30px;
+  /* Joga o bloco de texto um pouquinho para baixo do centro exato (igual a Deloitte) */
+  margin-top: 0px; 
+}
+
+.heroContent h1 {
+  /* Título usa um peso médio (400) para ficar elegante e não "gritar" */
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 400; 
+  color: #ffffff;
+  margin-top: 300px;
+  margin-bottom: 23px;
+  letter-spacing: -0.5px;
+}
+
+.heroContent p {
+  /* O parágrafo fica com um cinza clarinho (e0e0e0) e peso leve (300) */
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 300;
+  color: #e0e0e0; 
+  line-height: 1.6;
+}
+
+/* =========================================
+   SEÇÃO 2: INSIGHTS / BLOG (HOME)
+========================================= */
+.homeBlogSection {
+  padding: 120px 0;
+  background-color: #f8f8f8; /* Fundo levemente cinza para destacar o branco dos cartões */
+}
+
+.blogHeader {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.blogHeader h2 {
+  font-size: clamp(32px, 3.5vw, 44px);
+  color: #111111;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.blogHeader p {
+  font-size: 18px;
+  color: #555555;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* =========================================
+   O MOTOR DO CARROSSEL INFINITO
+========================================= */
+.blogGrid {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow-x: auto; /* Fundamental: Libera o scroll nativo e trackpad */
+  scrollbar-width: none; 
+  padding: 20px 0 60px 0;
+}
+
+.blogGrid::-webkit-scrollbar {
+  display: none; /* Esconde a barra feia no Chrome/Safari */
+}
+
+.blogTrack {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  padding-right: 40px; 
+  /* AS ANIMAÇÕES CSS FORAM TOTALMENTE REMOVIDAS DAQUI! */
+}
+
+/* Quando o mouse entra na área, o carrossel pausa! */
+.blogGrid:hover .blogTrack {
+  animation-play-state: paused;
+}
+
+/* O Teletransporte Invisível */
+@keyframes infiniteScroll {
+  0% { transform: translateX(0); }
+  /* O track anda exatamente -50% (5 cartões originais + gaps) e volta pro 0 sem ninguém piscar */
+  100% { transform: translateX(-50%); } 
+}
+
+
+/* O CARD PREMIUM */
+.blogCard {
+  width: 420px; 
+  min-width: 420px;
+  height: 520px; 
+  
+  background: #ffffff;
+  border-radius: 24px;
+  /* overflow: hidden; <--- VOCÊ VAI APAGAR ISSO AQUI! */
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0,0,0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.blogCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0,0,0, 0.1);
+}
+
+/* =========================================
+   O CONTEÚDO INTERNO DO CARD (FOTOS E TEXTOS)
+========================================= */
+.blogImageWrapper {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background-color: #e0e0e0; 
+  /* A MÁGICA PARA A FOTO NÃO FICAR QUADRADA: */
+  border-radius: 24px 24px 0 0; 
+}
+
+.blogImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.blogCard:hover .blogImg {
+  transform: scale(1.05); /* A foto dá o zoom no hover */
+}
+
+.blogContent {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.blogCategory {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #077867; /* O seu verde/ciano escuro */
+  margin-bottom: 16px;
+}
+
+.blogContent h3 {
+  font-size: 22px;
+  color: #111111; /* Volta a ser escuro! */
+  margin-bottom: 16px;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.blogCard:hover .blogContent h3 {
+  color: #077867; 
+}
+
+.blogContent p {
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  flex-grow: 1; 
+}
+
+.blogReadMore {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+/* =========================================
+   REFLEXO 2D PREMIUM (ESTÁVEL E SEM SOMBRA)
+========================================= */
+
+/* 1. O respiro exato para o reflexo aparecer */
+.homeBlogSection .blogGrid {
+  padding-bottom: 120px; 
+}
+
+/* 2. O Card blindado (Sem sombra, apenas com a borda sutil) */
+.homeBlogSection .blogCard {
+  box-shadow: none !important; 
+  border: 1px solid rgba(0,0,0,0.05);
+  
+}
+
+/* 3. Garante que a sombra não vai tentar "brotar" quando você passar o mouse */
+.homeBlogSection .blogCard:hover {
+  box-shadow: none !important;
+}
+
+/* 4. A FAXINA: Desliga o vidro fosco que deixou o navegador confuso */
+.homeBlogSection::after {
+  display: none !important; 
+}
+.homeBlogSection .blogCard::before {
+  display: none !important;
+}
+
+/* Limpa qualquer resquício da sombra antiga */
+.homeBlogSection .blogCard::before {
+  display: none !important;
+}
+
+/* 4. A Física do Hover: Quando o card sobe, a sombra se afasta e borra mais! */
+.homeBlogSection .blogCard:hover::before {
+  transform: perspective(600px) rotateX(65deg) translateY(15px) scale(0.95);
+  filter: blur(14px);
+  opacity: 0.6;
+}
+
+/* (Garante que aquele chão de vidro antigo seja desligado, caso você não tenha apagado) */
+.homeBlogSection::after {
+  display: none !important;
+}
+
+
+
+/* =========================================
+   BLINDAGEM DO ARRASTE (UX)
+========================================= */
+.blogGrid.is-dragging {
+  user-select: none; /* Impede o texto de ficar azul */
+  -webkit-user-select: none;
+}
+
+.blogGrid.is-dragging .blogCard {
+  pointer-events: none; /* Impede que o hover da foto fique piscando loucamente ao arrastar */
+}
+
+
+/* =========================================
+   SEÇÃO 3: WRAPPER HORIZONTAL (STICKY)
+========================================= */
+
+/* 1. A pista invisível que permite rolar para baixo */
+.stickyScrollSpace {
+  height: 200vh; /* 4 Seções = 4 telas de rolagem vertical */
+  position: relative;
+}
+
+/* 2. O Wrapper agora "gruda" no teto da tela */
+.servicesHorizontalWrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh; 
+  position: sticky;
+  top: 0; /* Cola no teto enquanto houver pista */
+  overflow: hidden; /* Cortamos a barra, o JS fará o movimento! */
+  will-change: scroll-position;
+}
+
+/* Mantenha o seu .premiumServiceSection igual está... */
+.premiumServiceSection {
+  min-width: 100%; 
+  height: 100vh;
+  flex-shrink: 0; 
+  position: relative;
+  background-color: #111111;
+  display: flex;
+  align-items: center; 
+}
+
+.premiumBg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  background-color: #2b2b2b;
+}
+
+.premiumOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to right, #000000 0%, rgba(0,0,0,0.5) 45%, transparent 100%),
+              linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 40%);
+}
+
+.premiumContainer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  /* 1. Igualamos as margens de segurança do teto e do chão */
+  padding-top: 12vh; 
+  padding-bottom: 10vh; 
+  display: flex;
+  flex-direction: column;
+  
+  /* 2. A MÁGICA DO CENTRO: Empacota o texto e os cards juntos no meio exato da tela! */
+  justify-content: center; 
+  
+  /* 3. Aumentei levemente o gap para manter a separação elegante já que agora eles estão centralizados */
+  gap: 60px; 
+}
+
+/* --- Linha de Cima: Textos e Controles --- */
+.premiumTopRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start; 
+}
+
+.premiumInfoLeft {
+  max-width: 600px;
+}
+
+.dynTitle {
+  font-size: clamp(32px, 3.5vw, 37px);
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  transition: opacity 0.4s ease;
+}
+
+.dynDesc {
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  transition: opacity 0.4s ease;
+}
+
+/* --- Área Única de Controles --- */
+.premiumActionArea {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  min-height: 50px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.dynBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #03FAD5, #06C5A9);
+  color: #000000;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  
+  /* NOVAS PROPRIEDADES PARA A ANIMAÇÃO SUAVE */
+  max-width: 300px; /* Espaço de sobra para o texto caber */
+  opacity: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 0;
+  /* Transição sedosa para acompanhar a velocidade de expansão dos cards */
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dynBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 250, 213, 0.2);
+}
+
+/* A MÁGICA: Substituímos o efeito da classe .hidden apenas para o botão */
+a.dynBtn.hidden {
+  display: inline-flex !important; /* Impede que o botão "suma" secamente */
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  opacity: 0;
+  /* Anula o gap de 30px da área para as setas deslizarem perfeitamente pro canto! */
+  margin-right: -30px; 
+  pointer-events: none; 
+}
+
+.premiumControls {
+  display: flex;
+  gap: 12px;
+}
+
+.premiumControls button {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.premiumControls button svg {
+  width: 20px;
+  height: 20px;
+  stroke: #03FAD5;
+}
+
+.premiumControls button:hover {
+  background-color: rgba(3, 250, 213, 0.1);
+  border-color: #03FAD5;
+}
+
+/* --- Linha de Baixo: Os Cards --- */
+.premiumThumbsWrapper {
+  width: 100%;
+  /* Removemos o max-width: 1070px daqui. O JS vai assumir o controle! */
+  overflow: hidden; 
+  /* A máscara agora tem transição para crescer e encolher junto com o card ativo */
+  transition: max-width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premiumThumbsTrack {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end; 
+  min-height: 340px; 
+  /* Removemos o overflow-x: auto pois o JS vai controlar o slide */
+  overflow: visible; 
+  padding-bottom: 20px; 
+  /* A MÁGICA: Transição suave de movimento */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.premiumThumbsTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.pThumb {
+  width: 190px; /* O SEGREDO 2: Mais estreito para garantir o formato "Retrato" */
+  min-width: 190px; 
+  height: 270px; /* Altura padrão dos inativos */
+  border-radius: 12px;
+  background-color: #4a4a4a; 
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 16px;
+  opacity: 0.6; 
+  /* Transição ultra suave para o card não "pular" quando crescer */
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+  flex-shrink: 0;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.pThumb:hover {
+  opacity: 0.9;
+}
+
+/* O SEGREDO 3: O Cartão Ativo Ganha "Massa" (Fica maior) */
+.pThumb.active {
+  opacity: 1;
+  width: 230px; /* Fica mais largo */
+  min-width: 230px;
+  height: 320px; /* Fica mais alto */
+  
+  /* A MÁGICA: top(24px) right(20px) bottom(40px) left(20px) */
+  padding: 24px 20px 40px 20px; 
+  
+  box-shadow: inset 0 0 0 2px #03FAD5; 
+  background-color: #333333; 
+}
+
+.pThumbOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+  z-index: 1;
+}
+
+.pThumb h4 {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* O texto do card ativo fica 1px maior para acompanhar a proporção */
+.pThumb.active h4 {
+  font-size: 16px; 
+}
+
+/* =========================================
+   O "SMOOTHZINHO" (EFEITO CASCATA / STAGGER)
+========================================= */
+
+/* 1. Desacelera o slide da seção inteira para um movimento mais majestoso (0.9s) */
+.premiumServiceSection {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. ESTADO INATIVO: Prepara cada elemento individualmente nas sombras */
+.premiumServiceSection .dynTitle,
+.premiumServiceSection .dynDesc,
+.premiumServiceSection .premiumActionArea,
+.premiumServiceSection .premiumBottomRow {
+  opacity: 0;
+  transform: translateY(40px);
+  /* Apaga tudo quase instantaneamente quando você rola para fora da tela */
+  transition: opacity 0.2s ease, transform 0s 0.2s; 
+}
+
+/* 3. ESTADO ATIVO: Restaura a opacidade e a posição para o estado visível */
+.premiumServiceSection.is-active .dynTitle,
+.premiumServiceSection.is-active .dynDesc,
+.premiumServiceSection.is-active .premiumActionArea,
+.premiumServiceSection.is-active .premiumBottomRow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 4. A MÁGICA DA CASCATA: Cada elemento ganha um "delay" matematicamente calculado para nascer */
+.premiumServiceSection.is-active .dynTitle {
+  /* Título nasce primeiro (aos 0.4s) */
+  transition: opacity 0.6s ease 0.4s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+}
+
+.premiumServiceSection.is-active .dynDesc {
+  /* Descrição nasce logo em seguida (aos 0.55s) */
+  transition: opacity 0.6s ease 0.55s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+}
+
+.premiumServiceSection.is-active .premiumActionArea {
+  /* Área dos botões e setas nasce depois (aos 0.7s) */
+  transition: opacity 0.6s ease 0.7s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
+}
+
+.premiumServiceSection.is-active .premiumBottomRow {
+  /* Os cards nascem por último para fechar a cortina (aos 0.85s) */
+  transition: opacity 0.6s ease 0.85s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s;
+}
+
+/* =========================================
+   SEÇÃO 4: CTA FINAL / VISÃO INTEGRADA
+========================================= */
+.finalCtaSection {
+  background-color: #ffffff; /* Fundo branco para dar o respiro visual */
+  padding: clamp(80px, 10vw, 140px) 0; /* Padding responsivo gigante para luxo */
+}
+
+.finalCtaContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide exatamente ao meio */
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+
+.ctaImage {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Mantém o formato quadrado perfeito */
+  border-radius: 4px; /* Cantos levemente arredondados */
+  object-fit: cover; /* ESSENCIAL: Garante que a foto preencha o quadrado sem achatar! */
+}
+
+
+.ctaTextBlock {
+  max-width: 540px;
+}
+
+.ctaTextBlock h2 {
+  font-size: clamp(32px, 3.5vw, 42px);
+  color: #111111;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.ctaTextBlock p {
+  font-weight: 400;
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: #313131;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.btnCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--accent-cyan);
+  color: #000000;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btnCta:hover {
+  background-color: #06C5A9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 250, 213, 0.2);
+}
+
+.arrowIcon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.btnCta:hover .arrowIcon {
+  transform: translateX(4px); /* A setinha dá um 'pulinho' pra frente no hover */
+}
+
+
+
+/* =========================================
+   RODAPÉ (FOOTER PREMIUM)
+========================================= */
+.siteFooter {
+  background-color: var(--bg-darker);
+  padding: 80px 0 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footerTop {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr; /* Proporção das colunas */
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+.footerBrand .footerLogo {
+  height: 28px;
+  margin-bottom: 24px;
+}
+
+.footerBrand p {
+  color: var(--text-gray);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.footerLinksGroup h4,
+.footerContact h4 {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.footerLinksGroup ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footerLinksGroup ul li a {
+  color: var(--text-gray);
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footerLinksGroup ul li a:hover {
+  color: var(--accent-cyan);
+}
+
+.footerContact p {
+  color: var(--text-gray);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.contactEmail {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.socialLinks a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.socialLinks a:hover {
+  background-color: var(--accent-cyan);
+  color: #000000;
+  transform: translateY(-3px);
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footerBottom p {
+  color: #777777;
+  font-size: 13px;
+}
+
+.footerLegal {
+  display: flex;
+  gap: 24px;
+}
+
+.footerLegal a {
+  color: #777777;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+.footerLegal a:hover {
+  color: #ffffff;
+}
+
+/* =========================================
+   MODAL GLASSMORPHISM & TYPEFORM STYLE
+========================================= */
+
+/* O Fundo Desfocado (Vidro Fosco) */
+.glassModal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.4); /* Preto transparente leve */
+  backdrop-filter: blur(12px); /* A MÁGICA: Borra o site lá atrás! */
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glassModal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* A Caixa Escura Flutuante */
+.glassModalContent {
+  background: #131313; /* PRETO ABSOLUTO COMO PEDIDO */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borda mais sutil */
+  border-radius: 20px;
+  width: 100%;
+  max-width: 650px;
+  padding: 50px;
+  position: relative;
+  transform: translateY(30px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.glassModal.is-open .glassModalContent {
+  transform: translateY(0);
+}
+
+/* Botão de Fechar no canto */
+.closeModalBtn {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none; border: none;
+  color: #888; font-size: 28px;
+  cursor: pointer; transition: color 0.3s ease;
+}
+.closeModalBtn:hover { color: #fff; }
+
+/* Barra de Progresso do Typeform (Efeito Lava Respirando) */
+.formProgress {
+  width: 100%; 
+  height: 4px;
+  background: rgba(255,255,255,0.08); /* Fundo mais discreto para destacar a luz */
+  border-radius: 2px;
+  margin-bottom: 40px;
+}
+
+.progressBar {
+  height: 100%;
+  width: 33.33%;
+
+  /* 1. O Gradiente Lava Ultra Smooth: Bordas bem escuras e o centro claro suave */
+  background: linear-gradient(90deg, #014d42 0%, #014d42 20%, #00ffd9 50%, #09ddbd 80%, #014d42 100%);
+  background-size: 200% 100%; /* Esticado em 200% para o loop ser perfeito */
+  
+  /* Mantemos o arredondamento natural da ponta da barra! */
+  border-radius: 4px; 
+  transition: width 0.9s ease;
+
+  /* 2. O Motor Duplo chamando as Keyframes */
+  animation: 
+    lavaFlow 8s linear infinite, 
+    breathingLight 8s ease-in-out infinite alternate;
+}
+
+/* ==========================================
+   AS KEYFRAMES
+========================================== */
+
+/* Ajustamos a matemática para a luz dar a volta sem NENHUM corte seco */
+@keyframes lavaFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes breathingLight {
+  0% {
+    filter: brightness(0.6); 
+    box-shadow: 0 0 2px rgba(3, 250, 213, 0.356); 
+  }
+  100% {
+    filter: brightness(1.3); 
+    box-shadow: 0 0 14px rgba(3, 250, 213, 0.9); 
+  }
+}
+
+/* O fluxo de Etapas */
+.formStep {
+  display: none;
+  animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.formStep.active {
+  display: block;
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.formStep h3 {
+  font-size: 24px; color: #fff; margin-bottom: 30px; line-height: 1.3;
+}
+
+.btnCyan {
+  background: linear-gradient(to right, #03FAD5, #06C5A9);
+  color: #000000;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnCyan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 250, 213, 0.2);
+}
+
+/* Design dos Campos de Input Premium */
+.inputGroup { margin-bottom: 24px; }
+.inputGroup label {
+  display: block; color: #b3b3b3; font-size: 13px; margin-bottom: 8px; font-weight: 500;
+}
+.inputGroup input, 
+.inputGroup select, 
+.inputGroup textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  color: #fff; 
+  font-size: 24px; /* FONTE GIGANTE PARA DAR FOCO */
+  font-family: var(--font-main);
+  padding: 15px 0; /* Mais respiro */
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.inputGroup input:focus, 
+.inputGroup select:focus, 
+.inputGroup textarea:focus {
+  border-bottom-color: #03FAD5;
+}
+.inputGroup input::placeholder, 
+.inputGroup textarea::placeholder {
+  color: rgba(255,255,255,0.2); font-weight: 400;
+}
+
+/* Customização do Select */
+.selectWrapper { position: relative; }
+.selectWrapper::after {
+  content: '▼'; position: absolute; right: 10px; top: 15px; color: #03FAD5; font-size: 12px; pointer-events: none;
+}
+.inputGroup select {
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+}
+.inputGroup select option { background: #111; color: #fff; }
+
+/* Botões do Formulário */
+.stepActions { display: flex; gap: 16px; margin-top: 10px; }
+.btnBack {
+  background: transparent; color: #888; border: none; font-size: 15px; font-weight: 600; cursor: pointer; transition: color 0.3s;
+}
+.btnBack:hover { color: #fff; }
+
+/* Tela de Sucesso */
+.successStep { text-align: center; }
+.successStep svg { width: 60px; height: 60px; margin-bottom: 20px; }
+.successStep h3 { margin-bottom: 15px; }
+.successStep p { color: #b3b3b3; line-height: 1.6; margin-bottom: 30px; }
+
+/* ==========================================
+   DROPDOWN CUSTOMIZADO (PREMIUM)
+========================================== */
+.customDropdown {
+  position: relative;
+  width: 100%;
+  font-family: var(--font-main);
+  user-select: none;
+}
+
+.dropdownHeader {
+  width: 100%;
+  background: transparent;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.4); /* Fica apagadinho igual placeholder */
+  font-size: 24px;
+  padding: 15px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Quando tem valor, ele acende pra branco */
+.dropdownHeader.has-value {
+  color: #fff; 
+}
+
+.dropdownHeader:hover {
+  border-bottom-color: #03FAD5;
+}
+
+.dropdownHeader .arrow {
+  font-size: 14px;
+  color: #03FAD5;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.customDropdown.is-open .dropdownHeader .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  margin-top: 10px;
+  list-style: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-15px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+}
+
+.customDropdown.is-open .dropdownList {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.dropdownList li {
+  padding: 16px 20px;
+  font-size: 18px;
+  color: #b3b3b3;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.dropdownList li:last-child {
+  border-bottom: none;
+}
+
+/* O efeitinho de deslizar para a direita quando passa o mouse */
+.dropdownList li:hover {
+  background: rgba(3, 250, 213, 0.08);
+  color: #03FAD5;
+  padding-left: 28px; 
+}
+
+/* DESIGN DOS NOVOS CAMPOS DO FORMULÁRIO INTELIGENTE */
+.fieldLabel {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #03FAD5;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Grid Cinematográfica para Escolha dos Anos */
+.yearsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.yearCheckboxLabel {
+  display: block;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.yearCheckboxLabel input[type="checkbox"] {
+  display: none; /* Esconde o check quadrado feio do navegador */
+}
+
+.yearCheckboxLabel:has(input:checked) {
+  background: rgba(3, 250, 213, 0.1);
+  border-color: #03FAD5;
+  color: #03FAD5;
+  box-shadow: 0 0 15px rgba(3, 250, 213, 0.15);
+}
+
+.yearCheckboxLabel:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Textarea Premium (Agora mais alto para caber 2 ou 3 parágrafos) */
+.typeformStyle textarea {
+  width: 100%;
+  min-height: 140px; /* Aumenta a caixa para caber bastante texto */
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 15px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.typeformStyle textarea:focus {
+  border-color: #03FAD5;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 10px rgba(3, 250, 213, 0.1);
+}
+
+/* ==========================================
+   ESTILIZAÇÃO DO SCROLLBAR DO TEXTAREA
+========================================== */
+/* Largura da barra de rolagem */
+.typeformStyle textarea::-webkit-scrollbar {
+  width: 8px; 
+}
+
+/* O "trilho" por onde a barra corre (fundo escuro sutil) */
+.typeformStyle textarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02); 
+  border-radius: 6px;
+  margin: 5px 0; /* Dá um respiro nas pontas */
+}
+
+/* O "Thumb" (o retângulo de pontas arredondadas que você arrasta) */
+.typeformStyle textarea::-webkit-scrollbar-thumb {
+  background: #03FAD5; /* A cor Ciano da barra de progresso */
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(3, 250, 213, 0.6); /* O efeito de brilho Neon! */
+}
+
+/* Efeito quando passa o mouse em cima da barrinha */
+.typeformStyle textarea::-webkit-scrollbar-thumb:hover {
+  background: #02d4b5; 
+  box-shadow: 0 0 15px rgba(3, 250, 213, 0.9);
+}
+
+/* ==========================================
+   CUSTOM DROPDOWN INTELIGENTE (MODAL)
+========================================== */
+.customDropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdownHeader {
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  color: #b3b3b3;
+  padding: 12px 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Quando passa o mouse ou quando está aberto, acende em Ciano */
+.dropdownHeader:hover, 
+.customDropdown.is-open .dropdownHeader {
+  border-color: #03FAD5;
+  color: #ffffff;
+}
+
+/* Mantém o texto branco depois que escolheu uma opção */
+.dropdownHeader.has-value {
+  color: #ffffff;
+}
+
+/* A setinha verde */
+.dropdownHeader .arrow {
+  font-size: 0.8rem;
+  color: #03FAD5;
+  transition: transform 0.3s ease;
+}
+
+/* Gira a setinha quando abre */
+.customDropdown.is-open .dropdownHeader .arrow {
+  transform: rotate(180deg);
+}
+
+/* A Lista Suspensa (Invisível por padrão) */
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 9999; /* Fica acima de tudo no modal */
+  
+  /* Escondido e levemente para cima para a animação */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* A MÁGICA: O que acontece quando o JS injeta a classe is-open */
+.customDropdown.is-open .dropdownList {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Design dos itens da lista */
+.dropdownList li {
+  padding: 14px 16px;
+  color: #cccccc;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.95rem;
+}
+
+.dropdownList li:last-child {
+  border-bottom: none;
+}
+
+/* Efeito de Hover nas opções da lista */
+.dropdownList li:hover {
+  background: rgba(3, 250, 213, 0.1);
+  color: #03FAD5;
+}
+
+/* Responsividade do Grid de Anos para Smartphones */
+@media (max-width: 480px) {
+  .yearsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+/* ==========================================
+   PRELOADER PREMIUM (TELA DE ENTRADA)
+========================================== */
+.premiumPreloader {
+  position: fixed;
+  top: 0; left: 0; 
+  width: 100vw; height: 100vh;
+  /* 1. O NOVO FUNDO GRADIENTE DA FIGMA (#222222 para #151515) */
+  background: linear-gradient(90deg, #151515 0%, #222 100%);
+  z-index: 999999; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
+
+.premiumPreloader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloaderContent {
+  width: 90%; 
+  max-width: 1712px; /* A largura exata do seu Figma! */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preloaderLogo {
+  height: 90px; /* 3. LOGO GIGANTE: Dobramos o tamanho da logo */
+  margin-bottom: 120px; /* Um pouco mais de distância para a barra não sufocar */
+}
+
+.preloaderInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-family: var(--font-main);
+  color: var(--text-light);
+  font-size: 40px; /* Aumentei a fonte para combinar com a escala */
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.preloaderPercent {
+  font-variant-numeric: tabular-nums; 
+  font-weight: 400;
+}
+
+.preloaderText, .preloaderPercent {
+  position: relative;
+}
+
+/* Criamos um "clone fantasma" dos textos */
+.preloaderText::after, .preloaderPercent::after {
+  position: absolute;
+  top: 155px; /* Distância exata para passar da barra e bater no chão */
+  transform: scaleY(-1); /* Vira o texto de ponta cabeça (Efeito Espelho) */
+  filter: blur(3px); /* Embaça levemente como o vidro do chão */
+  opacity: 0.35; /* Fica sutil, menos brilhante que o texto real */
+  pointer-events: none;
+  
+  /* Degradê que faz a parte de baixo do reflexo sumir no escuro */
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+}
+
+.preloaderText::after {
+  content: 'Carregando...';
+  left: 0;
+}
+
+.preloaderPercent::after {
+  content: attr(data-percent); /* Puxa aquele número do JavaScript em tempo real! */
+  right: 0;
+}
+
+/* --- KEYFRAME: A RESPIRAÇÃO DO REFLEXO DOS TEXTOS --- */
+@keyframes textReflectionBreathe {
+  0% { 
+    opacity: 0.15; /* Mais apagadinho */
+  }
+  100% { 
+    opacity: 0.60; /* Brilha mais forte */
+  }
+}
+
+.preloaderTrack {
+  width: 100%;
+  height: 24px; /* Barra com 24px */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px; /* Arredondamento perfeito para 24px (metade) */
+  position: relative;
+  overflow: visible; 
+}
+
+.preloaderBar {
+  height: 100%;
+  width: 0%; /* Começa zerado, o JS vai preencher */
+  border-radius: 12px; /* Acompanha o track */
+  
+  /* O Gradiente da Lava na cor principal */
+  background: linear-gradient(90deg, #014d42 0%, #03FAD5 50%, #06C5A9 80%, #014d42 100%);
+  background-size: 200% 100%;
+  animation: lavaFlow 2s linear infinite; 
+  
+  position: relative;
+  transition: width 0.1s linear; 
+}
+
+/* O Efeito de Reflexo no Chão (Espelhado) */
+.preloaderBar::after {
+  content: '';
+  position: absolute;
+  top: 36px; /* Empurra o reflexo exatos 12px para baixo da barra */
+  left: 0;
+  width: 100%;
+  height: 24px; /* Reflexo agora tem a mesma grossura de 24px da barra */
+  background: inherit;
+  filter: blur(14px); /* Blur maior para espalhar a luz no chão polido */
+  opacity: 0.6;
+}
