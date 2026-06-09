@@ -785,7 +785,7 @@ const modalComponent = `
           </div>
 
           <div class="formStep" data-step="5">
-            <h3>5. Informe o CNPJ corporativo:</h3>
+            <h3>5. Informe o CNPJ da empresa:</h3>
             <div class="inputGroup">
               <input type="text" id="companyCNPJ" placeholder="00.000.000/0000-00" required>
             </div>
@@ -990,6 +990,39 @@ function initModalLogic() {
         if (val.length === 11) formatted = `(${val.slice(0, 2)}) ${val.slice(2, 7)}-${val.slice(7)}`;
         else formatted = `(${val.slice(0, 2)}) ${val.slice(2, 6)}-${val.slice(6)}`;
       }
+      e.target.value = formatted;
+    });
+  }
+
+  // Formatação e Bloqueio de Letras no CNPJ (00.000.000/0000-00)
+  const cnpjInput = document.getElementById('companyCNPJ');
+  if (cnpjInput) {
+    cnpjInput.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, ''); // Remove tudo o que não for número (letras caem aqui)
+      if (val.length > 14) val = val.slice(0, 14); // Limita estritamente ao tamanho do CNPJ
+      
+      let formatted = val;
+      if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
+      if (val.length > 5) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5)}`;
+      if (val.length > 8) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8)}`;
+      if (val.length > 12) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8, 12)}-${val.slice(12)}`;
+      
+      e.target.value = formatted;
+    });
+  }
+
+  // Formatação e Bloqueio de Letras no CPF (000.000.000-00)
+  const cpfInput = document.getElementById('professionalCPF');
+  if (cpfInput) {
+    cpfInput.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, ''); // Remove letras e caracteres especiais
+      if (val.length > 11) val = val.slice(0, 11); // Limita ao tamanho real do CPF
+      
+      let formatted = val;
+      if (val.length > 3) formatted = `${val.slice(0, 3)}.${val.slice(3)}`;
+      if (val.length > 6) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6)}`;
+      if (val.length > 9) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6, 9)}-${val.slice(9)}`;
+      
       e.target.value = formatted;
     });
   }
