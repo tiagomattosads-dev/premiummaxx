@@ -1617,6 +1617,30 @@ a.dynBtn.hidden {
   padding-left: 28px; 
 }
 
+/* ==========================================
+   ESTILIZAÇÃO DO SCROLLBAR DO DROPDOWN
+========================================== */
+.dropdownList::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.dropdownList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02); 
+  border-radius: 6px;
+  margin: 5px 0; 
+}
+
+.dropdownList::-webkit-scrollbar-thumb {
+  background: #03FAD5; /* O Ciano Premium */
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(3, 250, 213, 0.6); /* Brilho Neon */
+}
+
+.dropdownList::-webkit-scrollbar-thumb:hover {
+  background: #02d4b5; 
+  box-shadow: 0 0 15px rgba(3, 250, 213, 0.9);
+}
+
 /* DESIGN DOS NOVOS CAMPOS DO FORMULÁRIO INTELIGENTE */
 .fieldLabel {
   display: block;

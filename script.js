@@ -723,6 +723,7 @@ const modalComponent = `
                 <ul class="dropdownList">
                   <li data-value="Auditoria Independente">Auditoria Independente</li>
                   <li data-value="Consultoria Tributária">Consultoria Tributária</li>
+                  <li data-value="Planejamento Tributário">Planejamento Tributário</li>
                   <li data-value="Consultoria Empresarial">Consultoria Empresarial e Governança</li>
                   <li data-value="Contabilidade">Contabilidade</li>
                 </ul>
@@ -874,6 +875,12 @@ const subitemsData = {
     "Assessoria Tributária à Pessoa Física",
     "Assessoria Fiscal em Repetro"
   ],
+
+"Planejamento Tributário": [
+    "Estratégias de redução de carga tributária",
+    "Recuperação e utilização de Créditos Fiscais"
+  ],
+
   "Consultoria Empresarial": [
     "Gestão de Processos",
     "Estruturas e Controles Empresariais"
