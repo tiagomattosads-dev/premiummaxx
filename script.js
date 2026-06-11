@@ -81,7 +81,7 @@ const headerComponent = `
 
         <nav class="mainNav">
           <ul>
-            <li><a href="#">quem somos</a></li>
+            <li><a href="/quem somos/index.html">quem somos</a></li>
             <li class="hasDropdown">
               <a href="#">serviços
                 <svg class="setinha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
