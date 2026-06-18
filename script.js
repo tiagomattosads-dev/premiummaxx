@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // A MÁGICA DO TRAVAMENTO ABSOLUTO: Trava o Body E o HTML
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
-      
+
       let progress = 0;
       const duration = 5000; // 5 segundos totais
       const intervalTime = 30; // Atualiza a cada 30 milissegundos
@@ -22,32 +22,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const progressInterval = setInterval(() => {
         progress += step;
-        
+
         if (progress >= 100) {
           progress = 100;
           clearInterval(progressInterval);
-          
+
           // Quando chega no 100%, dá uma micropausa e some com o preloader
           setTimeout(() => {
             preloader.classList.add('is-hidden');
-            
+
             // Libera o scroll do Body E do HTML
-            document.body.style.overflow = ''; 
-            document.documentElement.style.overflow = ''; 
-            
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+
             sessionStorage.setItem('premiumPreloaderShown', 'true'); // Grava que ele já viu
-          }, 400); 
+          }, 400);
         }
-        
+
         // Atualiza a barra e o texto na tela
         preloaderBar.style.width = `${progress}%`;
-        
+
         let currentPercent = `${Math.floor(progress)}%`;
         preloaderPercent.textContent = currentPercent;
-        
+
         // A MÁGICA: Envia o número em tempo real para o CSS criar o reflexo!
         preloaderPercent.setAttribute('data-percent', currentPercent);
-        
+
       }, intervalTime);
 
     } else {
@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================================
 const headerComponent = `
   <header class="siteHeader">
+    
     <div class="topBar">
       <div class="container">
         <ul class="topBarLinks">
@@ -75,6 +76,7 @@ const headerComponent = `
 
     <div class="mainHeader">
       <div class="container mainHeaderFlex">
+        
         <div class="logo">
           <a href="/index.html"><img src="/img/identidade visual/logo.svg" alt="Premium Maxx"></a>
         </div>
@@ -143,26 +145,23 @@ const headerComponent = `
                 </div>
               </div>
             </li>
-            <li>
-              <a href="#" class="openDevModalTrigger">carreiras</a>
-            </li>
-            <li>
-              <a href="#" class="openDevModalTrigger">temas atuais</a>
-            </li>
-
+            <li><a href="#" class="openDevModalTrigger">carreiras</a></li>
+            <li><a href="#" class="openDevModalTrigger">temas atuais</a></li>
           </ul>
         </nav>
 
         <div class="globalSpotlight">
           <input type="text" placeholder="o que está procurando?">
-          <button type="button">
-            <img src="/img/procurar.svg" alt="Buscar">
-          </button>
+          <button type="button"><img src="/img/procurar.svg" alt="Buscar"></button>
         </div>
 
-      </div>
+        <button class="btnMenuMobile" id="btnMenuToggle">
+            <span class="palito"></span>
+            <span class="palito"></span>
+            <span class="palito"></span>
+        </button>
 
-      <div class="searchOverlay" id="searchOverlay">
+      </div> <div class="searchOverlay" id="searchOverlay">
         <div class="container">
           <div class="panelSearchWrapper">
             <input type="text" id="panelSearchInput" placeholder=" ">
@@ -176,16 +175,62 @@ const headerComponent = `
               <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
               <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
               <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
             </div>
           </div>
         </div>
       </div>
+    </div> <div class="menuMobileOverlay" id="menuMobileOverlay">
+        
+        <div class="menuPainel ativo" id="painel-principal">
+            <ul class="menuMobileItens">
+                <li><a href="/quem-somos/index.html">QUEM SOMOS</a></li>
+                <li class="abre-submenu" data-alvo="painel-servicos">
+                    SERVIÇOS 
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </li>
+                <li><a href="#" class="openDevModalTrigger">CARREIRAS</a></li>
+                <li><a href="#" class="openDevModalTrigger">TEMAS ATUAIS</a></li>
+            </ul>
+            <div class="menuMobileCta">
+                <a href="#" class="btnCyan openModalTrigger">Fale com um Sócio</a>
+            </div>
+        </div>
+
+        <div class="menuPainel" id="painel-servicos">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">SERVIÇOS</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-principal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            
+            <ul class="menuMobileItens">
+                <li class="abre-submenu" data-alvo="painel-auditoria">
+                    Auditoria Independente
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </li>
+                <li class="abre-submenu" data-alvo="painel-tributaria">
+                    Consultoria Tributária
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </li>
+                <li class="abre-submenu" data-alvo="painel-planejamento">
+                    Planejamento Tributário
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </li>
+                <li class="abre-submenu" data-alvo="painel-empresarial">
+                    Consultoria Empresarial
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </li>
+                <li class="abre-submenu" data-alvo="painel-contabilidade">
+                    Contabilidade (BPO)
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </li>
+            </ul>
+        </div>
+
     </div>
-  </header>
-`;
+  </header> `;
 
 function renderGlobalHeader() {
   const placeholder = document.getElementById('header-placeholder');
@@ -283,6 +328,54 @@ function initHeaderLogic() {
   const searchOverlay = document.getElementById('searchOverlay');
   const panelInput = document.getElementById('panelSearchInput');
   const searchSuggestions = document.getElementById('searchSuggestions');
+
+  const btnMenuMobile = document.getElementById('btnMenuToggle');
+  const menuMobileOverlay = document.getElementById('menuMobileOverlay');
+  const paineis = document.querySelectorAll('.menuPainel');
+  const botoesAbreSubmenu = document.querySelectorAll('.abre-submenu');
+  const botoesVoltar = document.querySelectorAll('.btnVoltarPequeno');
+  const bodyCorpo = document.body;
+
+  if (btnMenuMobile && menuMobileOverlay) {
+    btnMenuMobile.addEventListener('click', () => {
+      btnMenuMobile.classList.toggle('ativo');
+      menuMobileOverlay.classList.toggle('ativo');
+
+      if (menuMobileOverlay.classList.contains('ativo')) {
+        bodyCorpo.style.overflow = 'hidden';
+      } else {
+        bodyCorpo.style.overflow = '';
+        setTimeout(() => {
+          paineis.forEach(painel => painel.classList.remove('ativo', 'escondido-esquerda'));
+          document.getElementById('painel-principal').classList.add('ativo');
+        }, 400);
+      }
+    });
+
+    botoesAbreSubmenu.forEach(botao => {
+      botao.addEventListener('click', () => {
+        const painelAlvo = document.getElementById(botao.getAttribute('data-alvo'));
+        const painelAtual = botao.closest('.menuPainel');
+        if (painelAlvo && painelAtual) {
+          painelAtual.classList.remove('ativo');
+          painelAtual.classList.add('escondido-esquerda');
+          painelAlvo.classList.add('ativo');
+        }
+      });
+    });
+
+    botoesVoltar.forEach(botao => {
+      botao.addEventListener('click', () => {
+        const painelAlvo = document.getElementById(botao.getAttribute('data-alvo'));
+        const painelAtual = botao.closest('.menuPainel');
+        if (painelAlvo && painelAtual) {
+          painelAtual.classList.remove('ativo');
+          painelAlvo.classList.remove('escondido-esquerda');
+          painelAlvo.classList.add('ativo');
+        }
+      });
+    });
+  }
 
   let isSearchOpen = false;
   let autoSlideInterval;
@@ -444,7 +537,7 @@ function initHeaderLogic() {
     toggle.addEventListener('click', (e) => {
       e.preventDefault();
       const parentLi = toggle.parentElement;
-      if (isSearchOpen) toggleSearch(); 
+      if (isSearchOpen) toggleSearch();
       hasDropdowns.forEach(dropdown => {
         if (dropdown !== parentLi) dropdown.classList.remove('open');
       });
@@ -515,7 +608,7 @@ function initHeaderLogic() {
   if (siteHeaderWrapper && mainHeaderEl) {
     window.addEventListener('scroll', () => {
       const topBarHeight = topBarEl ? topBarEl.offsetHeight : 40;
-      
+
       if (window.scrollY > topBarHeight) {
         if (!mainHeaderEl.classList.contains('is-fixed')) {
           siteHeaderWrapper.style.paddingBottom = `${mainHeaderEl.offsetHeight}px`;
@@ -870,7 +963,7 @@ const subitemsData = {
     "Assessoria Fiscal em Repetro"
   ],
 
-"Planejamento Tributário": [
+  "Planejamento Tributário": [
     "Estratégias de redução de carga tributária",
     "Recuperação e utilização de Créditos Fiscais"
   ],
@@ -889,7 +982,7 @@ const subitemsData = {
 function renderGlobalModal() {
   if (!document.getElementById('contactGlassModal')) {
     document.body.insertAdjacentHTML('beforeend', modalComponent);
-    initModalLogic(); 
+    initModalLogic();
   }
 }
 
@@ -898,11 +991,11 @@ function initModalLogic() {
   const form = document.getElementById('premiumContactForm');
   const steps = Array.from(form.querySelectorAll('.formStep'));
   const progressBar = document.getElementById('formProgressBar');
-  
+
   const catDropdown = document.getElementById('categoryDropdown');
   const catHeader = document.getElementById('categoryHeader');
   const catInput = document.getElementById('leadCategory');
-  
+
   const subGroup = document.getElementById('subitemGroup');
   const subDropdown = document.getElementById('subitemDropdown');
   const subHeader = document.getElementById('subitemHeader');
@@ -934,21 +1027,21 @@ function initModalLogic() {
 
       subList.innerHTML = "";
       const subitems = subitemsData[selectedCat] || [];
-      
+
       subitems.forEach(item => {
         const itemLi = document.createElement('li');
         itemLi.setAttribute('data-value', item);
         itemLi.textContent = item;
-        
+
         itemLi.addEventListener('click', (ev) => {
           ev.stopPropagation();
           subHeader.innerHTML = `${item} <span class="arrow">▼</span>`;
           subHeader.classList.add('has-value');
           subInput.value = item;
           subDropdown.classList.remove('is-open');
-          btnNext1.disabled = false; 
+          btnNext1.disabled = false;
         });
-        
+
         subList.appendChild(itemLi);
       });
 
@@ -983,8 +1076,8 @@ function initModalLogic() {
   const phoneInput = document.getElementById('professionalPhone');
   if (phoneInput) {
     phoneInput.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, ''); 
-      if (val.length > 11) val = val.slice(0, 11); 
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.length > 11) val = val.slice(0, 11);
       let formatted = val;
       if (val.length > 2) formatted = `(${val.slice(0, 2)}) ${val.slice(2)}`;
       if (val.length > 6) {
@@ -1001,13 +1094,13 @@ function initModalLogic() {
     cnpjInput.addEventListener('input', (e) => {
       let val = e.target.value.replace(/\D/g, ''); // Remove tudo o que não for número (letras caem aqui)
       if (val.length > 14) val = val.slice(0, 14); // Limita estritamente ao tamanho do CNPJ
-      
+
       let formatted = val;
       if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
       if (val.length > 5) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5)}`;
       if (val.length > 8) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8)}`;
       if (val.length > 12) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8, 12)}-${val.slice(12)}`;
-      
+
       e.target.value = formatted;
     });
   }
@@ -1018,19 +1111,19 @@ function initModalLogic() {
     cpfInput.addEventListener('input', (e) => {
       let val = e.target.value.replace(/\D/g, ''); // Remove letras e caracteres especiais
       if (val.length > 11) val = val.slice(0, 11); // Limita ao tamanho real do CPF
-      
+
       let formatted = val;
       if (val.length > 3) formatted = `${val.slice(0, 3)}.${val.slice(3)}`;
       if (val.length > 6) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6)}`;
       if (val.length > 9) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6, 9)}-${val.slice(9)}`;
-      
+
       e.target.value = formatted;
     });
   }
 
   // Navegação
   let currentStep = 1;
-  const totalSteps = steps.length - 1; 
+  const totalSteps = steps.length - 1;
 
   function updateFormState() {
     steps.forEach((step, idx) => {
@@ -1049,9 +1142,9 @@ function initModalLogic() {
       const currentStepEl = steps[currentStep - 1];
       const fields = currentStepEl.querySelectorAll('input[required], textarea[required]');
       let valid = true;
-      
+
       fields.forEach(f => {
-        if(!f.value) { valid = false; f.style.borderColor = "#ff4d4d"; }
+        if (!f.value) { valid = false; f.style.borderColor = "#ff4d4d"; }
         else { f.style.borderColor = "rgba(255,255,255,0.1)"; }
       });
 
@@ -1102,7 +1195,7 @@ function initModalLogic() {
       e.preventDefault();
       modal.classList.add('is-open');
       document.body.style.overflow = 'hidden';
-      
+
       currentStep = 1;
       form.reset();
       subGroup.style.display = "none";
@@ -1119,9 +1212,9 @@ function initModalLogic() {
   // Envio final
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     const selectedYears = Array.from(form.querySelectorAll('input[name="reviewYears"]:checked')).map(c => c.value);
-    
+
     const leadData = {
       categoria: document.getElementById('leadCategory').value,
       subitem: document.getElementById('leadSubitem').value,
@@ -1176,32 +1269,32 @@ const devModalComponent = `
 function renderDevModal() {
   if (!document.getElementById('devGlassModal')) {
     document.body.insertAdjacentHTML('beforeend', devModalComponent);
-    
+
     const devModal = document.getElementById('devGlassModal');
     const closeBtn = document.getElementById('closeDevModal');
     const okBtn = document.getElementById('btnOkDev');
-    
+
     // Função de fechamento suave
     function closeDev() {
-        devModal.classList.remove('is-open');
-        document.body.style.overflow = '';
+      devModal.classList.remove('is-open');
+      document.body.style.overflow = '';
     }
 
     closeBtn.addEventListener('click', closeDev);
     okBtn.addEventListener('click', closeDev);
-    
+
     // Fecha ao clicar fora da caixa
     devModal.addEventListener('click', (e) => {
-        if (e.target === devModal) closeDev();
+      if (e.target === devModal) closeDev();
     });
-    
+
     // Escuta global pelo clique nos links do menu e rodapé
     document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('openDevModalTrigger') || e.target.closest('.openDevModalTrigger')) {
-            e.preventDefault();
-            devModal.classList.add('is-open');
-            document.body.style.overflow = 'hidden'; // Trava o scroll do site
-        }
+      if (e.target.classList.contains('openDevModalTrigger') || e.target.closest('.openDevModalTrigger')) {
+        e.preventDefault();
+        devModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; // Trava o scroll do site
+      }
     });
   }
 }
@@ -1217,7 +1310,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const slider = document.querySelector('.blogGrid');
   const track = document.querySelector('.blogTrack');
 
- if (slider && track) {
+  if (slider && track) {
     // 1. Clona os cartões originais e joga no final da pista para criar o loop
     const cards = Array.from(track.children);
     cards.forEach(card => {
@@ -1226,9 +1319,9 @@ document.addEventListener("DOMContentLoaded", () => {
       track.appendChild(clone);
     });
 
-   
+
     // =======================================================
-    
+
     // 2. Variáveis do Motor
     let isDown = false;
     let isHovered = false;
@@ -1280,13 +1373,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     slider.addEventListener('mousemove', (e) => {
       if (!isDown) return;
-      
+
       e.preventDefault();
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX) * 1.5; // Multiplicador de sensibilidade do arraste
-      
+
       // Se moveu mais que 5px, confirma que é um arrasto e não um clique
-      if (Math.abs(walk) > 5) isDragging = true; 
+      if (Math.abs(walk) > 5) isDragging = true;
 
       let newScrollLeft = scrollLeft - walk;
 
@@ -1294,11 +1387,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Se o usuário arrastar muito pra trás, o reflexo CSS precisa do loop blindado
       if (newScrollLeft <= 0) {
         newScrollLeft += track.scrollWidth / 2;
-        startX = e.pageX - slider.offsetLeft; 
+        startX = e.pageX - slider.offsetLeft;
         scrollLeft = newScrollLeft;
       } else if (newScrollLeft >= track.scrollWidth / 2) {
         newScrollLeft -= track.scrollWidth / 2;
-        startX = e.pageX - slider.offsetLeft; 
+        startX = e.pageX - slider.offsetLeft;
         scrollLeft = newScrollLeft;
       }
 

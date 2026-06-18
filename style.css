@@ -840,9 +840,6 @@ a {
 }
 
 
-
-
-
 /* =========================================
    BLINDAGEM DO ARRASTE (UX)
 ========================================= */
@@ -1936,7 +1933,6 @@ a.dynBtn.hidden {
   transform: rotate(180deg);
 }
 
-/* A Lista Suspensa (Invisível por padrão) */
 .dropdownList {
   position: absolute;
   top: 100%;
@@ -1948,12 +1944,7 @@ a.dynBtn.hidden {
   margin-top: 5px;
   padding: 0;
   list-style: none;
-  max-height: 250px;
-  overflow-y: auto;
   z-index: 9999;
-  /* Fica acima de tudo no modal */
-
-  /* Escondido e levemente para cima para a animação */
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
@@ -2216,4 +2207,199 @@ a.dynBtn.hidden {
   max-width: 420px;
   pointer-events: auto;
   /* Permite selecionar o texto do aviso */
+}
+
+.btnMenuMobile, .menuMobileOverlay {
+    display: none; 
+}
+
+/* ========================================================
+   RESPONSIVO E MENU MOBILE (PREMIUM MAXX)
+======================================================== */
+@media (max-width: 1024px) {
+
+  .btnMenuMobile {
+        display: flex;
+  }
+
+  .menuMobileOverlay {
+        display: block;
+  }
+    
+    /* 1. Esconde a navegação, topbar e a barra de pesquisa de Desktop */
+    .mainNav, .globalSpotlight, .topBar {
+        display: none !important;
+    }
+
+    .logo {
+        width: 360px;
+        position: relative;
+        z-index: 2000; 
+    }
+
+    /* 2. O BOTÃO HAMBÚRGUER "ESCADINHA" */
+    .btnMenuMobile {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Alinha os palitos à direita formando a escadinha */
+        gap: 6px;
+        width: 32px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 2000; /* Sempre no topo */
+    }
+
+    .palito {
+        height: 2px;
+        background-color: #ffffff; /* Cor branca do Premium Maxx */
+        border-radius: 4px;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform-origin: center;
+    }
+
+    /* Larguras decrescentes conforme o seu print */
+    .palito:nth-child(1) { width: 100%; }
+    .palito:nth-child(2) { width: 75%; }
+    .palito:nth-child(3) { width: 50%; }
+
+    /* ANIMAÇÃO PARA O "X" QUANDO ABRE O MENU */
+    .btnMenuMobile.ativo .palito { width: 100%; } /* Iguala o tamanho de todos para o X ficar perfeito */
+    .btnMenuMobile.ativo .palito:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .btnMenuMobile.ativo .palito:nth-child(2) { opacity: 0; transform: scale(0); }
+    .btnMenuMobile.ativo .palito:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* 3. OVERLAY PRINCIPAL ESCURO */
+    .menuMobileOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #0a0a0a; /* Fundo idêntico ao da Premium Maxx */
+        z-index: 1500;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .menuMobileOverlay.ativo {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 4. AS GAVETAS DESLIZANTES */
+    .menuPainel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 100px 20px 40px; /* Padding top compensa a altura do cabeçalho */
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menuPainel.ativo { transform: translateX(0); }
+    .menuPainel.escondido-esquerda { transform: translateX(-100%); }
+
+    /* 5. ESTILIZAÇÃO DOS LINKS (LISTAS) */
+    .menuMobileItens, .menuMobileLinksFinais {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menuMobileItens li, .menuMobileLinksFinais li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .menuMobileItens li a, .menuMobileItens li.abre-submenu, .menuMobileLinksFinais li a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #ffffff;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .menuMobileLinksFinais li a {
+        font-size: 1.05rem;
+        font-weight: 400;
+        color: #b3b3b3;
+    }
+
+    .menuMobileItens li.abre-submenu:hover, .menuMobileLinksFinais li a:hover {
+        color: var(--accent-cyan, #03FAD5);
+    }
+
+    .menuMobileItens .seta {
+        width: 20px;
+        height: 20px;
+        color: var(--accent-cyan, #03FAD5);
+    }
+
+    /* 6. TOPO DA GAVETA SECUNDÁRIA (BOTÃO VOLTAR) */
+    .topoPainel {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .topoPainel.flex-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tituloPainel {
+        font-size: 0.9rem;
+        color: #b3b3b3;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    .btnVoltarPequeno {
+        background: transparent;
+        border: none;
+        color: var(--accent-cyan, #03FAD5);
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .iconeVoltar {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* 7. BOTÃO CTA FINAL DENTRO DO MOBILE */
+    .menuMobileCta {
+        margin-top: 40px;
+    }
+    
+    .menuMobileCta .btnCyan {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 16px 0;
+        text-decoration: none;
+    }
 }
