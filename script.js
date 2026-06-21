@@ -179,15 +179,17 @@ const headerComponent = `
           </div>
         </div>
       </div>
-    </div> <div class="menuMobileOverlay" id="menuMobileOverlay">
+      <div class="menuMobileOverlay" id="menuMobileOverlay">
         
         <div class="menuPainel ativo" id="painel-principal">
             <ul class="menuMobileItens">
                 <li><a href="/quem-somos/index.html">QUEM SOMOS</a></li>
+                
                 <li class="abre-submenu" data-alvo="painel-servicos">
                     SERVIÇOS 
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </li>
+
                 <li><a href="#" class="openDevModalTrigger">CARREIRAS</a></li>
                 <li><a href="#" class="openDevModalTrigger">TEMAS ATUAIS</a></li>
             </ul>
@@ -206,26 +208,120 @@ const headerComponent = `
             </div>
             
             <ul class="menuMobileItens">
-                <li class="abre-submenu" data-alvo="painel-auditoria">
-                    Auditoria Independente
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <li class="item-dividido">
+                    <a href="/servicos/auditoria-independente/index.html" class="link-categoria">Auditoria Independente</a>
+                    <div class="abre-submenu hitbox-seta" data-alvo="painel-auditoria">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
                 </li>
-                <li class="abre-submenu" data-alvo="painel-tributaria">
-                    Consultoria Tributária
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+
+                <li class="item-dividido">
+                    <a href="/servicos/consultoria-tributaria/index.html" class="link-categoria">Consultoria Tributária</a>
+                    <div class="abre-submenu hitbox-seta" data-alvo="painel-tributaria">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
                 </li>
-                <li class="abre-submenu" data-alvo="painel-planejamento">
-                    Planejamento Tributário
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+
+                <li class="item-dividido">
+                    <a href="/servicos/planejamento-tributario/index.html" class="link-categoria">Planejamento Tributário</a>
+                    <div class="abre-submenu hitbox-seta" data-alvo="painel-planejamento">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
                 </li>
-                <li class="abre-submenu" data-alvo="painel-empresarial">
-                    Consultoria Empresarial
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+
+                <li class="item-dividido">
+                    <a href="/servicos/consultoria-empresarial/index.html" class="link-categoria">Consultoria Empresarial</a>
+                    <div class="abre-submenu hitbox-seta" data-alvo="painel-empresarial">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
                 </li>
-                <li class="abre-submenu" data-alvo="painel-contabilidade">
-                    Contabilidade (BPO)
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+
+                <li class="item-dividido">
+                    <a href="/servicos/contabilidade/index.html" class="link-categoria">Contabilidade</a>
+                    <div class="abre-submenu hitbox-seta" data-alvo="painel-contabilidade">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
                 </li>
+            </ul>
+        </div>
+
+        <div class="menuPainel" id="painel-auditoria">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">AUDITORIA</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-servicos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            <ul class="menuMobileLinksFinais">
+                <li><a href="/servicos/auditoria-independente/exame-das-demonstracoes-financeiras.html">Exame das Demonstrações Financeiras</a></li>
+                <li><a href="/servicos/auditoria-independente/revisao-limitada-das-demonstracoes.html">Revisão Limitada das Demonstrações</a></li>
+                <li><a href="/servicos/auditoria-independente/procedimentos-previamente-acordados.html">Procedimentos Previamente Acordados</a></li>
+                <li><a href="/servicos/auditoria-independente/due-diligence.html">Due-Diligence</a></li>
+                <li><a href="/servicos/auditoria-independente/elaboracao-de-laudo-contabil.html">Elaboração de Laudo Contábil</a></li>
+                <li><a href="/servicos/auditoria-independente/inventario-fisico.html">Inventário Físico</a></li>
+            </ul>
+        </div>
+
+        <div class="menuPainel" id="painel-tributaria">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">TRIBUTÁRIA</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-servicos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            <ul class="menuMobileLinksFinais">
+                <li><a href="/servicos/consultoria-tributaria/tax-compliance.html">Tax Compliance (ECD, ECF, EFD, SPED)</a></li>
+                <li><a href="/servicos/consultoria-tributaria/transfer-pricing.html">Transfer Pricing / Thin Capitalization</a></li>
+                <li><a href="/servicos/consultoria-tributaria/atendimento-as-consultas-fiscais.html">Atendimento às consultas fiscais</a></li>
+                <li><a href="/servicos/consultoria-tributaria/beneficios-fiscais.html">Benefícios Fiscais</a></li>
+                <li><a href="/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html">Assessoria em Defesa Administrativa</a></li>
+                <li><a href="/servicos/consultoria-tributaria/assessoria-tributaria-a-pessoa-fisica.html">Assessoria Tributária à Pessoa Física</a></li>
+                <li><a href="/servicos/consultoria-tributaria/assessoria-fiscal-em-repetro.html">Assessoria Fiscal em Repetro</a></li>
+            </ul>
+        </div>
+
+        <div class="menuPainel" id="painel-planejamento">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">PLANEJAMENTO</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-servicos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            <ul class="menuMobileLinksFinais">
+                <li><a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html">Estratégias de redução de carga tributária</a></li>
+                <li><a href="/servicos/planejamento-tributario/recuperacao-e-utilizacao-de-creditos-fiscais.html">Recuperação e utilização de Créditos Fiscais</a></li>
+            </ul>
+        </div>
+
+        <div class="menuPainel" id="painel-empresarial">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">EMPRESARIAL</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-servicos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            <ul class="menuMobileLinksFinais">
+                <li><a href="/servicos/consultoria-empresarial/gestao-de-processos.html">Gestão de Processos</a></li>
+                <li><a href="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html">Estruturas e controles empresariais</a></li>
+            </ul>
+        </div>
+
+        <div class="menuPainel" id="painel-contabilidade">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">CONTABILIDADE</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-servicos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            <ul class="menuMobileLinksFinais">
+                <li><a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html">Terceirização da Contabilidade</a></li>
+                <li><a href="/servicos/contabilidade/terceirizacao-fiscal.html">Terceirização Fiscal</a></li>
+                <li><a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html">Terceirização da Folha de Pagamento</a></li>
             </ul>
         </div>
 
@@ -811,7 +907,7 @@ const modalComponent = `
                   <li data-value="Auditoria Independente">Auditoria Independente</li>
                   <li data-value="Consultoria Tributária">Consultoria Tributária</li>
                   <li data-value="Planejamento Tributário">Planejamento Tributário</li>
-                  <li data-value="Consultoria Empresarial">Consultoria Empresarial e Governança</li>
+                  <li data-value="Consultoria Empresarial">Consultoria Empresarial</li>
                   <li data-value="Contabilidade">Contabilidade</li>
                 </ul>
               </div>

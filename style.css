@@ -2352,6 +2352,45 @@ a.dynBtn.hidden {
         color: var(--accent-cyan, #03FAD5);
     }
 
+    /* ========================================================
+       DIVISÃO DE ÁREAS DE CLIQUE (LINK VS GAVETA) - PREMIUM MAXX
+    ======================================================== */
+    .menuMobileItens li.item-dividido {
+        display: flex !important;
+        flex-direction: row !important; /* Força a ficar na mesma linha */
+        justify-content: space-between;
+        align-items: stretch; 
+        width: 100%;
+        padding: 0 !important; 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Linha divisória fina */
+    }
+
+    .item-dividido .link-categoria {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; 
+        padding: 24px 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .item-dividido .hitbox-seta {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 60px; 
+        flex-shrink: 0; /* IMPEDE A SETA DE SER ESMAGADA PRA BAIXO */
+        cursor: pointer;
+    }
+
+    .item-dividido .link-categoria:hover,
+    .item-dividido .hitbox-seta:hover .seta {
+        color: var(--accent-cyan, #03FAD5);
+    }
+
     /* 6. TOPO DA GAVETA SECUNDÁRIA (BOTÃO VOLTAR) */
     .topoPainel {
         margin-bottom: 20px;
@@ -2403,3 +2442,192 @@ a.dynBtn.hidden {
         text-decoration: none;
     }
 }
+
+/* ========================================================
+   AJUSTES RESPONSIVOS: HERO E BLOG (CELULARES)
+======================================================== */
+@media (max-width: 768px) {
+    
+    /* --- 1. SEÇÃO HERO (VÍDEO DE FUNDO) --- */
+    .heroContent h1 {
+        margin-top: 80px; /* Remove o empurrão gigante de 300px do desktop */
+        font-size: 32px;  /* Garante um tamanho seguro para não quebrar muitas linhas */
+    }
+    
+    .heroContent p {
+        font-size: 16px;
+    }
+
+    /* --- 2. SEÇÃO DE MATÉRIAS (CARROSSEL INFINITO) --- */
+    .homeBlogSection {
+        padding: 80px 0; /* Reduz o espaço em branco exagerado no mobile */
+    }
+
+    .blogHeader {
+        margin-bottom: 40px;
+        padding: 0 20px; /* Protege o texto de encostar na borda do vidro da tela */
+    }
+
+    /* O grande truque: Reduzimos o cartão de 420px para 300px. 
+       Assim o usuário consegue ver que tem "mais um cartão" cortado na direita e entende que deve arrastar! */
+    .blogCard {
+        width: 300px;
+        min-width: 300px;
+        height: 460px;
+    }
+
+    .blogImageWrapper {
+        height: 200px; /* Achata levemente a imagem para sobrar espaço pro texto */
+    }
+
+    .blogContent {
+        padding: 24px; /* Diminui o respiro interno do cartão */
+    }
+
+    .blogContent h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .blogContent p {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+    
+    /* --- 3. SEÇÃO DE SERVIÇOS (O TRUQUE DA ESCALA CORRIGIDO E BLINDADO) --- */
+    
+    /* 1. A TRAVA MESTRA: Impede que os cartões gigantes alarguém a tela e quebrem o scroll! */
+    .premiumServiceSection {
+        width: 100vw;
+        max-width: 100vw;
+        overflow: hidden;
+    }
+
+    .premiumContainer {
+        padding-top: 10px; /* Descola do teto para o cabeçalho respirar */
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        justify-content: center; /* MÁGICA: Traz o bloco inteiro de volta pro meio da tela! */
+        gap: 30px; /* Distância perfeita e controlada entre as setas e os cartões */
+    }
+
+    .premiumTopRow {
+        width: 100%; 
+        margin-bottom: 0; /* Zeramos aqui pois o gap do container já faz o distanciamento */
+        position: relative;
+        z-index: 5;
+    }
+
+    .premiumInfoLeft {
+        width: 100%;
+        max-width: 100%; 
+    }
+
+    .dynTitle {
+        font-size: 28px;
+        margin-bottom: 12px;
+        line-height: 1.2;
+        white-space: normal; 
+        max-width: 100%; 
+    }
+
+    .dynDesc {
+        font-size: 15px;
+        margin-bottom: 20px;
+        display: block; 
+        white-space: normal; 
+        max-width: 100%; 
+        color: #cccccc;
+    }
+
+    .premiumActionArea {
+        gap: 15px;
+    }
+
+    .dynBtn {
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+
+    .premiumControls button {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* A MÁGICA DA ESCALA SEM BURACO */
+    .premiumBottomRow {
+        width: 133%; 
+        transform-origin: left top; 
+        transform: scale(0.75); 
+        margin-bottom: -85px; 
+    }
+
+    /* ... (aqui em cima termina o código da premiumBottomRow) ... */
+
+    /* --- 4. SEÇÃO CTA FINAL --- */
+    .finalCtaSection {
+        padding: 60px 0;
+    }
+
+    .finalCtaContainer {
+        grid-template-columns: 1fr; /* Quebra as 2 colunas do desktop em 1 só */
+        gap: 40px;
+        text-align: center; /* Centraliza tudo */
+    }
+
+    .ctaImageBlock {
+        max-width: 350px; /* Evita que a foto fique gigante na tela do celular */
+        margin: 0 auto;
+    }
+
+    .ctaTextBlock {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza o botão do Fale Conosco */
+    }
+
+    .ctaTextBlock h2 {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    .ctaTextBlock p {
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+
+
+    /* --- 5. RODAPÉ (FOOTER) --- */
+    .siteFooter {
+        padding: 60px 0 30px 0;
+    }
+
+    .footerTop {
+        grid-template-columns: 1fr; /* Empilha todas as 4 colunas em 1 */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footerBrand {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza a Logo e o texto */
+    }
+
+    .socialLinks {
+        justify-content: center; /* Centraliza as bolinhas das redes sociais */
+    }
+
+    .footerBottom {
+        flex-direction: column-reverse; /* Coloca o Copyright por baixo dos links legais */
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .footerLegal {
+        justify-content: center; /* Centraliza os links de Política e Termos */
+    }
+
+} 
