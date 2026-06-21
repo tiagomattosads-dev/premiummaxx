@@ -2630,4 +2630,35 @@ a.dynBtn.hidden {
         justify-content: center; /* Centraliza os links de Política e Termos */
     }
 
+  /* ========================================================
+   AJUSTES RESPONSIVOS: PRELOADER (CELULARES)
+  ======================================================== */
+    .preloaderLogo {
+        height: 40px; /* Reduz a altura imponente para o padrão mobile */
+        max-width: 90vw; /* Impede categoricamente que a logo vaze da tela */
+        object-fit: contain;
+        margin-bottom: 70px; /* Diminui o buraco negro entre a logo e a barra */
+    }
+
+    .preloaderInfo {
+        font-size: 22px; /* Adequa o texto "Carregando... 37%" para a tela estreita */
+        margin-bottom: 12px;
+    }
+
+    .preloaderTrack {
+        height: 16px; /* Deixa a barra de loading mais fina e elegante no celular */
+    }
+
+    /* --- RECALCULANDO A MATEMÁTICA DOS REFLEXOS PARA O MOBILE --- */
+    
+    .preloaderText::after,
+    .preloaderPercent::after {
+        top: 90px; /* Sobe o reflexo fantasma do texto para acompanhar a nova escala */
+    }
+
+    .preloaderBar::after {
+        top: 24px; /* Sobe o reflexo de chão da barra de progresso */
+        height: 16px; /* Deixa o reflexo com a mesma finura da barra principal */
+    }
+
 } 
