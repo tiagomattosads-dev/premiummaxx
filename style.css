@@ -2743,7 +2743,7 @@ a.dynBtn.hidden {
     .glassModalContent {
         padding: 40px 24px 30px; /* Reduz o respiro gigante das laterais */
         width: 92%; /* Garante que a caixa não encoste nos vidros do celular */
-        max-height: 90vh; /* Impede que o modal fique maior que a tela */
+        max-height: 100vh; /* Impede que o modal fique maior que a tela */
         overflow-y: auto; /* Permite rolar o conteúdo interno se a tela for muito pequena */
     }
 
@@ -2792,5 +2792,12 @@ a.dynBtn.hidden {
     .typeformStyle textarea {
         min-height: 110px; /* Diminui a altura da caixa de texto no mobile */
     }
+
+    .customDropdown .dropdownList {
+            max-height: 190px; /* Trava a altura para caber umas 3.5 opções na tela */
+            overflow-y: auto; /* Cria o scroll magnético por dentro da listinha */
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch; /* Deixa o arrastar macio no iPhone */
+        }
 
 }
