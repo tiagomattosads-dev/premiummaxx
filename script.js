@@ -98,6 +98,7 @@ const headerComponent = `
                     <button class="megaTab" data-target="panePlanejamento">Planejamento Tributário</button>
                     <button class="megaTab" data-target="paneEmpresarial">Consultoria Empresarial</button>
                     <button class="megaTab" data-target="paneContabilidade">Contabilidade</button>
+                    <button class="megaTab" data-target="paneOutrasSolucoes">Outras Soluções</button>
                   </div>
                   
                   <div class="megaMenuContent">
@@ -141,6 +142,17 @@ const headerComponent = `
                         <a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html">Terceirização da Folha de Pagamento</a>
                       </div>
                     </div>
+                  <div class="megaPane" id="paneOutrasSolucoes">
+                    <div class="paneGrid">
+                      <a href="/servicos/auditoria-especial.html">Auditoria Especial</a>
+                      <a href="/servicos/holding-familiar.html">Holding Familiar</a>
+                      <a href="/servicos/abertura-de-empresas.html">Abertura de Empresas</a>
+                      <a href="/servicos/locacao-de-mao-de-obra.html">Locação de Mão de Obra (Loan Staff)</a>
+                      <a href="/servicos/valuation.html">Valuation</a>
+                      <a href="/servicos/analise-de-contratos.html">Análise de Contratos</a>
+                      <a href="/servicos/assessoria-em-ipo.html">Assessoria em IPO</a>
+                      <a href="/servicos/direito-creditorio.html">Direito Creditório</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -183,7 +195,7 @@ const headerComponent = `
         
         <div class="menuPainel ativo" id="painel-principal">
             <ul class="menuMobileItens">
-                <li><a href="/quem-somos/index.html">QUEM SOMOS</a></li>
+                <li><a href="/quem somos/index.html">QUEM SOMOS</a></li>
                 
                 <li class="abre-submenu" data-alvo="painel-servicos">
                     SERVIÇOS 
@@ -240,6 +252,13 @@ const headerComponent = `
                     <a href="/servicos/contabilidade/index.html" class="link-categoria">Contabilidade</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-contabilidade">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </li>
+
+                <li class="item-dividido">
+                  <a href="#" class="link-categoria">Outras Soluções</a>
+                    <div class="abre-submenu hitbox-seta" data-alvo="painel-outras-solucoes">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </li>
             </ul>
@@ -322,6 +341,26 @@ const headerComponent = `
                 <li><a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html">Terceirização da Contabilidade</a></li>
                 <li><a href="/servicos/contabilidade/terceirizacao-fiscal.html">Terceirização Fiscal</a></li>
                 <li><a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html">Terceirização da Folha de Pagamento</a></li>
+            </ul>
+        </div>
+
+        <div class="menuPainel" id="painel-outras-solucoes">
+            <div class="topoPainel flex-between">
+                <h3 class="tituloPainel">OUTRAS SOLUÇÕES</h3>
+                <button class="btnVoltarPequeno" data-alvo="painel-servicos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    VOLTAR
+                </button>
+            </div>
+            <ul class="menuMobileLinksFinais">
+                <li><a href="/servicos/auditoria-especial.html">Auditoria Especial</a></li>
+                <li><a href="/servicos/holding-familiar.html">Holding Familiar</a></li>
+                <li><a href="/servicos/abertura-de-empresas.html">Abertura de Empresas</a></li>
+                <li><a href="/servicos/locacao-de-mao-de-obra.html">Locação de Mão de Obra (Loan Staff)</a></li>
+                <li><a href="/servicos/valuation.html">Valuation</a></li>
+                <li><a href="/servicos/analise-de-contratos.html">Análise de Contratos</a></li>
+                <li><a href="/servicos/assessoria-em-ipo.html">Assessoria em IPO</a></li>
+                <li><a href="/servicos/direito-creditorio.html">Direito Creditório</a></li>
             </ul>
         </div>
 
@@ -909,6 +948,7 @@ const modalComponent = `
                   <li data-value="Planejamento Tributário">Planejamento Tributário</li>
                   <li data-value="Consultoria Empresarial">Consultoria Empresarial</li>
                   <li data-value="Contabilidade">Contabilidade</li>
+                  <li data-value="Outras Soluções">Outras Soluções</li>
                 </ul>
               </div>
               <input type="hidden" id="leadCategory" required>
@@ -1072,6 +1112,17 @@ const subitemsData = {
     "Terceirização da Contabilidade",
     "Terceirização Fiscal",
     "Terceirização da Folha de Pagamento"
+  ],
+
+  "Outras Soluções": [
+    "Auditoria Especial",
+    "Holding Familiar",
+    "Abertura de Empresas",
+    "Locação de Mão de Obra (Loan Staff)",
+    "Valuation",
+    "Análise de Contratos",
+    "Assessoria em IPO",
+    "Direito Creditório"
   ]
 };
 

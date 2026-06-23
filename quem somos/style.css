@@ -404,3 +404,145 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ========================================================
+   AJUSTES RESPONSIVOS: PÁGINA QUEM SOMOS (CELULARES)
+======================================================== */
+@media (max-width: 768px) {
+    
+    /* --- 1. HERO & VERTICAIS --- */
+    .aboutHeroSection {
+        padding: 120px 20px 60px 20px; /* Reduz o respiro e protege as laterais */
+    }
+    
+    .aHeroTitle {
+        font-size: 2.2rem; /* Reduz de 3.5rem para não quebrar muitas linhas */
+        margin-bottom: 15px;
+    }
+
+    .aHeroSubtitle {
+        font-size: 1rem;
+    }
+
+    .heroVerticalsGrid {
+        grid-template-columns: 1fr; /* Empilha os 5 cartões de serviço */
+        margin-top: 40px;
+        margin-bottom: 0; /* DESLIGA a mágica da margem negativa no mobile */
+        gap: 15px;
+    }
+
+    .verticalCard {
+        height: 220px; /* Deixa os cartões mais achatados e elegantes na telinha */
+    }
+
+    /* --- 2. ESTATÍSTICAS E HISTÓRIA --- */
+    .aboutStatsSection {
+        padding: 60px 20px;
+    }
+
+    .statsGridContainer {
+        grid-template-columns: 1fr; /* Empilha o bloco de números com o texto */
+        gap: 40px;
+    }
+
+    .statsLeft h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .statsNumbersGrid {
+        grid-template-columns: 1fr 1fr; /* Mantém 2 colunas lado a lado para os números (fica chique) */
+        gap: 15px;
+    }
+
+    .statBlock {
+        padding: 20px 10px; /* Ajuste para caber os textos menores */
+    }
+
+    .statNumber {
+        font-size: 2rem;
+    }
+
+    .aboutCollage {
+        flex-direction: column; /* Empilha as fotos da colagem */
+        gap: 15px;
+    }
+
+    .aboutCollage img {
+        width: 100%; 
+        height: 200px;
+    }
+
+    .collageImg1 {
+        margin-top: 0; /* Remove a escadinha (assimetria) do desktop */
+    }
+
+    /* --- 3. DIFERENCIAIS --- */
+    .aboutDiffSection {
+        padding: 60px 20px;
+    }
+
+    .diffHeader h2 {
+        font-size: 2rem;
+    }
+
+    .diffCardsGrid {
+        grid-template-columns: 1fr; /* Empilha as 4 colunas de diferenciais */
+    }
+
+    /* --- 4. LIDERANÇA (SÓCIOS) --- */
+    .aboutLeadersSection {
+        padding: 60px 20px;
+    }
+
+    .leadersHeader h2 {
+        font-size: 2rem;
+    }
+
+    .leadersGrid {
+        grid-template-columns: 1fr; /* Empilha os cartões de líderes */
+        gap: 30px;
+    }
+
+    .leaderCard {
+        flex-direction: column; /* Coloca a foto em cima do texto */
+    }
+
+    .leaderImage {
+        width: 100%;
+        height: 350px;
+    }
+
+    .leaderInfo {
+        width: 100%;
+        padding: 30px 20px; 
+    }
+
+    .leaderInfo h3 {
+        font-size: 1.6rem;
+    }
+
+    /* --- 5. CHANCELAS --- */
+    .aboutChancelaSection {
+        padding: 60px 20px 80px 20px;
+    }
+
+    .chancelaHeaderGrid {
+        grid-template-columns: 1fr; /* Empilha título e descrição */
+        gap: 20px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .cHLeft h2 {
+        font-size: 2rem;
+    }
+
+    .chancelaCardsGrid {
+        grid-template-columns: 1fr; /* Empilha os 4 cartões gigantes */
+    }
+
+    .cBigCard {
+        height: 250px; /* Reduz a altura da imagem para caber bonito na tela */
+    }
+}
