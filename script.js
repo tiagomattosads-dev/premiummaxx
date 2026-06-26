@@ -39,6 +39,8 @@ function changeLanguage(lang) {
     });
   }
 
+  
+
   // 4. A NOVA MÁGICA: Traduz os Títulos e Descrições Ocultos dos Cartões!
   document.querySelectorAll('[data-i18n-title]').forEach(element => {
     const key = element.getAttribute('data-i18n-title');
@@ -57,7 +59,20 @@ function changeLanguage(lang) {
       sec.querySelector('.dynDesc').textContent = activeThumb.getAttribute('data-desc');
     }
   });
+
+  
 }
+
+// ==========================================
+// INICIALIZADOR DO IDIOMA (MEMÓRIA PERSISTENTE)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Busca o idioma na memória do navegador. Se for a primeira visita, define 'pt' como padrão.
+  const savedLang = localStorage.getItem('premiumMaxxLang') || 'pt';
+  
+  // Roda o motor de tradução automaticamente antes mesmo do usuário piscar!
+  changeLanguage(savedLang);
+});
 
 // ==========================================
 // PRELOADER (TELA DE CARREGAMENTO)
@@ -163,65 +178,65 @@ const headerComponent = `
               <div class="megaMenu">
                 <div class="megaMenuContainer">
                   <div class="megaMenuSidebar">
-                    <button class="megaTab active" data-target="paneAuditoria">Auditoria Independente</button>
-                    <button class="megaTab" data-target="paneTributaria">Consultoria Tributária</button>
-                    <button class="megaTab" data-target="panePlanejamento">Planejamento Tributário</button>
-                    <button class="megaTab" data-target="paneEmpresarial">Consultoria Empresarial</button>
-                    <button class="megaTab" data-target="paneContabilidade">Contabilidade</button>
-                    <button class="megaTab" data-target="paneOutrasSolucoes">Outras Soluções</button>
+                    <button class="megaTab active" data-target="paneAuditoria" data-i18n="cat_auditoria">Auditoria Independente</button>
+                    <button class="megaTab" data-target="paneTributaria" data-i18n="cat_tributaria">Consultoria Tributária</button>
+                    <button class="megaTab" data-target="panePlanejamento" data-i18n="cat_planejamento">Planejamento Tributário</button>
+                    <button class="megaTab" data-target="paneEmpresarial" data-i18n="cat_empresarial">Consultoria Empresarial</button>
+                    <button class="megaTab" data-target="paneContabilidade" data-i18n="cat_contabilidade">Contabilidade</button>
+                    <button class="megaTab" data-target="paneOutrasSolucoes" data-i18n="cat_outras">Outras Soluções</button>
                   </div>
                   
                   <div class="megaMenuContent">
                     <div class="megaPane active" id="paneAuditoria">
                       <div class="paneGrid">
-                        <a href="/servicos/auditoria-independente/exame-das-demonstracoes-financeiras.html">Exame das Demonstrações Financeiras</a>
-                        <a href="/servicos/auditoria-independente/revisao-limitada-das-demonstracoes.html">Revisão Limitada das Demonstrações</a>
-                        <a href="/servicos/auditoria-independente/procedimentos-previamente-acordados.html">Procedimentos Previamente Acordados</a>
-                        <a href="/servicos/auditoria-independente/due-diligence.html">Due-Diligence</a>
-                        <a href="/servicos/auditoria-independente/elaboracao-de-laudo-contabil.html">Elaboração de Laudo Contábil</a>
-                        <a href="/servicos/auditoria-independente/inventario-fisico.html">Inventário Físico</a>
+                        <a href="/servicos/auditoria-independente/exame-das-demonstracoes-financeiras.html" data-i18n="menu_aud_1">Exame das Demonstrações Financeiras</a>
+                        <a href="/servicos/auditoria-independente/revisao-limitada-das-demonstracoes.html" data-i18n="menu_aud_2">Revisão Limitada das Demonstrações</a>
+                        <a href="/servicos/auditoria-independente/procedimentos-previamente-acordados.html" data-i18n="menu_aud_3">Procedimentos Previamente Acordados</a>
+                        <a href="/servicos/auditoria-independente/due-diligence.html" data-i18n="menu_aud_4">Due-Diligence</a>
+                        <a href="/servicos/auditoria-independente/elaboracao-de-laudo-contabil.html" data-i18n="menu_aud_5">Elaboração de Laudo Contábil</a>
+                        <a href="/servicos/auditoria-independente/inventario-fisico.html" data-i18n="menu_aud_6">Inventário Físico</a>
                       </div>
                     </div>
                     <div class="megaPane" id="paneTributaria">
                       <div class="paneGrid">
-                        <a href="/servicos/consultoria-tributaria/tax-compliance.html">Tax Compliance (ECD, ECF, EFD, SPED)</a>
-                        <a href="/servicos/consultoria-tributaria/transfer-pricing.html">Transfer Pricing / Thin Capitalization</a>
-                        <a href="/servicos/consultoria-tributaria/atendimento-as-consultas-fiscais.html">Atendimento às consultas fiscais</a>
-                        <a href="/servicos/consultoria-tributaria/beneficios-fiscais.html">Benefícios Fiscais</a>
-                        <a href="/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html">Assessoria em Defesa Administrativa</a>
-                        <a href="/servicos/consultoria-tributaria/assessoria-tributaria-a-pessoa-fisica.html">Assessoria Tributária à Pessoa Física</a>
-                        <a href="/servicos/consultoria-tributaria/assessoria-fiscal-em-repetro.html">Assessoria Fiscal em Repetro</a>
+                        <a href="/servicos/consultoria-tributaria/tax-compliance.html" data-i18n="menu_tri_1">Tax Compliance (ECD, ECF, EFD, SPED)</a>
+                        <a href="/servicos/consultoria-tributaria/transfer-pricing.html" data-i18n="menu_tri_2">Transfer Pricing / Thin Capitalization</a>
+                        <a href="/servicos/consultoria-tributaria/atendimento-as-consultas-fiscais.html" data-i18n="menu_tri_3">Atendimento às consultas fiscais</a>
+                        <a href="/servicos/consultoria-tributaria/beneficios-fiscais.html" data-i18n="menu_tri_4">Benefícios Fiscais</a>
+                        <a href="/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html" data-i18n="menu_tri_5">Assessoria em Defesa Administrativa</a>
+                        <a href="/servicos/consultoria-tributaria/assessoria-tributaria-a-pessoa-fisica.html" data-i18n="menu_tri_6">Assessoria Tributária à Pessoa Física</a>
+                        <a href="/servicos/consultoria-tributaria/assessoria-fiscal-em-repetro.html" data-i18n="menu_tri_7">Assessoria Fiscal em Repetro</a>
                       </div>
                     </div>
                     <div class="megaPane" id="panePlanejamento">
                       <div class="paneGrid">
-                        <a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html">Estratégias de redução de carga tributária</a>
-                        <a href="/servicos/planejamento-tributario/recuperacao-e-utilizacao-de-creditos-fiscais.html">Recuperação e utilização de Créditos Fiscais</a>
+                        <a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html" data-i18n="menu_pla_1">Estratégias de redução de carga tributária</a>
+                        <a href="/servicos/planejamento-tributario/recuperacao-e-utilizacao-de-creditos-fiscais.html" data-i18n="menu_pla_2">Recuperação e utilização de Créditos Fiscais</a>
                       </div>
                     </div>
                     <div class="megaPane" id="paneEmpresarial">
                       <div class="paneGrid">
-                        <a href="/servicos/consultoria-empresarial/gestao-de-processos.html">Gestão de Processos</a>
-                        <a href="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html">Estruturas e controles empresariais</a>
+                        <a href="/servicos/consultoria-empresarial/gestao-de-processos.html" data-i18n="menu_emp_1">Gestão de Processos</a>
+                        <a href="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html" data-i18n="menu_emp_2">Estruturas e controles empresariais</a>
                       </div>
                     </div>
                     <div class="megaPane" id="paneContabilidade">
                       <div class="paneGrid">
-                        <a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html">Terceirização da Contabilidade</a>
-                        <a href="/servicos/contabilidade/terceirizacao-fiscal.html">Terceirização Fiscal</a>
-                        <a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html">Terceirização da Folha de Pagamento</a>
+                        <a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html" data-i18n="menu_con_1">Terceirização da Contabilidade</a>
+                        <a href="/servicos/contabilidade/terceirizacao-fiscal.html" data-i18n="menu_con_2">Terceirização Fiscal</a>
+                        <a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html" data-i18n="menu_con_3">Terceirização da Folha de Pagamento</a>
                       </div>
                     </div>
                   <div class="megaPane" id="paneOutrasSolucoes">
                     <div class="paneGrid">
-                      <a href="/servicos/auditoria-especial.html">Auditoria Especial</a>
-                      <a href="/servicos/holding-familiar.html">Holding Familiar</a>
-                      <a href="/servicos/abertura-de-empresas.html">Abertura de Empresas</a>
-                      <a href="/servicos/locacao-de-mao-de-obra.html">Locação de Mão de Obra (Loan Staff)</a>
-                      <a href="/servicos/valuation.html">Valuation</a>
-                      <a href="/servicos/analise-de-contratos.html">Análise de Contratos</a>
-                      <a href="/servicos/assessoria-em-ipo.html">Assessoria em IPO</a>
-                      <a href="/servicos/direito-creditorio.html">Direito Creditório</a>
+                      <a href="/servicos/auditoria-especial.html" data-i18n="menu_out_1">Auditoria Especial</a>
+                      <a href="/servicos/holding-familiar.html" data-i18n="menu_out_2">Holding Familiar</a>
+                      <a href="/servicos/abertura-de-empresas.html" data-i18n="menu_out_3">Abertura de Empresas</a>
+                      <a href="/servicos/locacao-de-mao-de-obra.html" data-i18n="menu_out_4">Locação de Mão de Obra (Loan Staff)</a>
+                      <a href="/servicos/valuation.html" data-i18n="menu_out_5">Valuation</a>
+                      <a href="/servicos/analise-de-contratos.html" data-i18n="menu_out_6">Análise de Contratos</a>
+                      <a href="/servicos/assessoria-em-ipo.html" data-i18n="menu_out_7">Assessoria em IPO</a>
+                      <a href="/servicos/direito-creditorio.html" data-i18n="menu_out_8">Direito Creditório</a>
                     </div>
                   </div>
                 </div>
@@ -310,7 +325,7 @@ const headerComponent = `
 
         <div class="menuPainel" id="painel-servicos">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">SERVIÇOS</h3>
+                <h3 class="tituloPainel" data-i18n="nav_servicos">SERVIÇOS</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-principal">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
@@ -319,42 +334,42 @@ const headerComponent = `
             
             <ul class="menuMobileItens">
                 <li class="item-dividido">
-                    <a href="/servicos/auditoria-independente/index.html" class="link-categoria">Auditoria Independente</a>
+                    <a href="/servicos/auditoria-independente/index.html" class="link-categoria" data-i18n="cat_auditoria">Auditoria Independente</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-auditoria">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </li>
 
                 <li class="item-dividido">
-                    <a href="/servicos/consultoria-tributaria/index.html" class="link-categoria">Consultoria Tributária</a>
+                    <a href="/servicos/consultoria-tributaria/index.html" class="link-categoria" data-i18n="cat_tributaria">Consultoria Tributária</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-tributaria">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </li>
 
                 <li class="item-dividido">
-                    <a href="/servicos/planejamento-tributario/index.html" class="link-categoria">Planejamento Tributário</a>
+                    <a href="/servicos/planejamento-tributario/index.html" class="link-categoria" data-i18n="cat_planejamento">Planejamento Tributário</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-planejamento">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </li>
 
                 <li class="item-dividido">
-                    <a href="/servicos/consultoria-empresarial/index.html" class="link-categoria">Consultoria Empresarial</a>
+                    <a href="/servicos/consultoria-empresarial/index.html" class="link-categoria" data-i18n="cat_empresarial">Consultoria Empresarial</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-empresarial">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </li>
 
                 <li class="item-dividido">
-                    <a href="/servicos/contabilidade/index.html" class="link-categoria">Contabilidade</a>
+                    <a href="/servicos/contabilidade/index.html" class="link-categoria" data-i18n="cat_contabilidade">Contabilidade</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-contabilidade">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </li>
 
                 <li class="item-dividido">
-                  <a href="#" class="link-categoria">Outras Soluções</a>
+                  <a href="#" class="link-categoria" data-i18n="cat_outras">Outras Soluções</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-outras-solucoes">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
@@ -364,101 +379,101 @@ const headerComponent = `
 
         <div class="menuPainel" id="painel-auditoria">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">AUDITORIA</h3>
+                <h3 class="tituloPainel" data-i18n="cat_auditoria">AUDITORIA</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-servicos">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
                 </button>
             </div>
             <ul class="menuMobileLinksFinais">
-                <li><a href="/servicos/auditoria-independente/exame-das-demonstracoes-financeiras.html">Exame das Demonstrações Financeiras</a></li>
-                <li><a href="/servicos/auditoria-independente/revisao-limitada-das-demonstracoes.html">Revisão Limitada das Demonstrações</a></li>
-                <li><a href="/servicos/auditoria-independente/procedimentos-previamente-acordados.html">Procedimentos Previamente Acordados</a></li>
-                <li><a href="/servicos/auditoria-independente/due-diligence.html">Due-Diligence</a></li>
-                <li><a href="/servicos/auditoria-independente/elaboracao-de-laudo-contabil.html">Elaboração de Laudo Contábil</a></li>
-                <li><a href="/servicos/auditoria-independente/inventario-fisico.html">Inventário Físico</a></li>
+                <li><a href="/servicos/auditoria-independente/exame-das-demonstracoes-financeiras.html" data-i18n="menu_aud_1">Exame das Demonstrações Financeiras</a></li>
+                <li><a href="/servicos/auditoria-independente/revisao-limitada-das-demonstracoes.html" data-i18n="menu_aud_2">Revisão Limitada das Demonstrações</a></li>
+                <li><a href="/servicos/auditoria-independente/procedimentos-previamente-acordados.html" data-i18n="menu_aud_3">Procedimentos Previamente Acordados</a></li>
+                <li><a href="/servicos/auditoria-independente/due-diligence.html" data-i18n="menu_aud_4">Due-Diligence</a></li>
+                <li><a href="/servicos/auditoria-independente/elaboracao-de-laudo-contabil.html" data-i18n="menu_aud_5">Elaboração de Laudo Contábil</a></li>
+                <li><a href="/servicos/auditoria-independente/inventario-fisico.html" data-i18n="menu_aud_6">Inventário Físico</a></li>
             </ul>
         </div>
 
         <div class="menuPainel" id="painel-tributaria">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">TRIBUTÁRIA</h3>
+                <h3 class="tituloPainel" data-i18n="cat_tributaria">TRIBUTÁRIA</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-servicos">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
                 </button>
             </div>
             <ul class="menuMobileLinksFinais">
-                <li><a href="/servicos/consultoria-tributaria/tax-compliance.html">Tax Compliance (ECD, ECF, EFD, SPED)</a></li>
-                <li><a href="/servicos/consultoria-tributaria/transfer-pricing.html">Transfer Pricing / Thin Capitalization</a></li>
-                <li><a href="/servicos/consultoria-tributaria/atendimento-as-consultas-fiscais.html">Atendimento às consultas fiscais</a></li>
-                <li><a href="/servicos/consultoria-tributaria/beneficios-fiscais.html">Benefícios Fiscais</a></li>
-                <li><a href="/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html">Assessoria em Defesa Administrativa</a></li>
-                <li><a href="/servicos/consultoria-tributaria/assessoria-tributaria-a-pessoa-fisica.html">Assessoria Tributária à Pessoa Física</a></li>
-                <li><a href="/servicos/consultoria-tributaria/assessoria-fiscal-em-repetro.html">Assessoria Fiscal em Repetro</a></li>
+                <li><a href="/servicos/consultoria-tributaria/tax-compliance.html" data-i18n="menu_tri_1">Tax Compliance (ECD, ECF, EFD, SPED)</a></li>
+                <li><a href="/servicos/consultoria-tributaria/transfer-pricing.html" data-i18n="menu_tri_2">Transfer Pricing / Thin Capitalization</a></li>
+                <li><a href="/servicos/consultoria-tributaria/atendimento-as-consultas-fiscais.html" data-i18n="menu_tri_3">Atendimento às consultas fiscais</a></li>
+                <li><a href="/servicos/consultoria-tributaria/beneficios-fiscais.html" data-i18n="menu_tri_4">Benefícios Fiscais</a></li>
+                <li><a href="/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html" data-i18n="menu_tri_5">Assessoria em Defesa Administrativa</a></li>
+                <li><a href="/servicos/consultoria-tributaria/assessoria-tributaria-a-pessoa-fisica.html" data-i18n="menu_tri_6">Assessoria Tributária à Pessoa Física</a></li>
+                <li><a href="/servicos/consultoria-tributaria/assessoria-fiscal-em-repetro.html" data-i18n="menu_tri_7">Assessoria Fiscal em Repetro</a></li>
             </ul>
         </div>
 
         <div class="menuPainel" id="painel-planejamento">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">PLANEJAMENTO</h3>
+                <h3 class="tituloPainel" data-i18n="cat_planejamento">PLANEJAMENTO</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-servicos">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
                 </button>
             </div>
             <ul class="menuMobileLinksFinais">
-                <li><a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html">Estratégias de redução de carga tributária</a></li>
-                <li><a href="/servicos/planejamento-tributario/recuperacao-e-utilizacao-de-creditos-fiscais.html">Recuperação e utilização de Créditos Fiscais</a></li>
+                <li><a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html" data-i18n="menu_pla_1">Estratégias de redução de carga tributária</a></li>
+                <li><a href="/servicos/planejamento-tributario/recuperacao-e-utilizacao-de-creditos-fiscais.html" data-i18n="menu_pla_2">Recuperação e utilização de Créditos Fiscais</a></li>
             </ul>
         </div>
 
         <div class="menuPainel" id="painel-empresarial">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">EMPRESARIAL</h3>
+                <h3 class="tituloPainel" data-i18n="cat_empresarial">EMPRESARIAL</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-servicos">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
                 </button>
             </div>
             <ul class="menuMobileLinksFinais">
-                <li><a href="/servicos/consultoria-empresarial/gestao-de-processos.html">Gestão de Processos</a></li>
-                <li><a href="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html">Estruturas e controles empresariais</a></li>
+                <li><a href="/servicos/consultoria-empresarial/gestao-de-processos.html" data-i18n="menu_emp_1">Gestão de Processos</a></li>
+                <li><a href="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html" data-i18n="menu_emp_2">Estruturas e controles empresariais</a></li>
             </ul>
         </div>
 
         <div class="menuPainel" id="painel-contabilidade">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">CONTABILIDADE</h3>
+                <h3 class="tituloPainel" data-i18n="cat_contabilidade">CONTABILIDADE</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-servicos">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
                 </button>
             </div>
             <ul class="menuMobileLinksFinais">
-                <li><a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html">Terceirização da Contabilidade</a></li>
-                <li><a href="/servicos/contabilidade/terceirizacao-fiscal.html">Terceirização Fiscal</a></li>
-                <li><a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html">Terceirização da Folha de Pagamento</a></li>
+                <li><a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html" data-i18n="menu_con_1">Terceirização da Contabilidade</a></li>
+                <li><a href="/servicos/contabilidade/terceirizacao-fiscal.html" data-i18n="menu_con_2">Terceirização Fiscal</a></li>
+                <li><a href="/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html" data-i18n="menu_con_3">Terceirização da Folha de Pagamento</a></li>
             </ul>
         </div>
 
         <div class="menuPainel" id="painel-outras-solucoes">
             <div class="topoPainel flex-between">
-                <h3 class="tituloPainel">OUTRAS SOLUÇÕES</h3>
+                <h3 class="tituloPainel" data-i18n="cat_outras">OUTRAS SOLUÇÕES</h3>
                 <button class="btnVoltarPequeno" data-alvo="painel-servicos">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="iconeVoltar"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     VOLTAR
                 </button>
             </div>
             <ul class="menuMobileLinksFinais">
-                <li><a href="/servicos/auditoria-especial.html">Auditoria Especial</a></li>
-                <li><a href="/servicos/holding-familiar.html">Holding Familiar</a></li>
-                <li><a href="/servicos/abertura-de-empresas.html">Abertura de Empresas</a></li>
-                <li><a href="/servicos/locacao-de-mao-de-obra.html">Locação de Mão de Obra (Loan Staff)</a></li>
-                <li><a href="/servicos/valuation.html">Valuation</a></li>
-                <li><a href="/servicos/analise-de-contratos.html">Análise de Contratos</a></li>
-                <li><a href="/servicos/assessoria-em-ipo.html">Assessoria em IPO</a></li>
-                <li><a href="/servicos/direito-creditorio.html">Direito Creditório</a></li>
+                <li><a href="/servicos/auditoria-especial.html" data-i18n="menu_out_1">Auditoria Especial</a></li>
+                <li><a href="/servicos/holding-familiar.html" data-i18n="menu_out_2">Holding Familiar</a></li>
+                <li><a href="/servicos/abertura-de-empresas.html" data-i18n="menu_out_3">Abertura de Empresas</a></li>
+                <li><a href="/servicos/locacao-de-mao-de-obra.html" data-i18n="menu_out_4">Locação de Mão de Obra (Loan Staff)</a></li>
+                <li><a href="/servicos/valuation.html" data-i18n="menu_out_5">Valuation</a></li>
+                <li><a href="/servicos/analise-de-contratos.html" data-i18n="menu_out_6">Análise de Contratos</a></li>
+                <li><a href="/servicos/assessoria-em-ipo.html" data-i18n="menu_out_7">Assessoria em IPO</a></li>
+                <li><a href="/servicos/direito-creditorio.html" data-i18n="menu_out_8">Direito Creditório</a></li>
             </ul>
         </div>
 
