@@ -13,496 +13,536 @@
   <title>Premium Maxx</title>
 </head>
 
+
 <body>
+  <div id="premiumPreloader" class="premiumPreloader">
+    <div class="preloaderContent">
+      <img src="/img/identidade visual/logo.svg" alt="Premium Maxx" class="preloaderLogo">
 
-  <body>
-    <div id="premiumPreloader" class="premiumPreloader">
-      <div class="preloaderContent">
-        <img src="/img/identidade visual/logo.svg" alt="Premium Maxx" class="preloaderLogo">
+      <div class="preloaderInfo">
+        <span class="preloaderText">Carregando...</span>
+        <span class="preloaderPercent" id="preloaderPercent">0%</span>
+      </div>
 
-        <div class="preloaderInfo">
-          <span class="preloaderText">Carregando...</span>
-          <span class="preloaderPercent" id="preloaderPercent">0%</span>
-        </div>
-
-        <div class="preloaderTrack">
-          <div class="preloaderBar" id="preloaderBar"></div>
-        </div>
+      <div class="preloaderTrack">
+        <div class="preloaderBar" id="preloaderBar"></div>
       </div>
     </div>
+  </div>
 
-    <div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
 
 
-    <main>
-      <section class="heroSection">
-        <video autoplay loop muted playsinline class="heroVideo">
-          <source src="videos/video home page.mp4" type="video/mp4">
-        </video>
-        
-        <div class="heroOverlay"></div>
-        
-        <div class="heroContent">
-          <h1>Os parceiros certos. Para o momento certo.</h1>
-          <p>Segurança institucional e inteligência estratégica de quem entende exatamente o que está em jogo na sua operação.</p>
-        </div>
-      </section>
+  <main>
+    <section class="heroSection">
+      <video autoplay loop muted playsinline class="heroVideo">
+        <source src="videos/video home page.mp4" type="video/mp4">
+      </video>
 
-      <section class="homeBlogSection">
-        <div class="container blogContainer">
+      <div class="heroOverlay"></div>
 
-          <div class="blogHeader">
-            <h2>Outras matérias</h2>
-            <p>Acompanhe nossas análises técnicas sobre as últimas movimentações do mercado de capitais e governança
-              corporativa.</p>
-          </div>
-
-          <div class="blogGrid">
-              
-              <div class="blogTrack">
-                  
-                  <a href="#" class="blogCard">
-                      <div class="blogImageWrapper">
-                          <img src="/img/placeholder-1.jpg" alt="CVM e IFRS" class="blogImg">
-                      </div>
-                      <div class="blogContent">
-                          <span class="blogCategory">Regulatório</span>
-                          <h3>O impacto das novas diretrizes da CVM na avaliação de ativos</h3>
-                          <p>Entenda como as recentes atualizações regulatórias afetam diretamente a estrutura do seu balanço patrimonial em 2026.</p>
-                          <span class="blogReadMore">Ler artigo &rarr;</span>
-                      </div>
-                  </a>
-
-                  <a href="#" class="blogCard">
-                      <div class="blogImageWrapper">
-                          <img src="/img/placeholder-2.jpg" alt="Due Diligence M&A" class="blogImg">
-                      </div>
-                      <div class="blogContent">
-                          <span class="blogCategory">Due-Diligence</span>
-                          <h3>M&A: Os riscos ocultos nas operações de fusões e aquisições</h3>
-                          <p>Por que a auditoria contábil preventiva se tornou o passo mais crítico para evitar passivos bilionários em transações.</p>
-                          <span class="blogReadMore">Ler artigo &rarr;</span>
-                      </div>
-                  </a>
-
-                  <a href="#" class="blogCard">
-                      <div class="blogImageWrapper">
-                          <img src="/img/placeholder-3.jpg" alt="ESG e Governança" class="blogImg">
-                      </div>
-                      <div class="blogContent">
-                          <span class="blogCategory">Governança</span>
-                          <h3>A integração dos relatórios financeiros com as pautas ESG</h3>
-                          <p>Descubra as novas exigências globais para a transparência de demonstrações não financeiras no mercado aberto.</p>
-                          <span class="blogReadMore">Ler artigo &rarr;</span>
-                      </div>
-                  </a>
-
-                  <a href="#" class="blogCard">
-                      <div class="blogImageWrapper">
-                          <img src="/img/placeholder-1.jpg" alt="Reforma Tributária" class="blogImg">
-                      </div>
-                      <div class="blogContent">
-                          <span class="blogCategory">Tributário</span>
-                          <h3>Os desafios da transição para a nova Reforma Tributária</h3>
-                          <p>Um guia completo sobre o período de adaptação e como o seu planejamento fiscal deve se estruturar para as mudanças impostas ao mercado.</p>
-                          <span class="blogReadMore">Ler artigo &rarr;</span>
-                      </div>
-                  </a>
-
-                  <a href="#" class="blogCard">
-                      <div class="blogImageWrapper">
-                          <img src="/img/placeholder-2.jpg" alt="Auditoria de Sistemas" class="blogImg">
-                      </div>
-                      <div class="blogContent">
-                          <span class="blogCategory">Tecnologia</span>
-                          <h3>Auditoria de Sistemas: Blindando dados no mercado financeiro</h3>
-                          <p>A importância da verificação de controles internos de TI para mitigar riscos de vazamento, falhas operacionais e garantir compliance cibernético.</p>
-                          <span class="blogReadMore">Ler artigo &rarr;</span>
-                      </div>
-                  </a>
-
-              </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <div class="stickyScrollSpace">
-      <div class="servicesHorizontalWrapper">
-
-        <section class="premiumServiceSection" id="secAuditoria">
-          <div class="catRootData" style="display: none;" data-title="Auditoria Independente"
-            data-desc="Chancelamos a transparência e a precisão das suas demonstrações financeiras com o rigor exigido pelo mercado de capitais. Segurança institucional sustentada por homologações regulatórias e liderança técnica senior.">
-          </div>
-
-          <div class="premiumBg" style="background-image: url('img/servicos/auditoria-independente.webp');"></div>
-          <div class="premiumOverlay"></div>
-
-          <div class="container premiumContainer">
-
-            <div class="premiumTopRow">
-              <div class="premiumInfoLeft">
-                <h2 class="dynTitle">Auditoria Independente</h2>
-                <p class="dynDesc">Chancelamos a transparência e a precisão das suas demonstrações financeiras com o
-                  rigor
-                  exigido pelo mercado de capitais. Segurança institucional sustentada por homologações regulatórias e
-                  liderança técnica senior.</p>
-
-                <div class="premiumActionArea">
-                  <a href="#" class="dynBtn hidden">Ver detalhes do serviço</a>
-                  <div class="premiumControls">
-                    <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg></button>
-                    <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="premiumBottomRow">
-              <div class="premiumThumbsWrapper">
-                <div class="premiumThumbsTrack">
-                  <div class="pThumb"
-                    style="background-image: url('img/servicos/exame-das-demonstrações-financeiras.webp');"
-                    data-title="Exame das Demonstrações Financeiras"
-                    data-desc="Análise aprofundada e emissão de parecer técnico sobre as demonstrações contábeis, assegurando total conformidade com as normas nacionais e internacionais (BR GAAP e IFRS)."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Exame das Demonstrações Financeiras</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url('img/servicos/revisão-limitada.webp');"
-                    data-title="Revisão Limitada das Demonstrações"
-                    data-desc="Avaliações periódicas e pontuais que garantem a consistência das informações financeiras intermediárias, oferecendo agilidade e segurança para a tomada de decisão contínua."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Revisão Limitada das Demonstrações</h4>
-                  </div>
-                  <div class="pThumb"
-                    style="background-image: url('img/servicos/Procedimentos-Previamente-Acordados.webp');"
-                    data-title="Procedimentos Previamente Acordados"
-                    data-desc="Investigações e análises focadas em áreas, contas ou operações específicas demandadas pela administração, com emissão de relatório factual customizado."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Procedimentos Previamente Acordados</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url('img/servicos/due-diligence.webp');"
-                    data-title="Due-Diligence"
-                    data-desc="Auditoria estratégica para processos de fusões, aquisições (M&A) e parcerias, mitigando riscos e validando os reais ativos, passivos e contingências do negócio."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Due-Diligence</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url(img/servicos/laudo-contabil.webp);"
-                    data-title="Elaboração de Laudo Contábil"
-                    data-desc="Emissão de laudos periciais e pareceres técnicos fundamentados para atender a exigências legais, reestruturações societárias ou avaliações de acervo líquido."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Elaboração de Laudo Contábil</h4>
-                  </div>
-                  <div class="pThumb"
-                    style="background-image: url('img/servicos/Assessoria-Contábil-e-Consultas-Técnicas.webp');"
-                    data-title="Assessoria Contábil e Consultas Técnicas"
-                    data-desc="Suporte consultivo de alta performance para a interpretação e aplicação prática de pronunciamentos contábeis complexos perante órgãos reguladores."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Assessoria Contábil e Consultas Técnicas</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="premiumServiceSection" id="secTributaria">
-          <div class="catRootData" style="display: none;" data-title="Consultoria Tributária"
-            data-desc="Garantimos a conformidade fiscal e a segurança regulatória da sua empresa em um cenário de extrema complexidade. Estruturamos a sua governança de impostos para mitigar passivos, evitar autuações e proteger o caixa corporativo.">
-          </div>
-          <div class="premiumBg" style="background-image: url('img/servicos/Consultoria-Tributária.webp');"></div>
-          <div class="premiumOverlay"></div>
-          <div class="container premiumContainer">
-
-            <div class="premiumTopRow">
-              <div class="premiumInfoLeft">
-                <h2 class="dynTitle">Consultoria Tributária</h2>
-                <p class="dynDesc">Garantimos a conformidade fiscal e a segurança regulatória da sua empresa em um
-                  cenário
-                  de extrema complexidade. Estruturamos a sua governança de impostos para mitigar passivos, evitar
-                  autuações
-                  e proteger o caixa corporativo.</p>
-
-                <div class="premiumActionArea">
-                  <a href="#" class="dynBtn hidden">Ver detalhes do serviço</a>
-                  <div class="premiumControls">
-                    <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg></button>
-                    <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="premiumBottomRow">
-              <div class="premiumThumbsWrapper">
-                <div class="premiumThumbsTrack">
-                  <div class="pThumb" style="background-image: url('img/servicos/tax-compliance.webp');"
-                    data-title="Tax Compliance (ECD, ECF, EFD, SPED)"
-                    data-desc="Revisão e validação rigorosa das obrigações digitais (SPED, ECD, ECF, EFD), garantindo a integridade dos dados cruzados pelo Fisco e neutralizando o risco de penalidades."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Tax Compliance (ECD, ECF, EFD, SPED)</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url('img/servicos/transfer-pricing.webp');"
-                    data-title="Transfer Pricing / Thin Capitalization"
-                    data-desc="Análise, estruturação e cálculo para operações internacionais, assegurando a conformidade das multinacionais com a legislação brasileira e os padrões globais da OCDE."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Transfer Pricing / Thin Capitalization</h4>
-                  </div>
-                  <div class="pThumb"
-                    style="background-image: url('img/servicos/Atendimento-às-Consultas-Fiscais.webp');"
-                    data-title="Atendimento às consultas fiscais"
-                    data-desc="Suporte técnico ágil e fundamentado para as demandas diárias do seu departamento fiscal, garantindo a interpretação correta e segura de uma legislação em constante mudança."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Atendimento às consultas fiscais</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url('img/servicos/beneficios-fiscais.webp');"
-                    data-title="Benefícios Fiscais"
-                    data-desc="Mapeamento, implementação e monitoramento de incentivos fiscais (regionais e setoriais), assegurando a fruição legal das isenções para maximizar a competitividade do negócio."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Benefícios Fiscais</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url('img/servicos/defesa.webp');"
-                    data-title="Assessoria em Defesa Administrativa"
-                    data-desc="Suporte técnico-contábil especializado na formulação de respostas e impugnações a autos de infração e notificações fiscais, resguardando o patrimônio da sua empresa."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Assessoria em Defesa Administrativa</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="premiumServiceSection" id="secPlanejamento">
-          <div class="catRootData" style="display: none;" data-title="Planejamento Tributário"
-            data-desc="Inteligência fiscal a serviço do seu caixa. Estruturamos modelos tributários lícitos e altamente eficientes, convertendo custos operacionais em margem de lucro e competitividade para o seu negócio.">
-          </div>
-          <div class="premiumBg" style="background-image: url('img/servicos/planejamento-tributario.webp');"></div>
-          <div class="premiumOverlay"></div>
-          <div class="container premiumContainer">
-
-            <div class="premiumTopRow">
-              <div class="premiumInfoLeft">
-                <h2 class="dynTitle">Planejamento Tributário</h2>
-                <p class="dynDesc">Inteligência fiscal a serviço do seu caixa. Estruturamos modelos tributários lícitos
-                  e
-                  altamente eficientes, convertendo custos operacionais em margem de lucro e competitividade para o seu
-                  negócio.</p>
-
-                <div class="premiumActionArea">
-                  <a href="#" class="dynBtn hidden">Ver detalhes do serviço</a>
-                  <div class="premiumControls">
-                    <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg></button>
-                    <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="premiumBottomRow">
-              <div class="premiumThumbsWrapper">
-                <div class="premiumThumbsTrack">
-                  <div class="pThumb"
-                    style="background-image: url('img/servicos/estratégias-de-redução-de-carga-tributária.webp');"
-                    data-title="Estratégias de redução de carga tributária"
-                    data-desc="Modelagem e reorganização societária ou operacional voltada para a eficiência fiscal, garantindo a menor carga tributária possível com absoluta segurança jurídica."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Estratégias de redução de carga tributária</h4>
-                  </div>
-                  <div class="pThumb" style="background-image: url('img/servicos/creditos-fiscais.webp');"
-                    data-title="Recuperação e utilização de Créditos Fiscais"
-                    data-desc="Mapeamento minucioso, validação e recuperação de tributos recolhidos indevidamente, transformando créditos paralisados em fluxo de caixa líquido para a empresa."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Recuperação e utilização de Créditos Fiscais</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="premiumServiceSection" id="secEmpresarial">
-
-          <div class="catRootData" style="display: none;" data-title="Consultoria Empresarial"
-            data-desc="Alinhamos a arquitetura organizacional e a execução operacional aos objetivos da alta gestão. Implementamos mecanismos de controle e otimização de fluxos para mitigar ineficiências, eliminar gargalos e garantir rastreabilidade total.">
-          </div>
-
-          <div class="premiumBg" style="background-image: url('img/servicos/consultoria-empresarial.webp');"></div>
-          <div class="premiumOverlay"></div>
-
-          <div class="container premiumContainer">
-
-            <div class="premiumTopRow">
-              <div class="premiumInfoLeft">
-                <h2 class="dynTitle">Consultoria Empresarial</h2>
-                <p class="dynDesc">Alinhamos a arquitetura organizacional e a execução operacional aos objetivos da alta gestão. Implementamos mecanismos de controle e otimização de fluxos para mitigar ineficiências, eliminar gargalos e garantir rastreabilidade total.</p>
-
-                <div class="premiumActionArea">
-                  <a href="#" class="dynBtn hidden">Ver detalhes do serviço</a>
-                  <div class="premiumControls">
-                    <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg></button>
-                    <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="premiumBottomRow">
-              <div class="premiumThumbsWrapper">
-                <div class="premiumThumbsTrack">
-
-                  <div class="pThumb" data-title="Gestão de Processos"
-                    data-desc="Mapeamento, modelagem e otimização dos fluxos operacionais da companhia, eliminando redundâncias e desenhando uma arquitetura de processos de alta performance focada em resultados."
-                    data-link="/servicos/consultoria-empresarial/gestao-de-processos.html">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Gestão de Processos</h4>
-                  </div>
-
-                  <div class="pThumb" data-title="Estruturas e controles empresariais"
-                    data-desc="Diagnóstico e reestruturação do ambiente de controles internos da empresa, alinhando a arquitetura organizacional aos objetivos do Conselho de Administração."
-                    data-link="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Estruturas e controles empresariais</h4>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="premiumServiceSection" id="secContabilidade">
-
-          <div class="catRootData" style="display: none;" data-title="Contabilidade"
-            data-desc="Terceirização estratégica de alto nível (BPO). Assumimos a gestão contábil, fiscal e de folha de pagamento da sua empresa com tecnologia, rigor técnico e máxima segurança, permitindo que sua diretoria foque exclusivamente no core business.">
-          </div>
-
-          <div class="premiumBg" style="background-image: url('img/servicos/contabilidade.webp');"></div>
-          <div class="premiumOverlay"></div>
-
-          <div class="container premiumContainer">
-
-            <div class="premiumTopRow">
-              <div class="premiumInfoLeft">
-                <h2 class="dynTitle">Contabilidade</h2>
-                <p class="dynDesc">Terceirização estratégica de alto nível . Assumimos a gestão contábil, fiscal e de folha de pagamento da sua empresa com tecnologia, rigor técnico e máxima segurança, permitindo que sua diretoria foque exclusivamente no core business.</p>
-
-                <div class="premiumActionArea">
-                  <a href="#" class="dynBtn hidden">Ver detalhes do serviço</a>
-                  <div class="premiumControls">
-                    <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg></button>
-                    <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="premiumBottomRow">
-              <div class="premiumThumbsWrapper">
-                <div class="premiumThumbsTrack">
-
-                  <div class="pThumb" data-title="Terceirização da Contabilidade"
-                    data-desc="Gestão contábil completa, emissão de balancetes, demonstrações financeiras e relatórios gerenciais personalizados para suportar a tomada de decisão da alta gestão."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Terceirização da Contabilidade</h4>
-                  </div>
-
-                  <div class="pThumb" data-title="Terceirização Fiscal"
-                    data-desc="Apuração rigorosa de tributos diretos e indiretos, entrega pontual de obrigações acessórias e compliance fiscal absoluto para blindar a empresa contra riscos."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Terceirização Fiscal</h4>
-                  </div>
-
-                  <div class="pThumb" data-title="Terceirização da Folha de Pagamento"
-                    data-desc="Processamento seguro e confidencial da folha de pagamento, gestão de encargos sociais e total conformidade com a legislação trabalhista vigente e eSocial."
-                    data-link="#">
-                    <div class="pThumbOverlay"></div>
-                    <h4>Terceirização da Folha de Pagamento</h4>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <section class="finalCtaSection">
-      <div class="container finalCtaContainer">
-
-        <div class="ctaImageBlock">
-          <img src="img/faleconosco.webp" alt="Fale conosco" class="ctaImage">
-        </div>
-
-        <div class="ctaTextBlock">
-          <h2>Inicie uma Conversa Estratégica.</p>
-            <p class="faleconoscoP">Converse com nossos especialistas e descubra como a Premium Maxx pode blindar sua
-              operação, otimizar sua estrutura tributária e chancelar a transparência do seu negócio perante o mercado.
-            </p>
-
-            <a href="#" class="btnCyan btnCta openModalTrigger">
-              Fale conosco
-              <svg class="arrowIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-        </div>
-
+      <div class="heroContent">
+        <h1 data-i18n="hero_title">Os parceiros certos. Para o momento certo.</h1>
+        <p data-i18n="hero_subtitle">Segurança institucional e inteligência estratégica de quem entende exatamente o que
+          está em jogo na sua operação.</p>
       </div>
     </section>
 
-    <div id="footer-placeholder"></div>
+    <section class="homeBlogSection">
+      <div class="container blogContainer">
 
-    <script src="script.js"></script>
+        <div class="blogHeader">
+          <h2 data-i18n="blog_section_title">Outras matérias</h2>
+          <p data-i18n="blog_section_desc">Acompanhe nossas análises técnicas sobre as últimas movimentações do mercado
+            de capitais e governança
+            corporativa.</p>
+        </div>
 
-  </body>
+        <div class="blogGrid">
+
+          <div class="blogTrack">
+
+            <a href="#" class="blogCard">
+              <div class="blogImageWrapper">
+                <img src="/img/placeholder-1.jpg" alt="CVM e IFRS" class="blogImg">
+              </div>
+              <div class="blogContent">
+                <span class="blogCategory">Regulatório</span>
+                <h3>O impacto das novas diretrizes da CVM na avaliação de ativos</h3>
+                <p>Entenda como as recentes atualizações regulatórias afetam diretamente a estrutura do seu balanço
+                  patrimonial em 2026.</p>
+                <span class="blogReadMore">Ler artigo &rarr;</span>
+              </div>
+            </a>
+
+            <a href="#" class="blogCard">
+              <div class="blogImageWrapper">
+                <img src="/img/placeholder-2.jpg" alt="Due Diligence M&A" class="blogImg">
+              </div>
+              <div class="blogContent">
+                <span class="blogCategory">Due-Diligence</span>
+                <h3>M&A: Os riscos ocultos nas operações de fusões e aquisições</h3>
+                <p>Por que a auditoria contábil preventiva se tornou o passo mais crítico para evitar passivos
+                  bilionários em transações.</p>
+                <span class="blogReadMore">Ler artigo &rarr;</span>
+              </div>
+            </a>
+
+            <a href="#" class="blogCard">
+              <div class="blogImageWrapper">
+                <img src="/img/placeholder-3.jpg" alt="ESG e Governança" class="blogImg">
+              </div>
+              <div class="blogContent">
+                <span class="blogCategory">Governança</span>
+                <h3>A integração dos relatórios financeiros com as pautas ESG</h3>
+                <p>Descubra as novas exigências globais para a transparência de demonstrações não financeiras no mercado
+                  aberto.</p>
+                <span class="blogReadMore">Ler artigo &rarr;</span>
+              </div>
+            </a>
+
+            <a href="#" class="blogCard">
+              <div class="blogImageWrapper">
+                <img src="/img/placeholder-1.jpg" alt="Reforma Tributária" class="blogImg">
+              </div>
+              <div class="blogContent">
+                <span class="blogCategory">Tributário</span>
+                <h3>Os desafios da transição para a nova Reforma Tributária</h3>
+                <p>Um guia completo sobre o período de adaptação e como o seu planejamento fiscal deve se estruturar
+                  para as mudanças impostas ao mercado.</p>
+                <span class="blogReadMore">Ler artigo &rarr;</span>
+              </div>
+            </a>
+
+            <a href="#" class="blogCard">
+              <div class="blogImageWrapper">
+                <img src="/img/placeholder-2.jpg" alt="Auditoria de Sistemas" class="blogImg">
+              </div>
+              <div class="blogContent">
+                <span class="blogCategory">Tecnologia</span>
+                <h3>Auditoria de Sistemas: Blindando dados no mercado financeiro</h3>
+                <p>A importância da verificação de controles internos de TI para mitigar riscos de vazamento, falhas
+                  operacionais e garantir compliance cibernético.</p>
+                <span class="blogReadMore">Ler artigo &rarr;</span>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="stickyScrollSpace">
+    <div class="servicesHorizontalWrapper">
+
+      <section class="premiumServiceSection" id="secAuditoria">
+        <div class="catRootData" style="display: none;" data-i18n-title="sec_aud_title"
+          data-title="Auditoria Independente" data-i18n-desc="sec_aud_desc"
+          data-desc="Chancelamos a transparência e a precisão das suas demonstrações financeiras com o rigor exigido pelo mercado de capitais. Segurança institucional sustentada por homologações regulatórias e liderança técnica senior.">
+        </div>
+
+        <div class="premiumBg" style="background-image: url('img/servicos/auditoria-independente.webp');"></div>
+        <div class="premiumOverlay"></div>
+
+        <div class="container premiumContainer">
+
+          <div class="premiumTopRow">
+            <div class="premiumInfoLeft">
+              <h2 class="dynTitle">Auditoria Independente</h2>
+              <p class="dynDesc">Chancelamos a transparência e a precisão das suas demonstrações financeiras com o rigor
+                exigido pelo mercado de capitais. Segurança institucional sustentada por homologações regulatórias e
+                liderança técnica senior.</p>
+
+              <div class="premiumActionArea">
+                <a href="#" class="dynBtn hidden" data-i18n="btn_details">Ver detalhes do serviço</a>
+                <div class="premiumControls">
+                  <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg></button>
+                  <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="premiumBottomRow">
+            <div class="premiumThumbsWrapper">
+              <div class="premiumThumbsTrack">
+
+                <div class="pThumb"
+                  style="background-image: url('img/servicos/exame-das-demonstrações-financeiras.webp');"
+                  data-i18n-title="aud_t1_title" data-title="Exame das Demonstrações Financeiras"
+                  data-i18n-desc="aud_t1_desc"
+                  data-desc="Análise aprofundada e emissão de parecer técnico sobre as demonstrações contábeis, assegurando total conformidade com as normas nacionais e internacionais (BR GAAP e IFRS)."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="aud_t1_title">Exame das Demonstrações Financeiras</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/revisão-limitada.webp');"
+                  data-i18n-title="aud_t2_title" data-title="Revisão Limitada das Demonstrações"
+                  data-i18n-desc="aud_t2_desc"
+                  data-desc="Avaliações periódicas e pontuais que garantem a consistência das informações financeiras intermediárias, oferecendo agilidade e segurança para a tomada de decisão contínua."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="aud_t2_title">Revisão Limitada das Demonstrações</h4>
+                </div>
+
+                <div class="pThumb"
+                  style="background-image: url('img/servicos/Procedimentos-Previamente-Acordados.webp');"
+                  data-i18n-title="aud_t3_title" data-title="Procedimentos Previamente Acordados"
+                  data-i18n-desc="aud_t3_desc"
+                  data-desc="Investigações e análises focadas em áreas, contas ou operações específicas demandadas pela administração, com emissão de relatório factual customizado."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="aud_t3_title">Procedimentos Previamente Acordados</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/due-diligence.webp');"
+                  data-i18n-title="aud_t4_title" data-title="Due-Diligence" data-i18n-desc="aud_t4_desc"
+                  data-desc="Auditoria estratégica para processos de fusões, aquisições (M&A) e parcerias, mitigando riscos e validando os reais ativos, passivos e contingências do negócio."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="aud_t4_title">Due-Diligence</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url(img/servicos/laudo-contabil.webp);"
+                  data-i18n-title="aud_t5_title" data-title="Elaboração de Laudo Contábil" data-i18n-desc="aud_t5_desc"
+                  data-desc="Emissão de laudos periciais e pareceres técnicos fundamentados para atender a exigências legais, reestruturações societárias ou avaliações de acervo líquido."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="aud_t5_title">Elaboração de Laudo Contábil</h4>
+                </div>
+
+                <div class="pThumb"
+                  style="background-image: url('img/servicos/Assessoria-Contábil-e-Consultas-Técnicas.webp');"
+                  data-i18n-title="aud_t6_title" data-title="Assessoria Contábil e Consultas Técnicas"
+                  data-i18n-desc="aud_t6_desc"
+                  data-desc="Suporte consultivo de alta performance para a interpretação e aplicação prática de pronunciamentos contábeis complexos perante órgãos reguladores."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="aud_t6_title">Assessoria Contábil e Consultas Técnicas</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="premiumServiceSection" id="secTributaria">
+        <div class="catRootData" style="display: none;" data-i18n-title="sec_trib_title"
+          data-title="Consultoria Tributária" data-i18n-desc="sec_trib_desc"
+          data-desc="Garantimos a conformidade fiscal e a segurança regulatória da sua empresa em um cenário de extrema complexidade. Estruturamos a sua governança de impostos para mitigar passivos, evitar autuações e proteger o caixa corporativo.">
+        </div>
+        <div class="premiumBg" style="background-image: url('img/servicos/Consultoria-Tributária.webp');"></div>
+        <div class="premiumOverlay"></div>
+        <div class="container premiumContainer">
+
+          <div class="premiumTopRow">
+            <div class="premiumInfoLeft">
+              <h2 class="dynTitle">Consultoria Tributária</h2>
+              <p class="dynDesc">Garantimos a conformidade fiscal e a segurança regulatória da sua empresa em um cenário
+                de extrema complexidade. Estruturamos a sua governança de impostos para mitigar passivos, evitar
+                autuações e proteger o caixa corporativo.</p>
+
+              <div class="premiumActionArea">
+                <a href="#" class="dynBtn hidden" data-i18n="btn_details">Ver detalhes do serviço</a>
+                <div class="premiumControls">
+                  <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg></button>
+                  <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="premiumBottomRow">
+            <div class="premiumThumbsWrapper">
+              <div class="premiumThumbsTrack">
+
+                <div class="pThumb" style="background-image: url('img/servicos/tax-compliance.webp');"
+                  data-i18n-title="trib_t1_title" data-title="Tax Compliance (ECD, ECF, EFD, SPED)"
+                  data-i18n-desc="trib_t1_desc"
+                  data-desc="Revisão e validação rigorosa das obrigações digitais (SPED, ECD, ECF, EFD), garantindo a integridade dos dados cruzados pelo Fisco e neutralizando o risco de penalidades."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="trib_t1_title">Tax Compliance (ECD, ECF, EFD, SPED)</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/transfer-pricing.webp');"
+                  data-i18n-title="trib_t2_title" data-title="Transfer Pricing / Thin Capitalization"
+                  data-i18n-desc="trib_t2_desc"
+                  data-desc="Análise, estruturação e cálculo para operações internacionais, assegurando a conformidade das multinacionais com a legislação brasileira e os padrões globais da OCDE."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="trib_t2_title">Transfer Pricing / Thin Capitalization</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/Atendimento-às-Consultas-Fiscais.webp');"
+                  data-i18n-title="trib_t3_title" data-title="Atendimento às consultas fiscais"
+                  data-i18n-desc="trib_t3_desc"
+                  data-desc="Suporte técnico ágil e fundamentado para as demandas diárias do seu departamento fiscal, garantindo a interpretação correta e segura de uma legislação em constante mudança."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="trib_t3_title">Atendimento às consultas fiscais</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/beneficios-fiscais.webp');"
+                  data-i18n-title="trib_t4_title" data-title="Benefícios Fiscais" data-i18n-desc="trib_t4_desc"
+                  data-desc="Mapeamento, implementação e monitoramento de incentivos fiscais (regionais e setoriais), assegurando a fruição legal das isenções para maximizar a competitividade do negócio."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="trib_t4_title">Benefícios Fiscais</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/defesa.webp');"
+                  data-i18n-title="trib_t5_title" data-title="Assessoria em Defesa Administrativa"
+                  data-i18n-desc="trib_t5_desc"
+                  data-desc="Suporte técnico-contábil especializado na formulação de respostas e impugnações a autos de infração e notificações fiscais, resguardando o patrimônio da sua empresa."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="trib_t5_title">Assessoria em Defesa Administrativa</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="premiumServiceSection" id="secPlanejamento">
+        <div class="catRootData" style="display: none;" data-i18n-title="sec_plan_title"
+          data-title="Planejamento Tributário" data-i18n-desc="sec_plan_desc"
+          data-desc="Inteligência fiscal a serviço do seu caixa. Estruturamos modelos tributários lícitos e altamente eficientes, convertendo custos operacionais em margem de lucro e competitividade para o seu negócio.">
+        </div>
+        <div class="premiumBg" style="background-image: url('img/servicos/planejamento-tributario.webp');"></div>
+        <div class="premiumOverlay"></div>
+        <div class="container premiumContainer">
+
+          <div class="premiumTopRow">
+            <div class="premiumInfoLeft">
+              <h2 class="dynTitle">Planejamento Tributário</h2>
+              <p class="dynDesc">Inteligência fiscal a serviço do seu caixa. Estruturamos modelos tributários lícitos e
+                altamente eficientes, convertendo custos operacionais em margem de lucro e competitividade para o seu
+                negócio.</p>
+
+              <div class="premiumActionArea">
+                <a href="#" class="dynBtn hidden" data-i18n="btn_details">Ver detalhes do serviço</a>
+                <div class="premiumControls">
+                  <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg></button>
+                  <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="premiumBottomRow">
+            <div class="premiumThumbsWrapper">
+              <div class="premiumThumbsTrack">
+
+                <div class="pThumb"
+                  style="background-image: url('img/servicos/estratégias-de-redução-de-carga-tributária.webp');"
+                  data-i18n-title="plan_t1_title" data-title="Estratégias de redução de carga tributária"
+                  data-i18n-desc="plan_t1_desc"
+                  data-desc="Modelagem e reorganização societária ou operacional voltada para a eficiência fiscal, garantindo a menor carga tributária possível com absoluta segurança jurídica."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="plan_t1_title">Estratégias de redução de carga tributária</h4>
+                </div>
+
+                <div class="pThumb" style="background-image: url('img/servicos/creditos-fiscais.webp');"
+                  data-i18n-title="plan_t2_title" data-title="Recuperação e utilização de Créditos Fiscais"
+                  data-i18n-desc="plan_t2_desc"
+                  data-desc="Mapeamento minucioso, validação e recuperação de tributos recolhidos indevidamente, transformando créditos paralisados em fluxo de caixa líquido para a empresa."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="plan_t2_title">Recuperação e utilização de Créditos Fiscais</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="premiumServiceSection" id="secEmpresarial">
+        <div class="catRootData" style="display: none;" data-i18n-title="sec_emp_title"
+          data-title="Consultoria Empresarial" data-i18n-desc="sec_emp_desc"
+          data-desc="Alinhamos a arquitetura organizacional e a execução operacional aos objetivos da alta gestão. Implementamos mecanismos de controle e otimização de fluxos para mitigar ineficiências, eliminar gargalos e garantir rastreabilidade total.">
+        </div>
+        <div class="premiumBg" style="background-image: url('img/servicos/consultoria-empresarial.webp');"></div>
+        <div class="premiumOverlay"></div>
+
+        <div class="container premiumContainer">
+
+          <div class="premiumTopRow">
+            <div class="premiumInfoLeft">
+              <h2 class="dynTitle">Consultoria Empresarial</h2>
+              <p class="dynDesc">Alinhamos a arquitetura organizacional e a execução operacional aos objetivos da alta
+                gestão. Implementamos mecanismos de controle e otimização de fluxos para mitigar ineficiências, eliminar
+                gargalos e garantir rastreabilidade total.</p>
+
+              <div class="premiumActionArea">
+                <a href="#" class="dynBtn hidden" data-i18n="btn_details">Ver detalhes do serviço</a>
+                <div class="premiumControls">
+                  <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg></button>
+                  <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="premiumBottomRow">
+            <div class="premiumThumbsWrapper">
+              <div class="premiumThumbsTrack">
+
+                <div class="pThumb" data-i18n-title="emp_t1_title" data-title="Gestão de Processos"
+                  data-i18n-desc="emp_t1_desc"
+                  data-desc="Mapeamento, modelagem e otimização dos fluxos operacionais da companhia, eliminando redundâncias e desenhando uma arquitetura de processos de alta performance focada em resultados."
+                  data-link="/servicos/consultoria-empresarial/gestao-de-processos.html">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="emp_t1_title">Gestão de Processos</h4>
+                </div>
+
+                <div class="pThumb" data-i18n-title="emp_t2_title" data-title="Estruturas e controles empresariais"
+                  data-i18n-desc="emp_t2_desc"
+                  data-desc="Diagnóstico e reestruturação do ambiente de controles internos da empresa, alinhando a arquitetura organizacional aos objetivos do Conselho de Administração."
+                  data-link="/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="emp_t2_title">Estruturas e controles empresariais</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="premiumServiceSection" id="secContabilidade">
+        <div class="catRootData" style="display: none;" data-i18n-title="sec_cont_title" data-title="Contabilidade"
+          data-i18n-desc="sec_cont_desc"
+          data-desc="Terceirização estratégica de alto nível. Assumimos a gestão contábil, fiscal e de folha de pagamento da sua empresa com tecnologia, rigor técnico e máxima segurança, permitindo que sua diretoria foque exclusivamente no core business.">
+        </div>
+        <div class="premiumBg" style="background-image: url('img/servicos/contabilidade.webp');"></div>
+        <div class="premiumOverlay"></div>
+
+        <div class="container premiumContainer">
+
+          <div class="premiumTopRow">
+            <div class="premiumInfoLeft">
+              <h2 class="dynTitle">Contabilidade</h2>
+              <p class="dynDesc">Terceirização estratégica de alto nível. Assumimos a gestão contábil, fiscal e de folha
+                de pagamento da sua empresa com tecnologia, rigor técnico e máxima segurança, permitindo que sua
+                diretoria foque exclusivamente no core business.</p>
+
+              <div class="premiumActionArea">
+                <a href="#" class="dynBtn hidden" data-i18n="btn_details">Ver detalhes do serviço</a>
+                <div class="premiumControls">
+                  <button class="pPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg></button>
+                  <button class="pNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="premiumBottomRow">
+            <div class="premiumThumbsWrapper">
+              <div class="premiumThumbsTrack">
+
+                <div class="pThumb" data-i18n-title="cont_t1_title" data-title="Terceirização da Contabilidade"
+                  data-i18n-desc="cont_t1_desc"
+                  data-desc="Gestão contábil completa, emissão de balancetes, demonstrações financeiras e relatórios gerenciais personalizados para suportar a tomada de decisão da alta gestão."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="cont_t1_title">Terceirização da Contabilidade</h4>
+                </div>
+
+                <div class="pThumb" data-i18n-title="cont_t2_title" data-title="Terceirização Fiscal"
+                  data-i18n-desc="cont_t2_desc"
+                  data-desc="Apuração rigorosa de tributos diretos e indiretos, entrega pontual de obrigações acessórias e compliance fiscal absoluto para blindar a empresa contra riscos."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="cont_t2_title">Terceirização Fiscal</h4>
+                </div>
+
+                <div class="pThumb" data-i18n-title="cont_t3_title" data-title="Terceirização da Folha de Pagamento"
+                  data-i18n-desc="cont_t3_desc"
+                  data-desc="Processamento seguro e confidencial da folha de pagamento, gestão de encargos sociais e total conformidade com a legislação trabalhista vigente e eSocial."
+                  data-link="#">
+                  <div class="pThumbOverlay"></div>
+                  <h4 data-i18n="cont_t3_title">Terceirização da Folha de Pagamento</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="finalCtaSection">
+    <div class="container finalCtaContainer">
+
+      <div class="ctaImageBlock">
+        <img src="img/faleconosco.webp" alt="Fale conosco" class="ctaImage">
+      </div>
+
+      <div class="ctaTextBlock">
+        <h2 data-i18n="cta_title">Inicie uma Conversa Estratégica.</h2>
+
+        <p class="faleconoscoP" data-i18n="cta_desc">Converse com nossos especialistas e descubra como a Premium Maxx
+          pode blindar sua operação, otimizar sua estrutura tributária e chancelar a transparência do seu negócio
+          perante o mercado.</p>
+
+        <a href="#" class="btnCyan btnCta openModalTrigger">
+          <span data-i18n="cta_btn">Fale conosco</span>
+          <svg class="arrowIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="translations.js"></script>
+  <script src="script.js"></script>
+
+
+</body>
 
 </html>

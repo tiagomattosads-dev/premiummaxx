@@ -120,6 +120,52 @@ a {
   /* O ícone fica 100% branco e brilhante */
 }
 
+/* --- SELETOR DE IDIOMAS --- */
+.langSelector {
+  position: relative;
+  cursor: pointer;
+}
+
+.langDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  list-style: none;
+  gap: 8px;
+  flex-direction: column;
+  min-width: 110px;
+  /* Estado inicial escondido */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  display: flex;
+}
+
+/* O HOVER: Mostra a lista suavemente quando passa o mouse */
+.langSelector:hover .langDropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.langDropdown li a {
+  color: #b3b3b3 !important;
+  font-size: 13px;
+  transition: color 0.3s ease;
+  display: block;
+  padding: 4px 8px;
+}
+
+.langDropdown li:hover a {
+  color: #03FAD5 !important;
+}
+
 /* --- MAIN HEADER --- */
 .mainHeader {
   background-color: var(--bg-dark);
@@ -2181,7 +2227,7 @@ a.dynBtn.hidden {
 .homeBlogSection::after,
 .searchSuggestions::after {
   /* O \A faz a quebra de linha no CSS! */
-  content: 'ÁREA EM DESENVOLVIMENTO \A \A Nossos especialistas estão preparando a integração com o novo portal de conteúdos. Novidades em breve!';
+  content: attr(data-dev-msg);
   white-space: pre-wrap;
 
   position: absolute;
@@ -2217,6 +2263,8 @@ a.dynBtn.hidden {
   display: none;
 }
 
+
+
 /* ========================================================
    RESPONSIVO E MENU MOBILE (PREMIUM MAXX)
 ======================================================== */
@@ -2240,7 +2288,7 @@ a.dynBtn.hidden {
   .logo {
     width: 360px;
     position: relative;
-    z-index: 2000;
+    z-index: 2001;
   }
 
   /* 2. O BOTÃO HAMBÚRGUER "ESCADINHA" */
@@ -2309,7 +2357,7 @@ a.dynBtn.hidden {
     height: 100vh;
     background-color: #0a0a0a;
     /* Fundo idêntico ao da Premium Maxx */
-    z-index: 1500;
+    z-index: 2000;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -2486,12 +2534,138 @@ a.dynBtn.hidden {
     padding: 16px 0;
     text-decoration: none;
   }
+
+  /* ========================================================
+     BOTÕES SECUNDÁRIOS MOBILE (TOP BAR NO MENU)
+  ======================================================== */
+  .menuMobileSecondary {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Linha separadora elegante */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 40px; /* Dá um respiro para quem fizer scroll até ao fundo */
+  }
+
+  .menuMobileSecondary a, .langActiveMobile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b3b3b3;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: none; /* Garante que não fica tudo em maiúsculas */
+  }
+
+  .menuMobileSecondary img {
+    width: 18px;
+    opacity: 0.6;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ========================================================
+     SELETOR DE IDIOMAS MOBILE (ESTILO APP NATIVO)
+  ======================================================== */
+  .langSelectorMobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espaço entre o título e as opções */
+  }
+
+  .langLabelMobile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b3b3b3;
+    font-size: 1rem;
+  }
+
+  .langLabelMobile img {
+    width: 18px;
+    opacity: 0.6;
+    filter: brightness(0) invert(1);
+  }
+
+  .langOptionsMobile {
+    display: flex;
+    gap: 16px;
+    padding-left: 30px; /* Alinha os idiomas com o texto de cima */
+    align-items: center;
+  }
+
+  /* O IDIOMA INATIVO (Apagado e sem bandeira) */
+  .lang-opt {
+    color: #555555;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lang-opt .flag-icon {
+    display: none; /* Esconde a bandeira por padrão */
+    font-size: 1.1rem;
+
+    filter: none !important; /* Arranca a tinta branca */
+    opacity: 1 !important;
+  }
+
+  /* O IDIOMA ATIVO (Aceso e com bandeira) */
+  .lang-opt.active {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .lang-opt.active .flag-icon {
+    display: inline-block; /* A Mágica: Mostra a bandeira só no selecionado! */
+  }
+
+  /* ---------------------------------------------------
+     CABEÇALHO MOBILE: A BLINDAGEM DEFINITIVA (Z-INDEX)
+  --------------------------------------------------- */
+  .siteHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+  }
+
+  /* 1. Tiramos o fundo do "Pai", senão a gaveta sobrepõe-se a ele */
+  .mainHeader {
+    background-color: transparent !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* 2. O fundo PRETO e a Borda vêm para o "Filho" (que é irmão da gaveta) */
+  .mainHeaderFlex {
+    background-color: #0a0a0a !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 16px 20px !important; /* Dá o respiro e alinha o conteúdo no telemóvel */
+    position: relative;
+    /* A MÁGICA REAL: Tem que ser MAIOR que os 2000 da gaveta! */
+    z-index: 2010 !important; 
+  }
+
+  /* 3. A sombra entra no bloco certo quando fizer scroll no site */
+  .mainHeader.is-fixed .mainHeaderFlex {
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7) !important;
+  }
 }
 
 /* ========================================================
    AJUSTES RESPONSIVOS: HERO E BLOG (CELULARES)
 ======================================================== */
 @media (max-width: 768px) {
+
+  
 
   /* --- 1. SEÇÃO HERO (VÍDEO DE FUNDO) --- */
   .heroContent h1 {

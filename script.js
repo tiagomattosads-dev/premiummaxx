@@ -1,4 +1,65 @@
 // ==========================================
+// MOTOR DE INTERNACIONALIZAÇÃO (i18n) TURBINADO MAX
+// ==========================================
+function changeLanguage(lang) {
+  localStorage.setItem('premiumMaxxLang', lang);
+
+  const langTextMap = { pt: 'PT-BR', en: 'EN-US', es: 'ES' };
+  const currentLangText = document.getElementById('currentLangText');
+  if (currentLangText) currentLangText.textContent = langTextMap[lang];
+
+  const currentLangTextMobile = document.getElementById('currentLangTextMobile');
+  if (currentLangTextMobile) currentLangTextMobile.textContent = langTextMap[lang];
+
+  // 5. LÓGICA DO MENU MOBILE (BANDEIRAS E CORES)
+  document.querySelectorAll('.lang-opt').forEach(el => {
+    if(el.getAttribute('data-lang') === lang) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+
+  // 1. Traduz Textos Normais no HTML
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key]) element.innerHTML = i18n[lang][key]; 
+  });
+
+  // 2. Traduz Placeholders de Input
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+    const key = element.getAttribute('data-i18n-placeholder');
+    if (i18n[lang] && i18n[lang][key]) element.setAttribute('placeholder', i18n[lang][key]);
+  });
+
+  // 3. O TRUQUE NINJA: Envia a tradução para o CSS
+  if (i18n[lang] && i18n[lang].dev_css_msg) {
+    document.querySelectorAll('.homeBlogSection, .searchSuggestions').forEach(el => {
+      el.setAttribute('data-dev-msg', i18n[lang].dev_css_msg);
+    });
+  }
+
+  // 4. A NOVA MÁGICA: Traduz os Títulos e Descrições Ocultos dos Cartões!
+  document.querySelectorAll('[data-i18n-title]').forEach(element => {
+    const key = element.getAttribute('data-i18n-title');
+    if (i18n[lang] && i18n[lang][key]) element.setAttribute('data-title', i18n[lang][key]);
+  });
+  document.querySelectorAll('[data-i18n-desc]').forEach(element => {
+    const key = element.getAttribute('data-i18n-desc');
+    if (i18n[lang] && i18n[lang][key]) element.setAttribute('data-desc', i18n[lang][key]);
+  });
+
+  // 5. Atualiza o texto na tela para o cartão que JÁ ESTÁ visível no momento do clique
+  document.querySelectorAll('.premiumServiceSection').forEach(sec => {
+    const activeThumb = sec.querySelector('.pThumb.active') || sec.querySelector('.catRootData');
+    if (activeThumb) {
+      sec.querySelector('.dynTitle').textContent = activeThumb.getAttribute('data-title');
+      sec.querySelector('.dynDesc').textContent = activeThumb.getAttribute('data-desc');
+    }
+  });
+}
+
+// ==========================================
 // PRELOADER (TELA DE CARREGAMENTO)
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,10 +127,19 @@ const headerComponent = `
     <div class="topBar">
       <div class="container">
         <ul class="topBarLinks">
-          <li><a href="#" class="openModalTrigger"><img src="/img/comentario-alt.svg" alt=""> Fale conosco</a></li>
-          <li><a href="#"><img src="/img/terra-americas.svg" alt="">PT-BR</a></li>
-          <li><a href="#"><img src="/img/user.svg" alt="">Área do Cliente</a></li>
-          <li><a href="#"><img src="/img/pasta.svg" alt="">Acesso Interno</a></li>
+          <li><a href="#" class="openModalTrigger"><img src="/img/comentario-alt.svg" alt=""> <span data-i18n="top_fale">Fale conosco</span></a></li>
+          
+          <li class="langSelector">
+             <a id="currentLangBtn"><img src="/img/terra-americas.svg" alt=""><span id="currentLangText">PT-BR</span></a>
+             <ul class="langDropdown">
+                <li onclick="changeLanguage('pt')"><a>PT-BR</a></li>
+                <li onclick="changeLanguage('en')"><a>EN-US</a></li>
+                <li onclick="changeLanguage('es')"><a>ES</a></li>
+             </ul>
+          </li>
+          
+          <li><a href="#"><img src="/img/user.svg" alt=""><span data-i18n="top_cliente">Área do Cliente</span></a></li>
+          <li><a href="#"><img src="/img/pasta.svg" alt=""><span data-i18n="top_interno">Acesso Interno</span></a></li>
         </ul>
       </div>
     </div>
@@ -83,9 +153,9 @@ const headerComponent = `
 
         <nav class="mainNav">
           <ul>
-            <li><a href="/quem somos/index.html">quem somos</a></li>
+            <li><a href="/quem somos/index.html" data-i18n="nav_quem_somos">quem somos</a></li>
             <li class="hasDropdown">
-              <a href="#">serviços
+              <a href="#"><span data-i18n="nav_servicos">serviços</span>
                 <svg class="setinha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -157,13 +227,13 @@ const headerComponent = `
                 </div>
               </div>
             </li>
-            <li><a href="#" class="openDevModalTrigger">carreiras</a></li>
-            <li><a href="#" class="openDevModalTrigger">temas atuais</a></li>
+            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">carreiras</a></li>
+            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_temas">temas atuais</a></li>
           </ul>
         </nav>
 
         <div class="globalSpotlight">
-          <input type="text" placeholder="o que está procurando?">
+          <input type="text" placeholder="o que está procurando?" data-i18n-placeholder="search_default">
           <button type="button"><img src="/img/procurar.svg" alt="Buscar"></button>
         </div>
 
@@ -173,14 +243,16 @@ const headerComponent = `
             <span class="palito"></span>
         </button>
 
-      </div> <div class="searchOverlay" id="searchOverlay">
+      </div> 
+      
+      <div class="searchOverlay" id="searchOverlay">
         <div class="container">
           <div class="panelSearchWrapper">
             <input type="text" id="panelSearchInput" placeholder=" ">
             <img src="/img/procurar.svg" alt="Buscar" class="panelSearchIcon">
           </div>
           <div class="searchSuggestions" id="searchSuggestions">
-            <h3>Você pode estar procurando sobre...</h3>
+            <h3 data-i18n="search_title">Você pode estar procurando sobre...</h3>
             <div class="carouselContainer" id="carouselContainer">
               <div class="searchCard active"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
               <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
@@ -191,22 +263,48 @@ const headerComponent = `
           </div>
         </div>
       </div>
+
       <div class="menuMobileOverlay" id="menuMobileOverlay">
         
         <div class="menuPainel ativo" id="painel-principal">
             <ul class="menuMobileItens">
-                <li><a href="/quem somos/index.html">QUEM SOMOS</a></li>
+                <li><a href="/quem somos/index.html" data-i18n="nav_quem_somos">QUEM SOMOS</a></li>
                 
                 <li class="abre-submenu" data-alvo="painel-servicos">
-                    SERVIÇOS 
+                    <span data-i18n="nav_servicos">SERVIÇOS</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </li>
 
-                <li><a href="#" class="openDevModalTrigger">CARREIRAS</a></li>
-                <li><a href="#" class="openDevModalTrigger">TEMAS ATUAIS</a></li>
+                <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">CARREIRAS</a></li>
+                <li><a href="#" class="openDevModalTrigger" data-i18n="nav_temas">TEMAS ATUAIS</a></li>
             </ul>
+            
             <div class="menuMobileCta">
-                <a href="#" class="btnCyan openModalTrigger">Fale com um Sócio</a>
+                <a href="#" class="btnCyan openModalTrigger" data-i18n="footer_contact">Fale com um Sócio</a>
+            </div>
+
+            <div class="menuMobileSecondary">
+                <a href="#" class="openModalTrigger"><img src="/img/comentario-alt.svg" alt=""> <span data-i18n="top_fale">Fale conosco</span></a>
+                
+                <div class="langSelectorMobile">
+                    <div class="langLabelMobile">
+                        <img src="/img/terra-americas.svg" alt=""> <span data-i18n="mobile_lang">Escolha um idioma</span>
+                    </div>
+                    <div class="langOptionsMobile">
+                        <span onclick="changeLanguage('pt')" class="lang-opt" data-lang="pt">
+                            <img src="https://flagcdn.com/br.svg" class="flag-icon" alt="BR"> PT-BR
+                        </span>
+                        <span onclick="changeLanguage('en')" class="lang-opt" data-lang="en">
+                            <img src="https://flagcdn.com/us.svg" class="flag-icon" alt="US"> EN-US
+                        </span>
+                        <span onclick="changeLanguage('es')" class="lang-opt" data-lang="es">
+                            <img src="https://flagcdn.com/es.svg" class="flag-icon" alt="ES"> ES
+                        </span>
+                    </div>
+                </div>
+
+                <a href="#"><img src="/img/user.svg" alt=""><span data-i18n="top_cliente">Área do Cliente</span></a>
+                <a href="#"><img src="/img/pasta.svg" alt=""><span data-i18n="top_interno">Acesso Interno</span></a>
             </div>
         </div>
 
@@ -380,41 +478,40 @@ renderGlobalHeader();
 
 // ==========================================
 // 0.2 COMPONENTE FOOTER (RODAPÉ GLOBAL)
-// =======================================3===
+// ==========================================
 const footerComponent = `
-  <footer class="siteFooter">
+ <footer class="siteFooter">
     <div class="container">
 
       <div class="footerTop">
         <div class="footerBrand">
           <img src="/img/identidade visual/logo.svg" alt="Premium Maxx" class="footerLogo">
-          <p>Especialistas multifuncionais entregando excelência, governança e transparência para o mercado corporativo
-            e de capitais.</p>
+          <p data-i18n="footer_desc">Especialistas multifuncionais entregando excelência, governança e transparência para o mercado corporativo e de capitais.</p>
         </div>
 
         <div class="footerLinksGroup">
-          <h4>Navegação</h4>
+          <h4 data-i18n="footer_nav">Navegação</h4>
           <ul>
-            <li><a href="#">Quem Somos</a></li>
-            <li><a href="#">Nossos Serviços</a></li>
-            <li><a href="#" class="openDevModalTrigger">Carreiras</a></li>
-            <li><a href="#" class="openDevModalTrigger">Temas Atuais</a></li>
+            <li><a href="#" data-i18n="nav_quem_somos">Quem Somos</a></li>
+            <li><a href="#" data-i18n="nav_servicos">Nossos Serviços</a></li>
+            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">Carreiras</a></li>
+            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_temas">Temas Atuais</a></li>
           </ul>
         </div>
 
         <div class="footerLinksGroup">
-          <h4>Nossas Soluções</h4>
+          <h4 data-i18n="footer_solutions">Nossas Soluções</h4>
           <ul>
-            <li><a href="/servicos/auditoria-independente/index.html" target="_blank">Auditoria Independente</a></li>
-            <li><a href="/servicos/consultoria-tributaria/index.html" target="_blank">Consultoria Tributária</a></li>
-            <li><a href="/servicos/planejamento-tributario/index.html" target="_blank">Planejamento Tributário</a></li>
-            <li><a href="/servicos/consultoria-empresarial/index.html" target="_blank">Consultoria Empresarial</a></li>
-            <li><a href="/servicos/contabilidade/index.html" target="_blank">Contabilidade</a></li>
+            <li><a href="/servicos/auditoria-independente/index.html" target="_blank" data-i18n="cat_auditoria">Auditoria Independente</a></li>
+            <li><a href="/servicos/consultoria-tributaria/index.html" target="_blank" data-i18n="cat_tributaria">Consultoria Tributária</a></li>
+            <li><a href="/servicos/planejamento-tributario/index.html" target="_blank" data-i18n="cat_planejamento">Planejamento Tributário</a></li>
+            <li><a href="/servicos/consultoria-empresarial/index.html" target="_blank" data-i18n="cat_empresarial">Consultoria Empresarial</a></li>
+            <li><a href="/servicos/contabilidade/index.html" target="_blank" data-i18n="cat_contabilidade">Contabilidade</a></li>
           </ul>
         </div>
 
         <div class="footerContact">
-          <h4>Fale com um Sócio</h4>
+          <h4 data-i18n="footer_contact">Fale com um Sócio</h4>
           <p class="contactEmail">contato@premiummaxx.com.br</p>
           <p class="contactPhone">+55 11 0000-0000</p>
 
@@ -427,10 +524,10 @@ const footerComponent = `
       </div>
 
       <div class="footerBottom">
-        <p>&copy; 2026 Premium Maxx. Todos os direitos reservados.</p>
+        <p data-i18n="footer_rights">&copy; 2026 Premium Maxx. Todos os direitos reservados.</p>
         <div class="footerLegal">
-          <a href="#">Política de Privacidade</a>
-          <a href="#">Termos de Uso</a>
+          <a href="#" data-i18n="footer_privacy">Política de Privacidade</a>
+          <a href="#" data-i18n="footer_terms">Termos de Uso</a>
         </div>
       </div>
 
@@ -697,12 +794,6 @@ function initHeaderLogic() {
   });
 
   // 5. EFEITO MÁQUINA DE ESCREVER NO PLACEHOLDER
-  const frasesBusca = [
-    "Emissão de notas fiscais de aluguel...",
-    "Isenções de ganho de capital...",
-    "Empresas do Simples na Reforma Tributária..."
-  ];
-
   let fraseAtual = 0;
   let letraAtual = 0;
   let apagando = false;
@@ -713,7 +804,16 @@ function initHeaderLogic() {
       setTimeout(animarPlaceholder, 1000);
       return;
     }
-    const texto = frasesBusca[fraseAtual];
+    
+    // MÁGICA: Busca as frases do dicionário em tempo real!
+    const lang = localStorage.getItem('premiumMaxxLang') || 'pt';
+    const frasesGlobais = [
+      i18n[lang].search_ph_1,
+      i18n[lang].search_ph_2,
+      i18n[lang].search_ph_3
+    ];
+
+    const texto = frasesGlobais[fraseAtual];
     panelInput.setAttribute('placeholder', texto.substring(0, letraAtual));
 
     let velocidade = apagando ? 30 : 60;
@@ -722,7 +822,7 @@ function initHeaderLogic() {
       velocidade = 2000;
     } else if (apagando && letraAtual === 0) {
       apagando = false;
-      fraseAtual = (fraseAtual + 1) % frasesBusca.length;
+      fraseAtual = (fraseAtual + 1) % frasesGlobais.length;
       velocidade = 500;
     } else {
       if (apagando) letraAtual--;
@@ -1405,10 +1505,10 @@ const devModalComponent = `
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
         
-        <h3 style="color: #ffffff; font-size: 26px; margin-bottom: 16px;">Área em Desenvolvimento</h3>
-        <p style="color: #b3b3b3; font-size: 16px; line-height: 1.6; margin-bottom: 35px;">Nossos especialistas estão a preparar uma área exclusiva com novos conteúdos. Novidades em breve!</p>
+        <h3 style="color: #ffffff; font-size: 26px; margin-bottom: 16px;" data-i18n="dev_modal_title">Área em Desenvolvimento</h3>
+        <p style="color: #b3b3b3; font-size: 16px; line-height: 1.6; margin-bottom: 35px;" data-i18n="dev_modal_desc">Nossos especialistas estão a preparar uma área exclusiva com novos conteúdos. Novidades em breve!</p>
         
-        <button class="btnCyan" id="btnOkDev" style="width: 100%;">Entendi</button>
+        <button class="btnCyan" id="btnOkDev" style="width: 100%;" data-i18n="dev_modal_btn">Entendi</button>
       </div>
     </div>
 `;
