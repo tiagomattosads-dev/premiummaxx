@@ -527,8 +527,8 @@ const footerComponent = `
 
         <div class="footerContact">
           <h4 data-i18n="footer_contact">Fale com um Sócio</h4>
-          <p class="contactEmail">contato@premiummaxx.com.br</p>
-          <p class="contactPhone">+55 11 0000-0000</p>
+          <p class="contactEmail">jorge@premiummaxx.com.br</p>
+          <p class="contactPhone">+55 21 99300-2165</p>
 
           <div class="socialLinks">
             <a href="#" aria-label="LinkedIn">In</a>
@@ -1051,40 +1051,40 @@ const modalComponent = `
         <form id="premiumContactForm" class="typeformStyle">
 
           <div class="formStep active" data-step="1">
-            <h3>Selecione o escopo do serviço que sua empresa necessita:</h3>
+            <h3 data-i18n="mod_step1_title">Selecione o escopo do serviço que sua empresa necessita:</h3>
             
             <div class="inputGroup">
-              <label class="fieldLabel">1. Categoria do Serviço</label>
+              <label class="fieldLabel" data-i18n="mod_step1_label1">1. Categoria do Serviço</label>
               <div class="customDropdown" id="categoryDropdown">
-                <div class="dropdownHeader" id="categoryHeader">Selecione a categoria... <span class="arrow">▼</span></div>
+                <div class="dropdownHeader" id="categoryHeader"><span class="header-text" data-i18n="mod_step1_cat_ph">Selecione a categoria...</span> <span class="arrow">▼</span></div>
                 <ul class="dropdownList">
-                  <li data-value="Auditoria Independente">Auditoria Independente</li>
-                  <li data-value="Consultoria Tributária">Consultoria Tributária</li>
-                  <li data-value="Planejamento Tributário">Planejamento Tributário</li>
-                  <li data-value="Consultoria Empresarial">Consultoria Empresarial</li>
-                  <li data-value="Contabilidade">Contabilidade</li>
-                  <li data-value="Outras Soluções">Outras Soluções</li>
+                  <li data-value="Auditoria Independente" data-i18n="cat_auditoria">Auditoria Independente</li>
+                  <li data-value="Consultoria Tributária" data-i18n="cat_tributaria">Consultoria Tributária</li>
+                  <li data-value="Planejamento Tributário" data-i18n="cat_planejamento">Planejamento Tributário</li>
+                  <li data-value="Consultoria Empresarial" data-i18n="cat_empresarial">Consultoria Empresarial</li>
+                  <li data-value="Contabilidade" data-i18n="cat_contabilidade">Contabilidade</li>
+                  <li data-value="Outras Soluções" data-i18n="cat_outras">Outras Soluções</li>
                 </ul>
               </div>
               <input type="hidden" id="leadCategory" required>
             </div>
 
             <div class="inputGroup" id="subitemGroup" style="display: none; margin-top: 20px;">
-              <label class="fieldLabel">Subitem Específico</label>
+              <label class="fieldLabel" data-i18n="mod_step1_label2">Subitem Específico</label>
               <div class="customDropdown" id="subitemDropdown">
-                <div class="dropdownHeader" id="subitemHeader">Selecione o escopo detalhado... <span class="arrow">▼</span></div>
+                <div class="dropdownHeader" id="subitemHeader"><span class="header-text" data-i18n="mod_step1_sub_ph">Selecione o escopo detalhado...</span> <span class="arrow">▼</span></div>
                 <ul class="dropdownList" id="subitemList">
                   </ul>
               </div>
               <input type="hidden" id="leadSubitem" required>
             </div>
 
-            <button type="button" class="btnCyan stepNextBtn" id="btnNextStep1" style="margin-top: 25px;" disabled>Continuar</button>
+            <button type="button" class="btnCyan stepNextBtn" id="btnNextStep1" style="margin-top: 25px;" disabled data-i18n="mod_btn_next">Continuar</button>
           </div>
 
           <div class="formStep" data-step="2">
-            <h3>2. Qual o ano (ou anos) objeto da revisão patrimonial/fiscal?</h3>
-            <p style="color: #a0a0a0; font-size: 0.85rem; margin-bottom: 20px; margin-top: -5px;">Você pode selecionar múltiplas opções de acordo com a sua demanda.</p>
+            <h3 data-i18n="mod_step2_title">2. Qual o ano (ou anos) objeto da revisão patrimonial/fiscal?</h3>
+            <p style="color: #a0a0a0; font-size: 0.85rem; margin-bottom: 20px; margin-top: -5px;" data-i18n="mod_step2_desc">Você pode selecionar múltiplas opções de acordo com a sua demanda.</p>
             
             <div class="yearsGrid">
               <label class="yearCheckboxLabel"><input type="checkbox" name="reviewYears" value="2026"> 2026</label>
@@ -1092,89 +1092,89 @@ const modalComponent = `
               <label class="yearCheckboxLabel"><input type="checkbox" name="reviewYears" value="2024"> 2024</label>
               <label class="yearCheckboxLabel"><input type="checkbox" name="reviewYears" value="2023"> 2023</label>
               <label class="yearCheckboxLabel"><input type="checkbox" name="reviewYears" value="2022"> 2022</label>
-              <label class="yearCheckboxLabel"><input type="checkbox" name="reviewYears" value="Anteriores"> Anteriores</label>
+              <label class="yearCheckboxLabel"><input type="checkbox" name="reviewYears" value="Anteriores"> <span data-i18n="mod_step2_prev">Anteriores</span></label>
             </div>
 
             <div class="stepActions" style="margin-top: 30px;">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn" id="btnNextStep2" disabled>Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" id="btnNextStep2" disabled data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="3">
-            <h3>3. Descreva brevemente o cenário ou desafio atual:</h3>
+            <h3 data-i18n="mod_step3_title">3. Descreva brevemente o cenário ou desafio atual:</h3>
             <div class="inputGroup">
-              <textarea id="problemDescription" placeholder="Ex: Detalhes sobre inconsistências levantadas, objetivos da reestruturação ou escopo exigido por investidores..." required></textarea>
+              <textarea id="problemDescription" placeholder="Ex: Detalhes sobre inconsistências levantadas, objetivos da reestruturação ou escopo exigido por investidores..." data-i18n-placeholder="mod_step3_ph" required></textarea>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn">Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="4">
-            <h3>4. Qual é a Razão Social ou Nome Fantasia da empresa?</h3>
+            <h3 data-i18n="mod_step4_title">4. Qual é a Razão Social ou Nome Fantasia da empresa?</h3>
             <div class="inputGroup">
-              <input type="text" id="companyName" placeholder="Digite aqui o nome da empresa..." required>
+              <input type="text" id="companyName" placeholder="Digite aqui o nome da empresa..." data-i18n-placeholder="mod_step4_ph" required>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn">Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="5">
-            <h3>5. Informe o CNPJ da empresa:</h3>
+            <h3 data-i18n="mod_step5_title">5. Informe o CNPJ da empresa:</h3>
             <div class="inputGroup">
               <input type="text" id="companyCNPJ" placeholder="00.000.000/0000-00" required>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn">Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="6">
-            <h3>6. Como se chama o profissional responsável por essa solicitação?</h3>
+            <h3 data-i18n="mod_step6_title">6. Como se chama o profissional responsável por essa solicitação?</h3>
             <div class="inputGroup">
-              <input type="text" id="professionalName" placeholder="Seu nome completo..." required>
+              <input type="text" id="professionalName" placeholder="Seu nome completo..." data-i18n-placeholder="mod_step6_ph" required>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn">Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="7">
-            <h3>7. Informe o CPF do solicitante responsável:</h3>
+            <h3 data-i18n="mod_step7_title">7. Informe o CPF do solicitante responsável:</h3>
             <div class="inputGroup">
               <input type="text" id="professionalCPF" placeholder="000.000.000-00" required>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn">Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="8">
-            <h3>8. Qual o melhor e-mail corporativo para contato?</h3>
+            <h3 data-i18n="mod_step8_title">8. Qual o melhor e-mail corporativo para contato?</h3>
             <div class="inputGroup">
-              <input type="email" id="professionalEmail" placeholder="seu.nome@empresa.com.br" required>
+              <input type="email" id="professionalEmail" placeholder="seu.nome@empresa.com.br" data-i18n-placeholder="mod_step8_ph" required>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn">Continuar</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
             </div>
           </div>
 
           <div class="formStep" data-step="9">
-            <h3>9. E o número de celular ou WhatsApp para retorno?</h3>
+            <h3 data-i18n="mod_step9_title">9. E o número de celular ou WhatsApp para retorno?</h3>
             <div class="inputGroup">
               <input type="tel" id="professionalPhone" placeholder="(00) 00000-0000" required>
             </div>
             <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn">Voltar</button>
-              <button type="submit" class="btnCyan">Solicitar Parecer Técnico</button>
+              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
+              <button type="submit" class="btnCyan" data-i18n="mod_btn_submit">Solicitar Parecer Técnico</button>
             </div>
           </div>
 
@@ -1183,8 +1183,8 @@ const modalComponent = `
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            <h3>Proposta em processamento!</h3>
-            <p>Nossos sócios seniores já estão revisando a sua pré-demanda estruturada.</p>
+            <h3 data-i18n="mod_step10_title">Proposta em processamento!</h3>
+            <p data-i18n="mod_step10_desc">Nossos sócios seniores já estão revisando a sua pré-demanda estruturada.</p>
           </div>
 
         </form>
@@ -1192,52 +1192,47 @@ const modalComponent = `
     </div>
 `;
 
-// Base de dados relacional para o filtro cirúrgico
+// Base de dados relacional turbinada com as chaves de tradução
 const subitemsData = {
   "Auditoria Independente": [
-    "Exame das Demonstrações Financeiras",
-    "Revisão Limitada das Demonstrações",
-    "Procedimentos Previamente Acordados (PPA)",
-    "Due-Diligence",
-    "Elaboração de Laudo Contábil",
-    "Inventário Físico"
+    { text: "Exame das Demonstrações Financeiras", i18n: "menu_aud_1" },
+    { text: "Revisão Limitada das Demonstrações", i18n: "menu_aud_2" },
+    { text: "Procedimentos Previamente Acordados (PPA)", i18n: "menu_aud_3" },
+    { text: "Due-Diligence", i18n: "menu_aud_4" },
+    { text: "Elaboração de Laudo Contábil", i18n: "menu_aud_5" },
+    { text: "Inventário Físico", i18n: "menu_aud_6" }
   ],
   "Consultoria Tributária": [
-    "Estratégias de Redução de Carga Tributária",
-    "Recuperação e Utilização de Créditos Fiscais",
-    "Tax Compliance (ECD, ECF, EFD, SPED)",
-    "Transfer Pricing / Thin Capitalization",
-    "Atendimento às Consultas Fiscais",
-    "Benefícios Fiscais",
-    "Assessoria em Defesa Administrativa",
-    "Assessoria Tributária à Pessoa Física",
-    "Assessoria Fiscal em Repetro"
+    { text: "Tax Compliance (ECD, ECF, EFD, SPED)", i18n: "menu_tri_1" },
+    { text: "Transfer Pricing / Thin Capitalization", i18n: "menu_tri_2" },
+    { text: "Atendimento às consultas fiscais", i18n: "menu_tri_3" },
+    { text: "Benefícios Fiscais", i18n: "menu_tri_4" },
+    { text: "Assessoria em Defesa Administrativa", i18n: "menu_tri_5" },
+    { text: "Assessoria Tributária à Pessoa Física", i18n: "menu_tri_6" },
+    { text: "Assessoria Fiscal em Repetro", i18n: "menu_tri_7" }
   ],
-
   "Planejamento Tributário": [
-    "Estratégias de redução de carga tributária",
-    "Recuperação e utilização de Créditos Fiscais"
+    { text: "Estratégias de redução de carga tributária", i18n: "menu_pla_1" },
+    { text: "Recuperação e utilização de Créditos Fiscais", i18n: "menu_pla_2" }
   ],
-
   "Consultoria Empresarial": [
-    "Gestão de Processos",
-    "Estruturas e Controles Empresariais"
+    { text: "Gestão de Processos", i18n: "menu_emp_1" },
+    { text: "Estruturas e controles empresariais", i18n: "menu_emp_2" }
   ],
   "Contabilidade": [
-    "Terceirização da Contabilidade",
-    "Terceirização Fiscal",
-    "Terceirização da Folha de Pagamento"
+    { text: "Terceirização da Contabilidade", i18n: "menu_con_1" },
+    { text: "Terceirização Fiscal", i18n: "menu_con_2" },
+    { text: "Terceirização da Folha de Pagamento", i18n: "menu_con_3" }
   ],
-
   "Outras Soluções": [
-    "Auditoria Especial",
-    "Holding Familiar",
-    "Abertura de Empresas",
-    "Locação de Mão de Obra (Loan Staff)",
-    "Valuation",
-    "Análise de Contratos",
-    "Assessoria em IPO",
-    "Direito Creditório"
+    { text: "Auditoria Especial", i18n: "menu_out_1" },
+    { text: "Holding Familiar", i18n: "menu_out_2" },
+    { text: "Abertura de Empresas", i18n: "menu_out_3" },
+    { text: "Locação de Mão de Obra (Loan Staff)", i18n: "menu_out_4" },
+    { text: "Valuation", i18n: "menu_out_5" },
+    { text: "Análise de Contratos", i18n: "menu_out_6" },
+    { text: "Assessoria em IPO", i18n: "menu_out_7" },
+    { text: "Direito Creditório", i18n: "menu_out_8" }
   ]
 };
 
@@ -1265,7 +1260,7 @@ function initModalLogic() {
   const subInput = document.getElementById('leadSubitem');
   const btnNext1 = document.getElementById('btnNextStep1');
 
-  // Abre/Fecha Dropdown de Categoria (CORRIGIDO PARA is-open)
+  // Abre/Fecha Dropdown de Categoria
   catHeader.addEventListener('click', (e) => {
     e.stopPropagation();
     catDropdown.classList.toggle('is-open');
@@ -1277,13 +1272,16 @@ function initModalLogic() {
     li.addEventListener('click', (e) => {
       e.stopPropagation();
       const selectedCat = li.getAttribute('data-value');
-      catHeader.innerHTML = `${selectedCat} <span class="arrow">▼</span>`;
+      const i18nKey = li.getAttribute('data-i18n'); // PEGA A TAG MÁGICA DA CATEGORIA
+      
+      // Injeta a Categoria já com a tag de tradução no Header!
+      catHeader.innerHTML = `<span class="header-text" data-i18n="${i18nKey}">${li.textContent}</span> <span class="arrow">▼</span>`;
       catHeader.classList.add('has-value');
       catInput.value = selectedCat;
       catDropdown.classList.remove('is-open');
 
       subInput.value = "";
-      subHeader.innerHTML = `Selecione o escopo detalhado... <span class="arrow">▼</span>`;
+      subHeader.innerHTML = `<span class="header-text" data-i18n="mod_step1_sub_ph">Selecione o escopo detalhado...</span> <span class="arrow">▼</span>`;
       subHeader.classList.remove('has-value');
       btnNext1.disabled = true;
 
@@ -1292,14 +1290,16 @@ function initModalLogic() {
 
       subitems.forEach(item => {
         const itemLi = document.createElement('li');
-        itemLi.setAttribute('data-value', item);
-        itemLi.textContent = item;
+        itemLi.setAttribute('data-value', item.text);
+        itemLi.setAttribute('data-i18n', item.i18n); // INJETA A TAG NO NOVO <li> DO SUBITEM
+        itemLi.textContent = item.text;
 
         itemLi.addEventListener('click', (ev) => {
           ev.stopPropagation();
-          subHeader.innerHTML = `${item} <span class="arrow">▼</span>`;
+          // Injeta o Subitem com a tag de tradução!
+          subHeader.innerHTML = `<span class="header-text" data-i18n="${item.i18n}">${itemLi.textContent}</span> <span class="arrow">▼</span>`;
           subHeader.classList.add('has-value');
-          subInput.value = item;
+          subInput.value = item.text;
           subDropdown.classList.remove('is-open');
           btnNext1.disabled = false;
         });
@@ -1308,10 +1308,13 @@ function initModalLogic() {
       });
 
       subGroup.style.display = "block";
+      
+      // Dispara a tradução para capturar os elementos que acabaram de nascer!
+      changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
     });
   });
 
-  // Abre/Fecha Dropdown de Subitem (CORRIGIDO PARA is-open)
+  // Abre/Fecha Dropdown de Subitem
   subHeader.addEventListener('click', (e) => {
     e.stopPropagation();
     subDropdown.classList.toggle('is-open');
@@ -1354,8 +1357,8 @@ function initModalLogic() {
   const cnpjInput = document.getElementById('companyCNPJ');
   if (cnpjInput) {
     cnpjInput.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, ''); // Remove tudo o que não for número (letras caem aqui)
-      if (val.length > 14) val = val.slice(0, 14); // Limita estritamente ao tamanho do CNPJ
+      let val = e.target.value.replace(/\D/g, ''); 
+      if (val.length > 14) val = val.slice(0, 14); 
 
       let formatted = val;
       if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
@@ -1371,8 +1374,8 @@ function initModalLogic() {
   const cpfInput = document.getElementById('professionalCPF');
   if (cpfInput) {
     cpfInput.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, ''); // Remove letras e caracteres especiais
-      if (val.length > 11) val = val.slice(0, 11); // Limita ao tamanho real do CPF
+      let val = e.target.value.replace(/\D/g, ''); 
+      if (val.length > 11) val = val.slice(0, 11); 
 
       let formatted = val;
       if (val.length > 3) formatted = `${val.slice(0, 3)}.${val.slice(3)}`;
@@ -1463,10 +1466,14 @@ function initModalLogic() {
       subGroup.style.display = "none";
       btnNext1.disabled = true;
       btnNext2.disabled = true;
-      catHeader.innerHTML = `Selecione a categoria... <span class="arrow">▼</span>`;
+      
+      // Aqui foi inserido as etiquetas para quando o Modal for resetado!
+      catHeader.innerHTML = `<span class="header-text" data-i18n="mod_step1_cat_ph">Selecione a categoria...</span> <span class="arrow">▼</span>`;
       catHeader.classList.remove('has-value');
-      subHeader.innerHTML = `Selecione o escopo detalhado... <span class="arrow">▼</span>`;
+      subHeader.innerHTML = `<span class="header-text" data-i18n="mod_step1_sub_ph">Selecione o escopo detalhado...</span> <span class="arrow">▼</span>`;
       subHeader.classList.remove('has-value');
+      
+      changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
       updateFormState();
     }
   });
@@ -1497,7 +1504,6 @@ function initModalLogic() {
     progressBar.style.width = "100%";
 
     setTimeout(() => {
-      // Abre o WhatsApp e fecha a tela atual
       window.open("https://wa.me/5511000000000?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista.", "_blank");
       closeAndResetModal();
     }, 3500);
