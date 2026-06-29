@@ -178,12 +178,12 @@ const headerComponent = `
               <div class="megaMenu">
                 <div class="megaMenuContainer">
                   <div class="megaMenuSidebar">
-                    <button class="megaTab active" data-target="paneAuditoria" data-i18n="cat_auditoria">Auditoria Independente</button>
-                    <button class="megaTab" data-target="paneTributaria" data-i18n="cat_tributaria">Consultoria Tributária</button>
-                    <button class="megaTab" data-target="panePlanejamento" data-i18n="cat_planejamento">Planejamento Tributário</button>
-                    <button class="megaTab" data-target="paneEmpresarial" data-i18n="cat_empresarial">Consultoria Empresarial</button>
-                    <button class="megaTab" data-target="paneContabilidade" data-i18n="cat_contabilidade">Contabilidade</button>
-                    <button class="megaTab" data-target="paneOutrasSolucoes" data-i18n="cat_outras">Outras Soluções</button>
+                    <a href="/servicos/auditoria-independente/index.html" class="megaTab active" data-target="paneAuditoria" data-i18n="cat_auditoria">Auditoria Independente</a>
+                    <a href="/servicos/consultoria-tributaria/index.html" class="megaTab" data-target="paneTributaria" data-i18n="cat_tributaria">Consultoria Tributária</a>
+                    <a href="/servicos/planejamento-tributario/index.html" class="megaTab" data-target="panePlanejamento" data-i18n="cat_planejamento">Planejamento Tributário</a>
+                    <a href="/servicos/consultoria-empresarial/index.html" class="megaTab" data-target="paneEmpresarial" data-i18n="cat_empresarial">Consultoria Empresarial</a>
+                    <a href="/servicos/contabilidade/index.html" class="megaTab" data-target="paneContabilidade" data-i18n="cat_contabilidade">Contabilidade</a>
+                    <a class="megaTab" data-target="paneOutrasSolucoes" data-i18n="cat_outras" style="cursor: default;">Outras Soluções</a>
                   </div>
                   
                   <div class="megaMenuContent">
@@ -369,7 +369,7 @@ const headerComponent = `
                 </li>
 
                 <li class="item-dividido">
-                  <a href="#" class="link-categoria" data-i18n="cat_outras">Outras Soluções</a>
+                  <a class="link-categoria" data-i18n="cat_outras" style="cursor: default;">Outras Soluções</a>
                     <div class="abre-submenu hitbox-seta" data-alvo="painel-outras-solucoes">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
