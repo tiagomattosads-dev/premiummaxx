@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.documentElement.style.overflow = 'hidden';
 
       let progress = 0;
-      const duration = 5000; // 5 segundos totais
+      const duration = 3000; // 3 segundos totais
       const intervalTime = 30; // Atualiza a cada 30 milissegundos
       const step = (100 / (duration / intervalTime));
 
@@ -507,8 +507,8 @@ const footerComponent = `
         <div class="footerLinksGroup">
           <h4 data-i18n="footer_nav">Navegação</h4>
           <ul>
-            <li><a href="#" data-i18n="nav_quem_somos">Quem Somos</a></li>
-            <li><a href="#" data-i18n="nav_servicos">Nossos Serviços</a></li>
+            <li><a href="/quem somos/index.html" data-i18n="nav_quem_somos">Quem Somos</a></li>
+            <li><a href="/index.html" data-i18n="nav_servicos">Nossos Serviços</a></li>
             <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">Carreiras</a></li>
             <li><a href="#" class="openDevModalTrigger" data-i18n="nav_temas">Temas Atuais</a></li>
           </ul>
@@ -517,11 +517,11 @@ const footerComponent = `
         <div class="footerLinksGroup">
           <h4 data-i18n="footer_solutions">Nossas Soluções</h4>
           <ul>
-            <li><a href="/servicos/auditoria-independente/index.html" target="_blank" data-i18n="cat_auditoria">Auditoria Independente</a></li>
-            <li><a href="/servicos/consultoria-tributaria/index.html" target="_blank" data-i18n="cat_tributaria">Consultoria Tributária</a></li>
-            <li><a href="/servicos/planejamento-tributario/index.html" target="_blank" data-i18n="cat_planejamento">Planejamento Tributário</a></li>
-            <li><a href="/servicos/consultoria-empresarial/index.html" target="_blank" data-i18n="cat_empresarial">Consultoria Empresarial</a></li>
-            <li><a href="/servicos/contabilidade/index.html" target="_blank" data-i18n="cat_contabilidade">Contabilidade</a></li>
+            <li><a href="/servicos/auditoria-independente/index.html" data-i18n="cat_auditoria">Auditoria Independente</a></li>
+            <li><a href="/servicos/consultoria-tributaria/index.html" data-i18n="cat_tributaria">Consultoria Tributária</a></li>
+            <li><a href="/servicos/planejamento-tributario/index.html" data-i18n="cat_planejamento">Planejamento Tributário</a></li>
+            <li><a href="/servicos/consultoria-empresarial/index.html" data-i18n="cat_empresarial">Consultoria Empresarial</a></li>
+            <li><a href="/servicos/contabilidade/index.html" data-i18n="cat_contabilidade">Contabilidade</a></li>
           </ul>
         </div>
 
@@ -531,9 +531,9 @@ const footerComponent = `
           <p class="contactPhone">+55 21 99300-2165</p>
 
           <div class="socialLinks">
-            <a href="#" aria-label="LinkedIn">In</a>
-            <a href="#" aria-label="Instagram">Ig</a>
-            <a href="#" aria-label="YouTube">Yt</a>
+            <a href="https://www.instagram.com/premiummaxx/" aria-label="Instagram" target="_blank">
+              <img src="/img/instagram.svg" alt="Instagram" style="width: 18px; transition: all 0.3s ease;">
+            </a>
           </div>
         </div>
       </div>
@@ -548,6 +548,12 @@ const footerComponent = `
 
     </div>
   </footer>
+  <style>
+    /* Inverte a cor do SVG para preto quando o botão de fundo ficar ciano no hover */
+    .socialLinks a:hover img {
+      filter: brightness(0);
+    }
+  </style>
 `;
 
 function renderGlobalFooter() {
@@ -559,6 +565,7 @@ function renderGlobalFooter() {
 
 // Executa a montagem do rodapé instantaneamente
 renderGlobalFooter();
+
 
 // ==========================================
 // LÓGICA DO HEADER
