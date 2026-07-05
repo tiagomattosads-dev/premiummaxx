@@ -109,7 +109,7 @@ const i18n = {
     about_hero_btn: "Conheça Nossa Trajetória &darr;",
     
     about_stats_title: "Parceiros Estratégicos da Alta Gestão.",
-    about_stat_1_num: "20+",
+    about_stat_1_num: "+20",
     about_stat_1_label: "Anos de Mercado",
     about_stat_2_num: "DNA",
     about_stat_2_label: "\"Big Four\"",
@@ -826,7 +826,7 @@ const i18n = {
     about_hero_btn: "Discover Our Journey &darr;",
     
     about_stats_title: "Strategic Partners for Top Management.",
-    about_stat_1_num: "20+",
+    about_stat_1_num: "+20",
     about_stat_1_label: "Years in the Market",
     about_stat_2_num: "DNA",
     about_stat_2_label: "\"Big Four\"",
@@ -1544,7 +1544,7 @@ const i18n = {
     about_hero_btn: "Conozca Nuestra Trayectoria &darr;",
     
     about_stats_title: "Socios Estratégicos de la Alta Dirección.",
-    about_stat_1_num: "20+",
+    about_stat_1_num: "+20",
     about_stat_1_label: "Años en el Mercado",
     about_stat_2_num: "ADN",
     about_stat_2_label: "\"Big Four\"",
