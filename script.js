@@ -1130,10 +1130,11 @@ const modalComponent = `
             </div>
           </div>
 
+          <!-- O NOVO PASSO: NOME DO PROFISSIONAL (Antigo passo 6, agora é o 5) -->
           <div class="formStep" data-step="5">
-            <h3 data-i18n="mod_step5_title">5. Informe o CNPJ da empresa:</h3>
+            <h3 data-i18n="mod_step5_title">5. Como se chama o profissional responsável por essa solicitação?</h3>
             <div class="inputGroup">
-              <input type="text" id="companyCNPJ" placeholder="00.000.000/0000-00" required>
+              <input type="text" id="professionalName" placeholder="Seu nome completo..." data-i18n-placeholder="mod_step5_ph" required>
             </div>
             <div class="stepActions">
               <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
@@ -1141,10 +1142,11 @@ const modalComponent = `
             </div>
           </div>
 
+          <!-- O NOVO PASSO INTELIGENTE: CNPJ OU CPF UNIFICADOS (Passo 6) -->
           <div class="formStep" data-step="6">
-            <h3 data-i18n="mod_step6_title">6. Como se chama o profissional responsável por essa solicitação?</h3>
+            <h3 data-i18n="mod_step6_title">6. Informe o CNPJ ou CPF corporativo:</h3>
             <div class="inputGroup">
-              <input type="text" id="professionalName" placeholder="Seu nome completo..." data-i18n-placeholder="mod_step6_ph" required>
+              <input type="text" id="leadDocument" placeholder="00.000.000/0000-00 ou 000.000.000-00" data-i18n-placeholder="mod_step6_ph" required>
             </div>
             <div class="stepActions">
               <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
@@ -1153,9 +1155,10 @@ const modalComponent = `
           </div>
 
           <div class="formStep" data-step="7">
-            <h3 data-i18n="mod_step7_title">7. Informe o CPF do solicitante responsável:</h3>
+            <h3 data-i18n="mod_step7_title">7. Qual o melhor e-mail corporativo para contato?</h3>
             <div class="inputGroup">
-              <input type="text" id="professionalCPF" placeholder="000.000.000-00" required>
+              <!-- ATENÇÃO: type="email" garante a validação nativa e a nossa customizada -->
+              <input type="email" id="professionalEmail" placeholder="seu.nome@empresa.com.br" data-i18n-placeholder="mod_step7_ph" required>
             </div>
             <div class="stepActions">
               <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
@@ -1164,18 +1167,7 @@ const modalComponent = `
           </div>
 
           <div class="formStep" data-step="8">
-            <h3 data-i18n="mod_step8_title">8. Qual o melhor e-mail corporativo para contato?</h3>
-            <div class="inputGroup">
-              <input type="email" id="professionalEmail" placeholder="seu.nome@empresa.com.br" data-i18n-placeholder="mod_step8_ph" required>
-            </div>
-            <div class="stepActions">
-              <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
-              <button type="button" class="btnCyan stepNextBtn" data-i18n="mod_btn_next">Continuar</button>
-            </div>
-          </div>
-
-          <div class="formStep" data-step="9">
-            <h3 data-i18n="mod_step9_title">9. E o número de celular ou WhatsApp para retorno?</h3>
+            <h3 data-i18n="mod_step8_title">8. E o número de celular ou WhatsApp para retorno?</h3>
             <div class="inputGroup">
               <input type="tel" id="professionalPhone" placeholder="(00) 00000-0000" required>
             </div>
@@ -1185,13 +1177,13 @@ const modalComponent = `
             </div>
           </div>
 
-          <div class="formStep successStep" data-step="10">
+          <div class="formStep successStep" data-step="9">
             <svg viewBox="0 0 24 24" fill="none" stroke="#03FAD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            <h3 data-i18n="mod_step10_title">Proposta em processamento!</h3>
-            <p data-i18n="mod_step10_desc">Nossos sócios seniores já estão revisando a sua pré-demanda estruturada.</p>
+            <h3 data-i18n="mod_step9_title">Proposta em processamento!</h3>
+            <p data-i18n="mod_step9_desc">Nossos sócios seniores já estão revisando a sua pré-demanda estruturada.</p>
           </div>
 
         </form>
@@ -1279,9 +1271,8 @@ function initModalLogic() {
     li.addEventListener('click', (e) => {
       e.stopPropagation();
       const selectedCat = li.getAttribute('data-value');
-      const i18nKey = li.getAttribute('data-i18n'); // PEGA A TAG MÁGICA DA CATEGORIA
+      const i18nKey = li.getAttribute('data-i18n'); 
       
-      // Injeta a Categoria já com a tag de tradução no Header!
       catHeader.innerHTML = `<span class="header-text" data-i18n="${i18nKey}">${li.textContent}</span> <span class="arrow">▼</span>`;
       catHeader.classList.add('has-value');
       catInput.value = selectedCat;
@@ -1298,12 +1289,11 @@ function initModalLogic() {
       subitems.forEach(item => {
         const itemLi = document.createElement('li');
         itemLi.setAttribute('data-value', item.text);
-        itemLi.setAttribute('data-i18n', item.i18n); // INJETA A TAG NO NOVO <li> DO SUBITEM
+        itemLi.setAttribute('data-i18n', item.i18n); 
         itemLi.textContent = item.text;
 
         itemLi.addEventListener('click', (ev) => {
           ev.stopPropagation();
-          // Injeta o Subitem com a tag de tradução!
           subHeader.innerHTML = `<span class="header-text" data-i18n="${item.i18n}">${itemLi.textContent}</span> <span class="arrow">▼</span>`;
           subHeader.classList.add('has-value');
           subInput.value = item.text;
@@ -1315,8 +1305,6 @@ function initModalLogic() {
       });
 
       subGroup.style.display = "block";
-      
-      // Dispara a tradução para capturar os elementos que acabaram de nascer!
       changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
     });
   });
@@ -1344,7 +1332,35 @@ function initModalLogic() {
     });
   });
 
-  // Formatação do Celular
+  // =========================================================
+  // MÁSCARA INTELIGENTE MUTANTE: CPF OU CNPJ NO MESMO CAMPO
+  // =========================================================
+  const docInput = document.getElementById('leadDocument');
+  if (docInput) {
+    docInput.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, ''); // Arranca tudo que não for número
+      if (val.length > 14) val = val.slice(0, 14); // O limite máximo no Brasil é o CNPJ (14)
+
+      let formatted = val;
+
+      if (val.length <= 11) {
+        // MÁSCARA DE CPF: 000.000.000-00
+        if (val.length > 3) formatted = `${val.slice(0, 3)}.${val.slice(3)}`;
+        if (val.length > 6) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6)}`;
+        if (val.length > 9) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6, 9)}-${val.slice(9)}`;
+      } else {
+        // MÁSCARA DE CNPJ: 00.000.000/0000-00 (Aciona quando o usuário passa do 11º dígito)
+        if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
+        if (val.length > 5) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5)}`;
+        if (val.length > 8) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8)}`;
+        if (val.length > 12) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8, 12)}-${val.slice(12)}`;
+      }
+
+      e.target.value = formatted;
+    });
+  }
+
+  // Formatação do Celular (Apenas visual, o validador lida com o tamanho depois)
   const phoneInput = document.getElementById('professionalPhone');
   if (phoneInput) {
     phoneInput.addEventListener('input', (e) => {
@@ -1356,39 +1372,6 @@ function initModalLogic() {
         if (val.length === 11) formatted = `(${val.slice(0, 2)}) ${val.slice(2, 7)}-${val.slice(7)}`;
         else formatted = `(${val.slice(0, 2)}) ${val.slice(2, 6)}-${val.slice(6)}`;
       }
-      e.target.value = formatted;
-    });
-  }
-
-  // Formatação e Bloqueio de Letras no CNPJ (00.000.000/0000-00)
-  const cnpjInput = document.getElementById('companyCNPJ');
-  if (cnpjInput) {
-    cnpjInput.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, ''); 
-      if (val.length > 14) val = val.slice(0, 14); 
-
-      let formatted = val;
-      if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
-      if (val.length > 5) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5)}`;
-      if (val.length > 8) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8)}`;
-      if (val.length > 12) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8, 12)}-${val.slice(12)}`;
-
-      e.target.value = formatted;
-    });
-  }
-
-  // Formatação e Bloqueio de Letras no CPF (000.000.000-00)
-  const cpfInput = document.getElementById('professionalCPF');
-  if (cpfInput) {
-    cpfInput.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, ''); 
-      if (val.length > 11) val = val.slice(0, 11); 
-
-      let formatted = val;
-      if (val.length > 3) formatted = `${val.slice(0, 3)}.${val.slice(3)}`;
-      if (val.length > 6) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6)}`;
-      if (val.length > 9) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6, 9)}-${val.slice(9)}`;
-
       e.target.value = formatted;
     });
   }
@@ -1409,18 +1392,50 @@ function initModalLogic() {
     progressBar.style.width = `${progressPercent}%`;
   }
 
+  // =========================================================
+  // VALIDAÇÃO CÍVICA (BARRANDO OS CURIOSOS "329")
+  // =========================================================
   form.querySelectorAll('.stepNextBtn').forEach(btn => {
     btn.addEventListener('click', () => {
       const currentStepEl = steps[currentStep - 1];
       const fields = currentStepEl.querySelectorAll('input[required], textarea[required]');
-      let valid = true;
+      let allFieldsValidInThisStep = true;
 
       fields.forEach(f => {
-        if (!f.value) { valid = false; f.style.borderColor = "#ff4d4d"; }
-        else { f.style.borderColor = "rgba(255,255,255,0.1)"; }
+        let isThisFieldValid = false;
+        const val = f.value.trim();
+
+        if (!val) {
+          isThisFieldValid = false; // Vazio não passa!
+        } else if (f.id === 'leadDocument') {
+          // Extrai só os números para contar
+          const digits = val.replace(/\D/g, '');
+          // Só aprova se tiver EXATAMENTE 11 (CPF) ou 14 (CNPJ) dígitos
+          isThisFieldValid = (digits.length === 11 || digits.length === 14);
+        } else if (f.type === 'email') {
+          // Expressão Regular rigorosa para validar se tem @ e um domínio válido
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          isThisFieldValid = emailRegex.test(val);
+        } else if (f.type === 'tel') {
+          // O telefone precisa ter pelo menos 10 dígitos com o DDD
+          const digits = val.replace(/\D/g, '');
+          isThisFieldValid = digits.length >= 10;
+        } else {
+          // Os outros campos (textos normais) passam só de não estarem vazios
+          isThisFieldValid = true;
+        }
+
+        // Feedback Visual de Erro ou Acerto
+        if (!isThisFieldValid) {
+          allFieldsValidInThisStep = false;
+          f.style.borderColor = "#ff4d4d"; // Fica vermelhão se errar!
+        } else {
+          f.style.borderColor = "rgba(255,255,255,0.2)"; // Volta ao cinza calmo
+        }
       });
 
-      if (valid && currentStep < totalSteps) {
+      // Só avança para a próxima tela se TUDO na tela atual for aprovado pelo tribunal
+      if (allFieldsValidInThisStep && currentStep < totalSteps) {
         currentStep++;
         updateFormState();
       }
@@ -1480,38 +1495,43 @@ function initModalLogic() {
       subHeader.innerHTML = `<span class="header-text" data-i18n="mod_step1_sub_ph">Selecione o escopo detalhado...</span> <span class="arrow">▼</span>`;
       subHeader.classList.remove('has-value');
       
+      // Reseta a cor vermelha de erro se o usuário abrir o modal de novo
+      form.querySelectorAll('input, textarea').forEach(f => f.style.borderColor = "rgba(255,255,255,0.2)");
+
       changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
       updateFormState();
     }
   });
 
-  // Envio final
+  // =========================================================
+  // ENVIO FINAL (PAYLOAD PARA O JORGE)
+  // =========================================================
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const selectedYears = Array.from(form.querySelectorAll('input[name="reviewYears"]:checked')).map(c => c.value);
 
+    // Repare que agora puxamos o "leadDocument" como um campo único
     const leadData = {
       categoria: document.getElementById('leadCategory').value,
       subitem: document.getElementById('leadSubitem').value,
       anosRevisao: selectedYears,
       descricao: document.getElementById('problemDescription').value,
       empresa: document.getElementById('companyName').value,
-      cnpj: document.getElementById('companyCNPJ').value,
       profissional: document.getElementById('professionalName').value,
-      cpf: document.getElementById('professionalCPF').value,
+      documento: document.getElementById('leadDocument').value,
       email: document.getElementById('professionalEmail').value,
       celular: document.getElementById('professionalPhone').value
     };
 
-    console.log("Premium Maxx Lead Capturado:", leadData);
+    console.log("Premium Maxx Lead Capturado e Qualificado:", leadData);
 
     currentStep = steps.length;
     updateFormState();
     progressBar.style.width = "100%";
 
     setTimeout(() => {
-      window.open("https://wa.me/5511000000000?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista.", "_blank");
+      window.open("https://wa.me/+5521993002165?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista.", "_blank");
       closeAndResetModal();
     }, 3500);
   });

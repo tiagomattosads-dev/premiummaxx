@@ -358,34 +358,139 @@
   gap: 20px;
 }
 
-.cBigCard {
-  position: relative;
-  height: 400px;
+/* ==========================================
+   NOVOS CARTÕES COM ÍCONES E EFEITO LAVA (V2.0)
+========================================== */
+.cIconCard {
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; 
+  height: 320px; 
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), border-color 1.5s ease;
+  position: relative;
+  overflow: hidden; 
 }
 
-.cBigCardOverlay {
+/* O Ícone e a sua caixinha ciano */
+.cIconWrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 100%);
-}
-
-.cBigCard h4 {
-  position: absolute;
-  bottom: 30px;
+  top: 30px;
   left: 30px;
-  right: 30px;
-  color: #fff;
+  width: 56px;
+  height: 56px;
+  background-color: #03FAD5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3; /* Fica acima da Lava */
+}
+
+.cIconWrapper svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* O Texto do Cartão */
+.cIconCard h4 {
+  color: #ffffff;
   font-size: 1.2rem;
-  font-weight: 400;
-  z-index: 2;
+  font-weight: 500;
+  line-height: 1.4;
   margin: 0;
+  position: relative;
+  z-index: 3; /* Fica acima da Lava */
+}
+
+/* ==========================================
+   AS BOLHAS DE LAVA (CSS PURO)
+========================================== */
+/* BOLHA 1 (Verde Água - Nasce no Topo Esquerda) */
+.cIconCard::before {
+  content: '';
+  position: absolute;
+  width: 150px; height: 150px;
+  background: linear-gradient(135deg, #06C5A9, #018E7A);
+  filter: blur(25px); 
+  opacity: 0;
+  z-index: 1; 
+  pointer-events: none;
+  transition: opacity 1.5s ease-in-out;
+  animation: lavaWobble1 10s infinite alternate ease-in-out;
+}
+
+/* BOLHA 2 (Ciano Brilhante - Nasce no Fundo Direita) */
+.cIconCard::after {
+  content: '';
+  position: absolute;
+  width: 170px; height: 170px;
+  background: linear-gradient(135deg, #03FAD5, #06C5A9);
+  filter: blur(30px);
+  opacity: 0;
+  z-index: 1; 
+  pointer-events: none;
+  transition: opacity 1.5s ease-in-out;
+  animation: lavaWobble2 12s infinite alternate ease-in-out;
+}
+
+/* ESTADO ATIVO (LIGA O DIMMER DAS LUZES) */
+.cIconCard:hover, 
+.cIconCard.is-active-lava {
+  transform: translateY(-8px);
+  border-color: rgba(3, 250, 213, 0.3); 
+}
+
+.cIconCard:hover::before,
+.cIconCard.is-active-lava::before {
+  opacity: 0.5; 
+}
+
+.cIconCard:hover::after,
+.cIconCard.is-active-lava::after {
+  opacity: 0.4; 
+}
+
+/* ==========================================
+   COREOGRAFIAS ORGÂNICAS (Morphing & Movimento)
+========================================== */
+@keyframes lavaWobble1 {
+  0% {
+    top: -10%; left: -10%;
+    transform: scale(1) rotate(0deg);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  50% {
+    top: 30%; left: 50%;
+    transform: scale(1.3) rotate(180deg);
+    border-radius: 70% 30% 50% 50% / 30% 40% 70% 60%;
+  }
+  100% {
+    top: 60%; left: 10%;
+    transform: scale(0.9) rotate(360deg);
+    border-radius: 30% 70% 40% 60% / 60% 30% 50% 40%;
+  }
+}
+
+@keyframes lavaWobble2 {
+  0% {
+    bottom: -10%; right: -10%;
+    transform: scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
+  }
+  50% {
+    bottom: 40%; right: 60%;
+    transform: scale(1.2) rotate(-180deg);
+    border-radius: 40% 60% 70% 30% / 60% 30% 50% 40%;
+  }
+  100% {
+    bottom: 70%; right: -10%;
+    transform: scale(0.8) rotate(-360deg);
+    border-radius: 50% 50% 30% 70% / 30% 70% 40% 60%;
+  }
 }
 
 /* ==========================================
@@ -542,7 +647,7 @@
         grid-template-columns: 1fr; /* Empilha os 4 cartões gigantes */
     }
 
-    .cBigCard {
-        height: 250px; /* Reduz a altura da imagem para caber bonito na tela */
+    .cIconCard {
+        height: 260px; /* Reduz a altura da caixa de texto para caber bonito na tela */
     }
 }
