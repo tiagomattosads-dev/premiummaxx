@@ -1144,9 +1144,9 @@ const modalComponent = `
 
           <!-- O NOVO PASSO INTELIGENTE: CNPJ OU CPF UNIFICADOS (Passo 6) -->
           <div class="formStep" data-step="6">
-            <h3 data-i18n="mod_step6_title">6. Informe o CNPJ ou CPF corporativo:</h3>
+            <h3 data-i18n="mod_step6_title">6. Informe o CNPJ:</h3>
             <div class="inputGroup">
-              <input type="text" id="leadDocument" placeholder="00.000.000/0000-00 ou 000.000.000-00" data-i18n-placeholder="mod_step6_ph" required>
+              <input type="text" id="leadDocument" placeholder="00.000.000/0000-00" data-i18n-placeholder="mod_step6_ph" required>
             </div>
             <div class="stepActions">
               <button type="button" class="btnBack stepPrevBtn" data-i18n="mod_btn_back">Voltar</button>
