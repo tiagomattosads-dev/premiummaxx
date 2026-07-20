@@ -1333,34 +1333,45 @@ function initModalLogic() {
   });
 
   // =========================================================
-  // MÁSCARA INTELIGENTE MUTANTE: CPF OU CNPJ NO MESMO CAMPO
+  // MÁSCARAS E FILTROS DE DIGITAÇÃO (BLINDAGEM)
   // =========================================================
+  
+  // 1. MÁSCARA ESTRITA DE CNPJ (Exatamente 14 dígitos)
   const docInput = document.getElementById('leadDocument');
   if (docInput) {
     docInput.addEventListener('input', (e) => {
       let val = e.target.value.replace(/\D/g, ''); // Arranca tudo que não for número
-      if (val.length > 14) val = val.slice(0, 14); // O limite máximo no Brasil é o CNPJ (14)
+      if (val.length > 14) val = val.slice(0, 14); // Trava no limite do CNPJ
 
       let formatted = val;
-
-      if (val.length <= 11) {
-        // MÁSCARA DE CPF: 000.000.000-00
-        if (val.length > 3) formatted = `${val.slice(0, 3)}.${val.slice(3)}`;
-        if (val.length > 6) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6)}`;
-        if (val.length > 9) formatted = `${val.slice(0, 3)}.${val.slice(3, 6)}.${val.slice(6, 9)}-${val.slice(9)}`;
-      } else {
-        // MÁSCARA DE CNPJ: 00.000.000/0000-00 (Aciona quando o usuário passa do 11º dígito)
-        if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
-        if (val.length > 5) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5)}`;
-        if (val.length > 8) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8)}`;
-        if (val.length > 12) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8, 12)}-${val.slice(12)}`;
-      }
+      if (val.length > 2) formatted = `${val.slice(0, 2)}.${val.slice(2)}`;
+      if (val.length > 5) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5)}`;
+      if (val.length > 8) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8)}`;
+      if (val.length > 12) formatted = `${val.slice(0, 2)}.${val.slice(2, 5)}.${val.slice(5, 8)}/${val.slice(8, 12)}-${val.slice(12)}`;
 
       e.target.value = formatted;
     });
   }
 
-  // Formatação do Celular (Apenas visual, o validador lida com o tamanho depois)
+  // 2. FILTRO DE NOME DO PROFISSIONAL (Bloqueia números e símbolos)
+  const nameInput = document.getElementById('professionalName');
+  if (nameInput) {
+    nameInput.addEventListener('input', (e) => {
+      // Aceita apenas letras (maiúsculas/minúsculas), acentuação e espaços
+      e.target.value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
+    });
+  }
+
+  // 3. FILTRO DE NOME DA EMPRESA (Permite letras, números e pontuação básica)
+  const companyInput = document.getElementById('companyName');
+  if (companyInput) {
+    companyInput.addEventListener('input', (e) => {
+      // Permite letras, números, espaços, pontos, traços e & (Ex: Empresa & Cia 123 Ltda.)
+      e.target.value = e.target.value.replace(/[^a-zA-ZÀ-ÿ0-9\s\.\-\&]/g, '');
+    });
+  }
+
+  // 4. Formatação do Celular
   const phoneInput = document.getElementById('professionalPhone');
   if (phoneInput) {
     phoneInput.addEventListener('input', (e) => {
@@ -1410,8 +1421,8 @@ function initModalLogic() {
         } else if (f.id === 'leadDocument') {
           // Extrai só os números para contar
           const digits = val.replace(/\D/g, '');
-          // Só aprova se tiver EXATAMENTE 11 (CPF) ou 14 (CNPJ) dígitos
-          isThisFieldValid = (digits.length === 11 || digits.length === 14);
+          // AGORA SÓ PASSA SE TIVER EXATAMENTE 14 DÍGITOS (CNPJ)
+          isThisFieldValid = (digits.length === 14);
         } else if (f.type === 'email') {
           // Expressão Regular rigorosa para validar se tem @ e um domínio válido
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1504,36 +1515,52 @@ function initModalLogic() {
   });
 
   // =========================================================
-  // ENVIO FINAL (PAYLOAD PARA O JORGE)
+  // ENVIO FINAL (DISPARO DE E-MAIL PARA O JORGE)
   // =========================================================
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const selectedYears = Array.from(form.querySelectorAll('input[name="reviewYears"]:checked')).map(c => c.value);
+    const empresaNome = document.getElementById('companyName').value;
 
-    // Repare que agora puxamos o "leadDocument" como um campo único
+    // Estruturamos os dados e ativamos o design premium do FormSubmit
     const leadData = {
-      categoria: document.getElementById('leadCategory').value,
-      subitem: document.getElementById('leadSubitem').value,
-      anosRevisao: selectedYears,
-      descricao: document.getElementById('problemDescription').value,
-      empresa: document.getElementById('companyName').value,
-      profissional: document.getElementById('professionalName').value,
-      documento: document.getElementById('leadDocument').value,
-      email: document.getElementById('professionalEmail').value,
-      celular: document.getElementById('professionalPhone').value
+      _subject: `Novo Lead Premium Maxx - ${empresaNome}`, // Assunto automático bonito
+      _template: "box", // A MÁGICA: Transforma a tabela crua num cartão limpo e profissional!
+      Categoria: document.getElementById('leadCategory').value,
+      Subitem: document.getElementById('leadSubitem').value,
+      "Anos de Revisao": selectedYears.length > 0 ? selectedYears.join(", ") : "Nenhum selecionado",
+      Descricao: document.getElementById('problemDescription').value,
+      Empresa: empresaNome,
+      Profissional: document.getElementById('professionalName').value,
+      CNPJ: document.getElementById('leadDocument').value, // Renomeado para CNPJ
+      Email: document.getElementById('professionalEmail').value,
+      Celular: document.getElementById('professionalPhone').value
     };
 
-    console.log("Premium Maxx Lead Capturado e Qualificado:", leadData);
+    console.log("Processando envio de e-mail...");
 
     currentStep = steps.length;
     updateFormState();
     progressBar.style.width = "100%";
 
-    setTimeout(() => {
-      window.open("https://wa.me/+5521993002165?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista.", "_blank");
-      closeAndResetModal();
-    }, 3500);
+    fetch("https://formsubmit.co/ajax/jorge@premiumbravo.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(leadData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("E-mail entregue com sucesso!", data);
+      setTimeout(() => { closeAndResetModal(); }, 4000);
+    })
+    .catch(error => {
+      console.error("Erro na comunicação com o servidor de e-mail:", error);
+      setTimeout(() => { closeAndResetModal(); }, 4000);
+    });
   });
 }
 
