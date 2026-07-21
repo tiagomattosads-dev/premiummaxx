@@ -534,6 +534,11 @@ const footerComponent = `
             <a href="https://www.instagram.com/premiummaxx/" aria-label="Instagram" target="_blank">
               <img src="/img/instagram.svg" alt="Instagram" style="width: 18px; transition: all 0.3s ease;">
             </a>
+            
+            <!-- Novo ícone do WhatsApp adicionado -->
+            <a href="https://wa.me/5521993002165" aria-label="WhatsApp" target="_blank">
+              <img src="/img/whatsapp.svg" alt="WhatsApp" style="width: 18px; transition: all 0.3s ease; filter: brightness(0) invert(1);">
+            </a>
           </div>
         </div>
       </div>
