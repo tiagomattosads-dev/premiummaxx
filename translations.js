@@ -36,6 +36,9 @@ const i18n = {
     dev_modal_btn: "Entendi",
     dev_css_msg: "ÁREA EM DESENVOLVIMENTO \n\nNossos especialistas estão preparando a integração com o novo portal de conteúdos. Novidades em breve!",
 
+    home_quem_somos_tag: "QUEM SOMOS",
+    home_btn_saiba_mais: "Saiba Mais",
+
     // --- SERVIÇOS E CTA FINAL ---
     btn_details: "Ver detalhes do serviço",
     cta_title: "Inicie uma Conversa Estratégica.",
@@ -719,6 +722,9 @@ const i18n = {
     hold_cta_title: "Proteja o legado que você construiu.",
     hold_cta_desc: "Agende uma reunião confidencial com nossos consultores societários e descubra a melhor arquitetura de Holding para o seu patrimônio familiar.",
     hold_cta_btn: "Falar com Especialistas em Holding",
+
+    home_quem_somos_tag: "ABOUT US",
+    home_btn_saiba_mais: "Learn More",
 
     // --- SERVIÇO: LOCAÇÃO DE MÃO DE OBRA (LOAN STAFF) ---
     loan_hero_title: "Alocação Estratégica de<br> Profissionais Especializados.",
@@ -2258,7 +2264,8 @@ const i18n = {
     tco_cta_desc: "Programe una reunión técnica con nuestros auditores sénior y descubra el modelo ideal de externalización para estructurar la gobernanza continua de su empresa.",
     tco_cta_btn: "Hable con un Auditor Interno",
 
-    
+    home_quem_somos_tag: "QUIÉNES SOMOS",
+    home_btn_saiba_mais: "Sepa Más",    
 
   },
 

@@ -2263,7 +2263,261 @@ a.dynBtn.hidden {
   display: none;
 }
 
+/* ==========================================
+   SEÇÃO LÍDERES (ACORDEÃO HORIZONTAL)
+========================================== */
+.homeLeadersSection {
+  background-color: #ffffff; 
+  padding: 120px 0;
+}
 
+.hlContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* --- SPLIT HEADER (Cabeçalho Dividido) --- */
+.hlSplitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Alinha o texto da direita com a base do título */
+  gap: 40px;
+}
+
+.hlHeaderLeft {
+  flex: 1.2;
+}
+
+.hlTag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #077867; 
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.hlHeaderLeft h2 {
+  font-size: clamp(36px, 4vw, 48px);
+  color: #111111;
+  margin: 0;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.hlHeaderRight {
+  flex: 1;
+  max-width: 500px;
+  padding-bottom: 6px;
+}
+
+.hlSectionDesc {
+  font-size: 18px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- ACORDEÃO HORIZONTAL --- */
+.hlAccordionContainer {
+  display: flex;
+  gap: 20px;
+  height: 550px; /* Altura imponente da seção */
+  width: 100%;
+}
+
+.hlAccCard {
+  position: relative;
+  flex: 1; /* Cartão encolhido ocupa 1 parte */
+  border-radius: 32px; /* Pill-shape elegante da referência */
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #e0e0e0;
+  /* A curva de bezier traz o movimento "cinematográfico" da expansão */
+  transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+/* Quando ativo, ele cresce para ocupar 3 partes do espaço disponível */
+.hlAccCard.active {
+  flex: 3; 
+  cursor: default; /* Remove o cursor de clique do cartão aberto */
+}
+
+/* A IMAGEM COMO LENTE */
+.hlAccImg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 1.2s ease;
+}
+
+/* Leve zoom ao passar o mouse em um cartão fechado */
+.hlAccCard:hover:not(.active) .hlAccImg {
+  transform: scale(1.05);
+}
+
+/* Película escura na base para leitura (Só aparece quando expandido) */
+.hlAccOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.hlAccCard.active .hlAccOverlay {
+  opacity: 1;
+}
+
+/* --- ETIQUETA HORIZONTAL (CARTÃO FECHADO - ABORDAGEM PILL) --- */
+.hlCollapsedPill {
+  position: absolute;
+  bottom: 40px; /* Distância da base do cartão */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Estética Glassmorphism Premium */
+  background: rgba(17, 17, 17, 0.85); /* Fundo escuro para garantir contraste com a camisa clara */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 40px; /* Formato Pílula perfeito */
+  
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none; /* Deixa o clique passar reto para abrir o cartão */
+}
+
+/* Esconde a pílula com uma leve descida suave quando o cartão está aberto */
+.hlAccCard.active .hlCollapsedPill {
+  opacity: 0;
+  transform: translate(-50%, 15px); 
+}
+
+/* --- CONTEÚDO EXPANDIDO --- */
+.hlExpandedContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* O delay(0.2s) garante que o texto só apareça depois que o cartão começou a abrir */
+  transition: all 0.5s ease 0.2s; 
+}
+
+.hlAccCard.active .hlExpandedContent {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.hlExpandedContent h3 {
+  font-size: 32px;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.hlAccRole {
+  font-size: 14px;
+  font-weight: 700;
+  color: #03FAD5; /* Ciano Maxx */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hlAccDesc {
+  font-size: 16px;
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 500px; /* Impede que a linha de texto fique muito longa no desktop */
+}
+
+/* Botão do Acordeão */
+.btnAcc {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 30px; /* Pill-shape da referência */
+}
+
+.btnAcc svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.btnAcc:hover svg {
+  transform: translateX(4px);
+}
+
+/* ==========================================
+   AJUSTES RESPONSIVOS (MOBILE)
+========================================== */
+@media (max-width: 992px) {
+  .hlSplitHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* No celular, o acordeão horizontal perde o sentido. 
+     Transformamos ele num acordeão vertical mantendo a mesma lógica e efeito! */
+  .hlAccordionContainer {
+    flex-direction: column;
+    height: 700px; /* Altura total para os dois cartões verticais */
+  }
+
+  .hlCollapsedLabel {
+    /* Desfaz a rotação e alinha na horizontal para celular */
+    transform: translate(-50%, -50%) rotate(0deg); 
+  }
+
+  .hlExpandedContent {
+    padding: 30px 24px;
+  }
+
+  .hlExpandedContent h3 {
+    font-size: 26px;
+  }
+  
+  .hlAccDesc {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .homeLeadersSection {
+    padding: 80px 0;
+  }
+}
 
 /* ========================================================
    RESPONSIVO E MENU MOBILE (PREMIUM MAXX)

@@ -1740,3 +1740,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// ==========================================
+// ACORDEÃO DA SEÇÃO DE LÍDERES
+// ==========================================
+function toggleLeaderCard(clickedElement) {
+    // Se clicar no cartão que já está aberto, não faz nada
+    if (clickedElement.classList.contains('active')) return;
+
+    // Busca todos os cartões dentro do acordeão
+    const cards = document.querySelectorAll('.hlAccCard');
+
+    // Remove a classe 'active' de todos
+    cards.forEach(card => {
+        card.classList.remove('active');
+    });
+
+    // Adiciona a classe 'active' apenas no clicado
+    clickedElement.classList.add('active');
+}
