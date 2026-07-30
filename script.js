@@ -243,7 +243,7 @@ const headerComponent = `
               </div>
             </li>
             <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">carreiras</a></li>
-            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_temas">temas atuais</a></li>
+            <li><a href="https://premiummaxx.blog.br/"  data-i18n="nav_temas" target="_blank" >temas atuais</a></li>
           </ul>
         </nav>
 
@@ -1630,117 +1630,6 @@ function renderDevModal() {
 renderDevModal();
 
 
-// =======================================================
-// MOTOR UNIFICADO DO CARROSSEL INFINITO DRAGGABLE
-// =======================================================
-document.addEventListener("DOMContentLoaded", () => {
-  const slider = document.querySelector('.blogGrid');
-  const track = document.querySelector('.blogTrack');
-
-  if (slider && track) {
-    // 1. Clona os cartões originais e joga no final da pista para criar o loop
-    const cards = Array.from(track.children);
-    cards.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true'); // Acessibilidade: leitores de tela ignoram
-      track.appendChild(clone);
-    });
-
-
-    // =======================================================
-
-    // 2. Variáveis do Motor
-    let isDown = false;
-    let isHovered = false;
-    let isDragging = false;
-    let startX;
-    let scrollLeft;
-    let animationId;
-    const speed = 1.2; // Velocidade do auto-scroll constante
-
-    // 3. A Mágica do Auto-Scroll Constante e Infinito
-    function autoScroll() {
-      if (!isDown && !isHovered) {
-        slider.scrollLeft += speed;
-        // Se o scroll passou da metade (fim dos originais), reseta imperceptivelmente pro 0
-        if (slider.scrollLeft >= track.scrollWidth / 2) {
-          slider.scrollLeft = 0;
-        }
-      }
-      animationId = requestAnimationFrame(autoScroll);
-    }
-    autoScroll(); // Dá a partida no motor!
-
-    // 4. Pausar ao passar o mouse
-    slider.addEventListener('mouseenter', () => isHovered = true);
-    slider.addEventListener('mouseleave', () => {
-      isHovered = false;
-      isDown = false; // Solta o card se o mouse sair da tela
-      slider.style.cursor = 'grab';
-      slider.classList.remove('is-dragging'); // UX: Desliga a classe de arraste
-    });
-
-    // 5. O Sistema de Arraste Blindado com Mãozinha
-    slider.style.cursor = 'grab';
-
-    slider.addEventListener('mousedown', (e) => {
-      isDown = true;
-      isDragging = false;
-      slider.style.cursor = 'grabbing';
-      slider.classList.add('is-dragging'); // UX: Classe CSS anti-seleção
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
-    });
-
-    slider.addEventListener('mouseup', () => {
-      isDown = false;
-      slider.style.cursor = 'grab';
-      slider.classList.remove('is-dragging');
-    });
-
-    slider.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 1.5; // Multiplicador de sensibilidade do arraste
-
-      // Se moveu mais que 5px, confirma que é um arrasto e não um clique
-      if (Math.abs(walk) > 5) isDragging = true;
-
-      let newScrollLeft = scrollLeft - walk;
-
-      // === LOOP BIDIRECIONAL BLINDADO PARA O REFLEXO ===
-      // Se o usuário arrastar muito pra trás, o reflexo CSS precisa do loop blindado
-      if (newScrollLeft <= 0) {
-        newScrollLeft += track.scrollWidth / 2;
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = newScrollLeft;
-      } else if (newScrollLeft >= track.scrollWidth / 2) {
-        newScrollLeft -= track.scrollWidth / 2;
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = newScrollLeft;
-      }
-
-      slider.scrollLeft = newScrollLeft;
-    });
-
-    // 6. Prevenções Vitais de UX
-    // Evita que o usuário abra o artigo sem querer ao soltar o clique do arrasto
-    slider.addEventListener('click', (e) => {
-      if (isDragging) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    });
-
-    // Evita que o navegador tente abrir a "imagem fantasma" ao arrastar
-    slider.querySelectorAll('a, img').forEach(el => {
-      el.addEventListener('dragstart', (e) => e.preventDefault());
-    });
-  }
-});
-
 // ==========================================
 // ACORDEÃO DA SEÇÃO DE LÍDERES
 // ==========================================
@@ -1758,4 +1647,226 @@ function toggleLeaderCard(clickedElement) {
 
     // Adiciona a classe 'active' apenas no clicado
     clickedElement.classList.add('active');
+}
+
+// =======================================================
+// MOTOR DE INTEGRAÇÃO WORDPRESS (HEADLESS CMS)
+// =======================================================
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Verifica se a página atual tem o placeholder (para não rodar script à toa)
+    const blogPlaceholder = document.getElementById('blog-placeholder');
+    if (!blogPlaceholder) return;
+
+    // 2. URL Base do seu WordPress (já com a requisição da API Rest nativa)
+    // O parâmetro _embed garante que a imagem de capa (featured image) venha junto.
+    // O parâmetro per_page=5 limita para os 5 últimos artigos.
+    const WP_API_URL = "https://premiummaxx.blog.br/wp-json/wp/v2/posts?_embed&per_page=5";
+
+    // 3. Monta o esqueleto base da seção (Skeleton Loading)
+    blogPlaceholder.innerHTML = `
+        <section class="homeBlogSection">
+            <div class="container blogContainer">
+                <div class="blogHeader">
+                    <h2 data-i18n="blog_section_title">Outras matérias</h2>
+                    <p data-i18n="blog_section_desc">Acompanhe nossas análises técnicas sobre as últimas movimentações do mercado de capitais e governança corporativa.</p>
+                </div>
+                <div class="blogGrid">
+                    <div class="blogTrack" id="wp-blog-track">
+                        <!-- Skeletons (efeito de carregamento premium) -->
+                        ${Array(5).fill(`
+                            <div class="blogCard" style="pointer-events: none; opacity: 0.6; animation: pulse 1.5s infinite;">
+                                <div class="blogImageWrapper" style="background: #1a1a1a;"></div>
+                                <div class="blogContent">
+                                    <span class="blogCategory" style="background: #333; color: transparent; border-radius: 4px; width: 80px; display: inline-block;">Categoria</span>
+                                    <h3 style="background: #333; color: transparent; border-radius: 4px; height: 24px; margin-bottom: 10px;">Carregando titulo...</h3>
+                                    <p style="background: #222; color: transparent; border-radius: 4px; height: 60px;">Carregando resumo do artigo...</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+            @keyframes pulse {
+                0% { opacity: 0.6; }
+                50% { opacity: 0.3; }
+                100% { opacity: 0.6; }
+            }
+        </style>
+    `;
+
+    // 4. Executa as traduções da estrutura base do título imediatamente
+    changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
+
+    // 5. Função de busca (Fetch) ao WordPress
+    fetch(WP_API_URL)
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao acessar a API do WordPress");
+            return response.json();
+        })
+        .then(posts => {
+            const track = document.getElementById('wp-blog-track');
+            track.innerHTML = ""; // Limpa os skeletons
+            
+            // Se o WordPress não retornou nada
+            if (posts.length === 0) {
+                track.innerHTML = `<p style="color: #fff; text-align: center; width: 100%;">Nenhum artigo publicado ainda.</p>`;
+                return;
+            }
+
+            // 6. Montagem Dinâmica dos Cartões
+            posts.forEach(post => {
+                // Tenta extrair a imagem de capa. Se não tiver, usa o placeholder cinza padrão
+                let imageUrl = "../img/placeholder-1.jpg"; 
+                if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
+                    imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+                }
+
+                // Tenta extrair a categoria primária
+                let categoryName = "Insights";
+                if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0] && post._embedded['wp:term'][0][0]) {
+                    categoryName = post._embedded['wp:term'][0][0].name;
+                }
+
+                // Limpa o resumo (excerpt) que o WP manda com tags <p> e limita o tamanho
+                let excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                if (excerpt.length > 130) excerpt = excerpt.substring(0, 130) + "...";
+
+                // Monta o Card HTML igualzinho você construiu no Vanilla
+                const cardHTML = `
+                    <a href="${post.link}" class="blogCard" target="_blank" rel="noopener noreferrer">
+                        <div class="blogImageWrapper">
+                            <img src="${imageUrl}" alt="${post.title.rendered}" class="blogImg">
+                        </div>
+                        <div class="blogContent">
+                            <span class="blogCategory">${categoryName}</span>
+                            <h3>${post.title.rendered}</h3>
+                            <p>${excerpt}</p>
+                            <span class="blogReadMore"><span data-i18n="blog_read_more">Ler artigo</span> &rarr;</span>
+                        </div>
+                    </a>
+                `;
+                
+                // Joga o cartão dentro da pista (track)
+                track.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            // 7. Re-aplica as traduções do botão "Ler artigo"
+            changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
+            
+            // 8. Reinicializa o motor de Carrossel Infinito para os novos cards
+            initInfiniteCarousel();
+
+        })
+        .catch(error => {
+            console.error("Falha ao carregar o blog do WordPress:", error);
+            const track = document.getElementById('wp-blog-track');
+            track.innerHTML = `<p style="color: #fff; text-align: center; width: 100%;">Não foi possível carregar as matérias no momento. Tente novamente mais tarde.</p>`;
+        });
+});
+
+// =======================================================
+// ENCAPSULAMENTO DO CARROSSEL (Para rodar após o Fetch)
+// =======================================================
+function initInfiniteCarousel() {
+  const slider = document.querySelector('.blogGrid');
+  const track = document.querySelector('.blogTrack');
+
+  if (slider && track) {
+    const cards = Array.from(track.children);
+    
+    // Só clona se houver pelo menos 3 artigos, senão não tem motivo para loop
+    if(cards.length > 2) {
+        cards.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true'); 
+          track.appendChild(clone);
+        });
+    }
+
+    let isDown = false;
+    let isHovered = false;
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+    let animationId;
+    const speed = 1.2; 
+
+    // Cancela a animação anterior se houver (para evitar aceleração do carrossel no reload)
+    if(window.blogCarouselAnimationId) cancelAnimationFrame(window.blogCarouselAnimationId);
+
+    function autoScroll() {
+      if (!isDown && !isHovered && cards.length > 2) {
+        slider.scrollLeft += speed;
+        if (slider.scrollLeft >= track.scrollWidth / 2) {
+          slider.scrollLeft = 0;
+        }
+      }
+      window.blogCarouselAnimationId = requestAnimationFrame(autoScroll);
+    }
+    
+    if(cards.length > 2) {
+       autoScroll(); 
+    }
+
+    slider.addEventListener('mouseenter', () => isHovered = true);
+    slider.addEventListener('mouseleave', () => {
+      isHovered = false;
+      isDown = false; 
+      slider.style.cursor = 'grab';
+      slider.classList.remove('is-dragging'); 
+    });
+
+    slider.style.cursor = 'grab';
+
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      isDragging = false;
+      slider.style.cursor = 'grabbing';
+      slider.classList.add('is-dragging'); 
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.style.cursor = 'grab';
+      slider.classList.remove('is-dragging');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5; 
+      if (Math.abs(walk) > 5) isDragging = true;
+      let newScrollLeft = scrollLeft - walk;
+
+      if(cards.length > 2) {
+          if (newScrollLeft <= 0) {
+            newScrollLeft += track.scrollWidth / 2;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = newScrollLeft;
+          } else if (newScrollLeft >= track.scrollWidth / 2) {
+            newScrollLeft -= track.scrollWidth / 2;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = newScrollLeft;
+          }
+      }
+      slider.scrollLeft = newScrollLeft;
+    });
+
+    slider.addEventListener('click', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    slider.querySelectorAll('a, img').forEach(el => {
+      el.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+  }
 }

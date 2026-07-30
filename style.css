@@ -2185,16 +2185,18 @@ a.dynBtn.hidden {
   opacity: 0.6;
 }
 
-/* ==========================================
+/* 
+==========================================
    TRAVA DE DESENVOLVIMENTO (BLOG E PESQUISA)
-   Bloqueia os cliques e avisa sobre o WordPress
-========================================== */
+   [DESATIVADA PARA A INTEGRAÇÃO DO WORDPRESS]
+========================================== 
+
 .homeBlogSection,
 .searchSuggestions {
   position: relative;
 }
 
-/* 1. O Vidro Fosco (Cobre a seção inteira e bloqueia cliques) */
+--- 1. O Vidro Fosco (Cobre a seção inteira e bloqueia cliques) ---
 .homeBlogSection::before,
 .searchSuggestions::before {
   content: '';
@@ -2209,24 +2211,22 @@ a.dynBtn.hidden {
   cursor: not-allowed;
 }
 
-/* Ajuste de iluminação: Fundo claro no Blog, escuro na Pesquisa */
+--- Ajuste de iluminação: Fundo claro no Blog, escuro na Pesquisa ---
 .homeBlogSection::before {
   background: rgba(244, 244, 244, 0.4);
 }
 
 .searchSuggestions::before {
   background: rgba(10, 10, 10, 0.7);
-  /* A MÁGICA: Forçamos o vidro a furar o limite e ocupar 100% da largura da tela */
   width: 100vw;
   left: 50%;
   right: auto;
   transform: translateX(-50%);
 }
 
-/* 2. A Caixa de Mensagem Premium injetada via CSS */
+--- 2. A Caixa de Mensagem Premium injetada via CSS ---
 .homeBlogSection::after,
 .searchSuggestions::after {
-  /* O \A faz a quebra de linha no CSS! */
   content: attr(data-dev-msg);
   white-space: pre-wrap;
 
@@ -2248,15 +2248,14 @@ a.dynBtn.hidden {
 
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: 3px solid #03FAD5;
-  /* A linha Ciano Premium no topo */
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 
   width: 90%;
   max-width: 420px;
   pointer-events: auto;
-  /* Permite selecionar o texto do aviso */
 }
+*/
 
 .btnMenuMobile,
 .menuMobileOverlay {
