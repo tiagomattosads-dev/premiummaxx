@@ -291,7 +291,7 @@ const headerComponent = `
                 </li>
 
                 <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">CARREIRAS</a></li>
-                <li><a href="#" class="openDevModalTrigger" data-i18n="nav_temas">TEMAS ATUAIS</a></li>
+                <li><a href="https://premiummaxx.blog.br/" data-i18n="nav_temas" target="_blank">TEMAS ATUAIS</a></li>
             </ul>
             
             <div class="menuMobileCta">
