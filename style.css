@@ -459,16 +459,36 @@ a {
   /* Garante que o gradiente não vaze pelas bordas arredondadas */
 }
 
+/* O Container Escuro (Mantém a cor, padding e altura estrita) */
 .searchCard .cardContent {
-  /* Trocamos o cinza chapado pelo gradiente chumbo (de baixo para cima) */
   background: linear-gradient(to top, #111111, #2b2b2b);
   width: 100%;
-  padding: 20px 15px;
+  
+  padding: 16px 18px;
   color: var(--text-gray);
-  font-weight: 500;
-  font-size: 15px;
   transition: all 0.4s ease;
-  border-radius: 16px 16px 0px 0px;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* O Texto Lá Dentro (O SPAN leva a guilhotina de 2 linhas!) */
+.searchCard .cardContent span {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.searchCard.active .cardContent,
+.searchCard:hover .cardContent {
+  background: linear-gradient(to top, #06C5A9, #03FAD5);
+  color: #000000;
 }
 
 .searchCard.active {

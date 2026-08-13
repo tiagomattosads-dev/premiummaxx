@@ -595,7 +595,7 @@ renderGlobalFooter();
 
 
 // ==========================================
-// LÓGICA DO HEADER
+// LÓGICA DO HEADER E GLOBAL SPOTLIGHT
 // ==========================================
 function initHeaderLogic() {
   const headerSearchBtn = document.querySelector('.globalSpotlight button');
@@ -656,9 +656,6 @@ function initHeaderLogic() {
   }
 
   let isSearchOpen = false;
-  let autoSlideInterval;
-  let isSearchAnimating = false;
-  let isWheelOnCooldown = false;
 
   // 1. ABRIR/FECHAR O PAINEL DE PESQUISA
   if (headerSearchInput && headerSearchBtn) {
@@ -685,24 +682,109 @@ function initHeaderLogic() {
   }
 
   // =======================================================
-  // 2 e 3. LÓGICA DE PESQUISA (WP API) E CARROSSEL DINÂMICO
+  // 2 e 3. LÓGICA DE PESQUISA HÍBRIDA (SERVIÇOS + WP API)
   // =======================================================
   const carouselContainer = document.getElementById('carouselContainer');
   const searchTitle = document.querySelector('.searchSuggestions h3');
   
   let defaultZeroStateHTML = "";
-  if (carouselContainer) {
-    defaultZeroStateHTML = carouselContainer.innerHTML;
-    setupCarouselPhysics(); // Inicia a física do carrossel
-  }
-
   let searchTimeout;
+  let autoSlideInterval;
+  let isSearchAnimating = false;
+  let isWheelOnCooldown = false;
+
+  // --- A NOSSA MINI BASE DE DADOS LOCAL DE SERVIÇOS ---
+  // Aqui mapeamos os arquivos HTML físicos que você tem nas pastas
+  const localServicesDB = [
+    { id: "menu_aud_1", title: "Exame das Demonstrações Financeiras", url: "/servicos/auditoria-independente/exame-das-demonstracoes-financeiras.html", img: "/img/servicos/exame-das-demonstrações-financeiras.webp" },
+    { id: "menu_aud_2", title: "Revisão Limitada das Demonstrações", url: "/servicos/auditoria-independente/revisao-limitada-das-demonstracoes.html", img: "/img/servicos/revisão-limitada.webp" },
+    { id: "menu_aud_3", title: "Procedimentos Previamente Acordados", url: "/servicos/auditoria-independente/procedimentos-previamente-acordados.html", img: "/img/servicos/Procedimentos-Previamente-Acordados.webp" },
+    { id: "menu_aud_4", title: "Due-Diligence", url: "/servicos/auditoria-independente/due-diligence.html", img: "/img/servicos/due-diligence.webp" },
+    { id: "menu_aud_5", title: "Elaboração de Laudo Contábil", url: "/servicos/auditoria-independente/elaboracao-de-laudo-contabil.html", img: "/img/servicos/laudo-contabil.webp" },
+    { id: "menu_tri_1", title: "Tax Compliance", url: "/servicos/consultoria-tributaria/tax-compliance.html", img: "/img/servicos/tax-compliance.webp" },
+    { id: "menu_tri_2", title: "Transfer Pricing", url: "/servicos/consultoria-tributaria/transfer-pricing.html", img: "/img/servicos/transfer-pricing.webp" },
+    { id: "menu_tri_3", title: "Consultas Fiscais", url: "/servicos/consultoria-tributaria/atendimento-as-consultas-fiscais.html", img: "/img/servicos/Atendimento-às-Consultas-Fiscais.webp" },
+    { id: "menu_tri_4", title: "Benefícios Fiscais", url: "/servicos/consultoria-tributaria/beneficios-fiscais.html", img: "/img/servicos/beneficios-fiscais.webp" },
+    { id: "menu_tri_5", title: "Defesa Administrativa", url: "/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html", img: "/img/servicos/defesa.webp" },
+    { id: "menu_pla_1", title: "Redução de carga tributária", url: "/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html", img: "/img/servicos/estratégias-de-redução-de-carga-tributária.webp" },
+    { id: "menu_pla_2", title: "Recuperação de Créditos", url: "/servicos/planejamento-tributario/recuperacao-e-utilizacao-de-creditos-fiscais.html", img: "/img/servicos/creditos-fiscais.webp" },
+    { id: "menu_emp_1", title: "Gestão de Processos", url: "/servicos/consultoria-empresarial/gestao-de-processos.html", img: "/img/servicos/gestao-de-processos.webp" },
+    { id: "menu_emp_2", title: "Estruturas e controles", url: "/servicos/consultoria-empresarial/estruturas-e-controles-empresariais.html", img: "/img/servicos/estruturas-e-controles-empresariais.webp" },
+    { id: "menu_con_1", title: "Terceirização da Contabilidade", url: "/servicos/contabilidade/terceirizacao-da-contabilidade.html", img: "/img/servicos/terceirizacao-contabilidade.webp" },
+    { id: "menu_con_2", title: "Terceirização Fiscal", url: "/servicos/contabilidade/terceirizacao-fiscal.html", img: "/img/servicos/terceirizacao-fiscal.webp" },
+    { id: "menu_con_3", title: "Terceirização da Folha", url: "/servicos/contabilidade/terceirizacao-da-folha-de-pagamento.html", img: "/img/servicos/terceirizacao-da-folha-de-pagamento.webp" },
+    { id: "menu_out_1", title: "Auditoria Especial", url: "/servicos/auditoria-especial.html", img: "/img/placeholder-1.jpg" },
+    { id: "menu_out_2", title: "Holding Familiar", url: "/servicos/holding-familiar.html", img: "/img/placeholder-2.jpg" },
+    { id: "menu_out_3", title: "Abertura de Empresas", url: "/servicos/abertura-de-empresas.html", img: "/img/placeholder-3.jpg" },
+    { id: "menu_out_4", title: "Locação de Mão de Obra", url: "/servicos/locacao-de-mao-de-obra.html", img: "/img/placeholder-1.jpg" },
+    { id: "menu_out_5", title: "Valuation", url: "/servicos/valuation.html", img: "/img/placeholder-2.jpg" },
+    { id: "menu_out_6", title: "Análise de Contratos", url: "/servicos/analise-de-contratos.html", img: "/img/placeholder-3.jpg" },
+    { id: "menu_out_7", title: "Assessoria em IPO", url: "/servicos/assessoria-em-ipo.html", img: "/img/placeholder-1.jpg" },
+    { id: "menu_out_8", title: "Direito Creditório", url: "/servicos/direito-creditorio.html", img: "/img/placeholder-2.jpg" }
+  ];
 
   if (panelInput && carouselContainer) {
+    
+    // 1. CARREGAMENTO DO ESTADO ZERO (4 Serviços + 3 Artigos do Blog)
+    const staticServices = `
+      <a href="/servicos/auditoria-independente/due-diligence.html" class="searchCard active" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('/img/servicos/due-diligence.webp'); background-size: cover; background-position: center;">
+        <div class="cardContent"><span data-i18n="menu_aud_4">Due-Diligence</span></div>
+      </a>
+      <a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html" class="searchCard" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('/img/servicos/estratégias-de-redução-de-carga-tributária.webp'); background-size: cover; background-position: center;">
+        <div class="cardContent"><span data-i18n="menu_pla_1">Estratégias de redução de carga tributária</span></div>
+      </a>
+      <a href="/servicos/consultoria-empresarial/gestao-de-processos.html" class="searchCard" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('/img/servicos/gestao-de-processos.webp'); background-size: cover; background-position: center;">
+        <div class="cardContent"><span data-i18n="menu_emp_1">Gestão de Processos</span></div>
+      </a>
+      <a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html" class="searchCard" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('/img/servicos/terceirizacao-contabilidade.webp'); background-size: cover; background-position: center;">
+        <div class="cardContent"><span data-i18n="menu_con_1">Terceirização da Contabilidade</span></div>
+      </a>
+    `;
+
+    carouselContainer.innerHTML = `
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
+         <span style="color: #03FAD5; font-size: 16px; font-weight: 500; letter-spacing: 1px;">Carregando sugestões...</span>
+      </div>
+    `;
+
+    fetch("https://premiummaxx.blog.br/wp-json/wp/v2/posts?_embed&per_page=3")
+      .then(res => res.json())
+      .then(posts => {
+          let blogCards = "";
+          posts.forEach(post => {
+              let imageUrl = "/img/placeholder-1.jpg"; 
+              if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
+                  imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+              }
+              let title = post.title.rendered.replace(/<[^>]+>/g, '');
+              
+              blogCards += `
+                <a href="${post.link}" target="_blank" class="searchCard" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('${imageUrl}'); background-size: cover; background-position: center;">
+                  <div class="cardContent"><span>${title}</span></div>
+                </a>
+              `;
+          });
+          
+          defaultZeroStateHTML = staticServices + blogCards;
+          carouselContainer.innerHTML = defaultZeroStateHTML;
+          changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt'); 
+          setupCarouselPhysics();
+      })
+      .catch(err => {
+          defaultZeroStateHTML = staticServices;
+          carouselContainer.innerHTML = defaultZeroStateHTML;
+          changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
+          setupCarouselPhysics();
+      });
+
+    // =======================================================
+    // O NOVO MOTOR HÍBRIDO (LOCAL + WORDPRESS)
+    // =======================================================
     panelInput.addEventListener('input', (e) => {
       const query = e.target.value.trim();
+      const queryLower = query.toLowerCase();
       
-      clearTimeout(searchTimeout); // Cancela o envio se o usuário continuar a digitar
+      clearTimeout(searchTimeout); 
 
       if (query.length === 0) {
         if(searchTitle) searchTitle.textContent = "Você pode estar procurando sobre...";
@@ -711,7 +793,7 @@ function initHeaderLogic() {
         return;
       }
 
-      if(searchTitle) searchTitle.textContent = "Buscando artigos no blog...";
+      if(searchTitle) searchTitle.textContent = "Buscando serviços e artigos...";
       carouselContainer.innerHTML = `
         <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
            <span style="color: #03FAD5; font-size: 18px; font-weight: 500; letter-spacing: 1px;">Consultando a base de dados...</span>
@@ -719,41 +801,68 @@ function initHeaderLogic() {
       `;
       clearInterval(autoSlideInterval);
 
-      // DEBOUNCE: Espera 600ms de silêncio no teclado
       searchTimeout = setTimeout(() => {
+        
+        // 1. Pesquisa na Base Local (Ficheiros HTML)
+        const matchedServices = localServicesDB.filter(srv => srv.title.toLowerCase().includes(queryLower));
+
+        // 2. Pesquisa Externa (Blog WordPress)
         fetch(`https://premiummaxx.blog.br/wp-json/wp/v2/posts?search=${encodeURIComponent(query)}&_embed&per_page=6`)
         .then(res => res.json())
         .then(posts => {
           
-          if(posts.length === 0) {
+          // Se não encontrou nem serviço local nem artigo no blog
+          if(posts.length === 0 && matchedServices.length === 0) {
              if(searchTitle) searchTitle.textContent = "Nenhum resultado encontrado.";
              carouselContainer.innerHTML = `
               <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
-                <span style="color: #b3b3b3; font-size: 16px;">Não encontramos matérias para "${query}". Tente outro termo.</span>
+                <span style="color: #b3b3b3; font-size: 16px;">Não encontramos resultados para "${query}". Tente outro termo.</span>
               </div>
              `;
              return;
           }
 
           if(searchTitle) searchTitle.textContent = "Resultados encontrados:";
-          carouselContainer.innerHTML = ""; 
+          
+          // Constrói o HTML combinando os dois mundos
+          let combinedHTML = "";
+          let cardIndex = 0;
 
-          posts.forEach((post, index) => {
+          // A) Injeta primeiro os Serviços Institucionais
+          matchedServices.forEach(srv => {
+            const isActive = cardIndex === 0 ? "active" : "";
+            combinedHTML += `
+              <a href="${srv.url}" class="searchCard ${isActive}" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('${srv.img}'); background-size: cover; background-position: center;">
+                <div class="cardContent"><span data-i18n="${srv.id}">${srv.title}</span></div>
+              </a>
+            `;
+            cardIndex++;
+          });
+
+          // B) Injeta depois os Artigos do Blog
+          posts.forEach(post => {
             let imageUrl = "/img/placeholder-1.jpg"; 
             if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
                 imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
             }
             let title = post.title.rendered.replace(/<[^>]+>/g, '');
-            const isActive = index === 0 ? "active" : "";
+            const isActive = cardIndex === 0 ? "active" : ""; // Caso só encontre blog e nenhum serviço
             
-            const cardHTML = `
-              <a href="${post.link}" target="_blank" class="searchCard ${isActive}" style="background-image: url('${imageUrl}'); background-size: cover; background-position: center;">
-                <div class="cardContent">${title}</div>
+            combinedHTML += `
+              <a href="${post.link}" target="_blank" class="searchCard ${isActive}" style="width: 260px; max-width: 260px; flex: 0 0 260px; background-image: url('${imageUrl}'); background-size: cover; background-position: center;">
+                <div class="cardContent"><span>${title}</span></div>
               </a>
             `;
-            carouselContainer.insertAdjacentHTML('beforeend', cardHTML);
+            cardIndex++;
           });
 
+          // Renderiza tudo na ecrã de uma vez
+          carouselContainer.innerHTML = combinedHTML; 
+          
+          // Aplica a tradução nativa caso os serviços encontrados precisem mudar para EN/ES
+          changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
+          
+          // Ativa a física magnética do carrossel
           setupCarouselPhysics();
         })
         .catch(err => {
@@ -761,7 +870,7 @@ function initHeaderLogic() {
             if(searchTitle) searchTitle.textContent = "Erro na busca.";
             carouselContainer.innerHTML = `
               <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
-                <span style="color: #ff4d4d; font-size: 16px;">Ocorreu um erro de conexão com o blog.</span>
+                <span style="color: #ff4d4d; font-size: 16px;">Ocorreu um erro de conexão.</span>
               </div>
             `;
         });
@@ -769,12 +878,16 @@ function initHeaderLogic() {
     });
   }
 
-  // FÍSICA DO CARROSSEL
+  // =========================================================
+  // 3. FUNÇÃO QUE CONSTROI A FÍSICA DO CARROSSEL INFINITO
+  // =========================================================
   function setupCarouselPhysics() {
     clearInterval(autoSlideInterval); 
+
     const originalCards = Array.from(carouselContainer.querySelectorAll('.searchCard:not([aria-hidden="true"])'));
     const totalOriginal = originalCards.length;
 
+    // A Mágica do Loop: Só duplica se houverem mais de 2 cartões (evita bizarrices visuais)
     if (totalOriginal > 2) {
       originalCards.forEach(card => {
         let clone = card.cloneNode(true);
@@ -914,7 +1027,9 @@ function initHeaderLogic() {
     }
   }
 
+  // =======================================================
   // 4. LÓGICA DO MEGA MENU
+  // =======================================================
   const dropdownToggles = document.querySelectorAll('.hasDropdown > a');
   const hasDropdowns = document.querySelectorAll('.hasDropdown');
   const megaTabs = document.querySelectorAll('.megaTab');
@@ -944,11 +1059,13 @@ function initHeaderLogic() {
       megaPanes.forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
       const targetId = tab.getAttribute('data-target');
-      document.getElementById(targetId).classList.add('active');
+      if(document.getElementById(targetId)) document.getElementById(targetId).classList.add('active');
     });
   });
 
+  // =======================================================
   // 5. EFEITO MÁQUINA DE ESCREVER NO PLACEHOLDER
+  // =======================================================
   let fraseAtual = 0;
   let letraAtual = 0;
   let apagando = false;
@@ -962,16 +1079,18 @@ function initHeaderLogic() {
     
     const lang = localStorage.getItem('premiumMaxxLang') || 'pt';
     const frasesGlobais = [
-      i18n[lang].search_ph_1,
-      i18n[lang].search_ph_2,
-      i18n[lang].search_ph_3
+      i18n[lang]?.search_ph_1 || "Emissão de notas fiscais de aluguel...",
+      i18n[lang]?.search_ph_2 || "Isenções de ganho de capital...",
+      i18n[lang]?.search_ph_3 || "Empresas do Simples na Reforma Tributária..."
     ];
 
     const texto = frasesGlobais[fraseAtual];
-    panelInput.setAttribute('placeholder', texto.substring(0, letraAtual));
+    if (texto) {
+        panelInput.setAttribute('placeholder', texto.substring(0, letraAtual));
+    }
 
     let velocidade = apagando ? 30 : 60;
-    if (!apagando && letraAtual === texto.length) {
+    if (!apagando && texto && letraAtual === texto.length) {
       apagando = true;
       velocidade = 2000;
     } else if (apagando && letraAtual === 0) {
@@ -1021,7 +1140,7 @@ function initHeaderLogic() {
     });
   }
 
-} // <--- FIM DO INIT HEADER LOGIC
+} // <--- FIM DA FUNÇÃO initHeaderLogic()
 
 
 // =======================================================
