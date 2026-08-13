@@ -818,7 +818,7 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #077867;
+  color: #04d3b4;
   /* O seu verde/ciano escuro */
   margin-bottom: 16px;
 }
@@ -826,16 +826,22 @@ a {
 .blogContent h3 {
   font-size: 22px;
   color: #111111;
-  /* Volta a ser escuro! */
   margin-bottom: 16px;
   line-height: 1.3;
   letter-spacing: -0.5px;
   font-weight: 700;
   transition: color 0.3s ease;
+  
+  /* A MÁGICA DO CORTE DE 2 LINHAS */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a exatamente 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Coloca os ... no final */
 }
 
 .blogCard:hover .blogContent h3 {
-  color: #077867;
+  color: #00cbad;
 }
 
 .blogContent p {
@@ -844,6 +850,13 @@ a {
   line-height: 1.6;
   margin-bottom: 32px;
   flex-grow: 1;
+
+  /* A MÁGICA DO CORTE DE 3 LINHAS */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Trava em exatas 3 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .blogReadMore {

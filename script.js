@@ -266,14 +266,36 @@ const headerComponent = `
             <input type="text" id="panelSearchInput" placeholder=" ">
             <img src="/img/procurar.svg" alt="Buscar" class="panelSearchIcon">
           </div>
+          <!-- A CAIXA QUE TINHA SUMIDO ESTÁ AQUI DE VOLTA: -->
           <div class="searchSuggestions" id="searchSuggestions">
             <h3 data-i18n="search_title">Você pode estar procurando sobre...</h3>
             <div class="carouselContainer" id="carouselContainer">
-              <div class="searchCard active"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
-              <div class="searchCard"><div class="cardContent">Título de algum artigo ou serviço...</div></div>
+              
+              <!-- Cartão 1: Due Diligence -->
+              <a href="/servicos/auditoria-independente/due-diligence.html" class="searchCard active" style="background-image: url('/img/servicos/due-diligence.webp'); background-size: cover; background-position: center;">
+                <div class="cardContent" data-i18n="menu_aud_4">Due-Diligence</div>
+              </a>
+              
+              <!-- Cartão 2: Redução de Carga Tributária -->
+              <a href="/servicos/planejamento-tributario/estrategias-de-reducao-de-carga-tributaria.html" class="searchCard" style="background-image: url('/img/servicos/estratégias-de-redução-de-carga-tributária.webp'); background-size: cover; background-position: center;">
+                <div class="cardContent" data-i18n="menu_pla_1">Estratégias de redução de carga tributária</div>
+              </a>
+              
+              <!-- Cartão 3: Gestão de Processos -->
+              <a href="/servicos/consultoria-empresarial/gestao-de-processos.html" class="searchCard" style="background-image: url('/img/servicos/gestao-de-processos.webp'); background-size: cover; background-position: center;">
+                <div class="cardContent" data-i18n="menu_emp_1">Gestão de Processos</div>
+              </a>
+              
+              <!-- Cartão 4: Terceirização Contábil -->
+              <a href="/servicos/contabilidade/terceirizacao-da-contabilidade.html" class="searchCard" style="background-image: url('/img/servicos/terceirizacao-contabilidade.webp'); background-size: cover; background-position: center;">
+                <div class="cardContent" data-i18n="menu_con_1">Terceirização da Contabilidade</div>
+              </a>
+              
+              <!-- Cartão 5: Artigos do Blog (Link Externo) -->
+              <a href="https://premiummaxx.blog.br/" target="_blank" class="searchCard" style="background-image: url('/img/placeholder-1.jpg'); background-size: cover; background-position: center;">
+                <div class="cardContent" data-i18n="nav_temas">Temas Atuais</div>
+              </a>
+
             </div>
           </div>
         </div>
@@ -576,14 +598,11 @@ renderGlobalFooter();
 // LÓGICA DO HEADER
 // ==========================================
 function initHeaderLogic() {
-
-  // Elementos do Cabeçalho com o NOVO NOME
   const headerSearchBtn = document.querySelector('.globalSpotlight button');
   const headerSearchInput = document.querySelector('.globalSpotlight input');
   const headerBtnIcon = document.querySelector('.globalSpotlight button img');
   const siteHeader = document.querySelector('.siteHeader');
 
-  // Elementos do Painel
   const searchOverlay = document.getElementById('searchOverlay');
   const panelInput = document.getElementById('panelSearchInput');
   const searchSuggestions = document.getElementById('searchSuggestions');
@@ -595,11 +614,11 @@ function initHeaderLogic() {
   const botoesVoltar = document.querySelectorAll('.btnVoltarPequeno');
   const bodyCorpo = document.body;
 
+  // Lógica do Menu Mobile
   if (btnMenuMobile && menuMobileOverlay) {
     btnMenuMobile.addEventListener('click', () => {
       btnMenuMobile.classList.toggle('ativo');
       menuMobileOverlay.classList.toggle('ativo');
-
       if (menuMobileOverlay.classList.contains('ativo')) {
         bodyCorpo.style.overflow = 'hidden';
       } else {
@@ -638,6 +657,8 @@ function initHeaderLogic() {
 
   let isSearchOpen = false;
   let autoSlideInterval;
+  let isSearchAnimating = false;
+  let isWheelOnCooldown = false;
 
   // 1. ABRIR/FECHAR O PAINEL DE PESQUISA
   if (headerSearchInput && headerSearchBtn) {
@@ -650,14 +671,12 @@ function initHeaderLogic() {
         siteHeader.classList.add('headerSearchActive');
         headerBtnIcon.src = '/img/close.svg';
         panelInput.value = '';
-        searchSuggestions.style.display = 'block';
+        if(searchSuggestions) searchSuggestions.style.display = 'block';
         setTimeout(() => panelInput.focus(), 400);
-        startSlide();
       } else {
         searchOverlay.classList.remove('open');
         siteHeader.classList.remove('headerSearchActive');
         headerBtnIcon.src = '/img/procurar.svg';
-        stopSlide();
       }
     }
 
@@ -665,125 +684,234 @@ function initHeaderLogic() {
     headerSearchBtn.addEventListener('click', toggleSearch);
   }
 
-  // 2. LÓGICA DE DIGITAÇÃO
-  if (panelInput) {
+  // =======================================================
+  // 2 e 3. LÓGICA DE PESQUISA (WP API) E CARROSSEL DINÂMICO
+  // =======================================================
+  const carouselContainer = document.getElementById('carouselContainer');
+  const searchTitle = document.querySelector('.searchSuggestions h3');
+  
+  let defaultZeroStateHTML = "";
+  if (carouselContainer) {
+    defaultZeroStateHTML = carouselContainer.innerHTML;
+    setupCarouselPhysics(); // Inicia a física do carrossel
+  }
+
+  let searchTimeout;
+
+  if (panelInput && carouselContainer) {
     panelInput.addEventListener('input', (e) => {
-      if (e.target.value.trim().length > 0) {
-        searchSuggestions.style.display = 'none';
-        stopSlide();
-      } else {
-        searchSuggestions.style.display = 'block';
-        startSlide();
+      const query = e.target.value.trim();
+      
+      clearTimeout(searchTimeout); // Cancela o envio se o usuário continuar a digitar
+
+      if (query.length === 0) {
+        if(searchTitle) searchTitle.textContent = "Você pode estar procurando sobre...";
+        carouselContainer.innerHTML = defaultZeroStateHTML;
+        setupCarouselPhysics();
+        return;
       }
+
+      if(searchTitle) searchTitle.textContent = "Buscando artigos no blog...";
+      carouselContainer.innerHTML = `
+        <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
+           <span style="color: #03FAD5; font-size: 18px; font-weight: 500; letter-spacing: 1px;">Consultando a base de dados...</span>
+        </div>
+      `;
+      clearInterval(autoSlideInterval);
+
+      // DEBOUNCE: Espera 600ms de silêncio no teclado
+      searchTimeout = setTimeout(() => {
+        fetch(`https://premiummaxx.blog.br/wp-json/wp/v2/posts?search=${encodeURIComponent(query)}&_embed&per_page=6`)
+        .then(res => res.json())
+        .then(posts => {
+          
+          if(posts.length === 0) {
+             if(searchTitle) searchTitle.textContent = "Nenhum resultado encontrado.";
+             carouselContainer.innerHTML = `
+              <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
+                <span style="color: #b3b3b3; font-size: 16px;">Não encontramos matérias para "${query}". Tente outro termo.</span>
+              </div>
+             `;
+             return;
+          }
+
+          if(searchTitle) searchTitle.textContent = "Resultados encontrados:";
+          carouselContainer.innerHTML = ""; 
+
+          posts.forEach((post, index) => {
+            let imageUrl = "/img/placeholder-1.jpg"; 
+            if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
+                imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+            }
+            let title = post.title.rendered.replace(/<[^>]+>/g, '');
+            const isActive = index === 0 ? "active" : "";
+            
+            const cardHTML = `
+              <a href="${post.link}" target="_blank" class="searchCard ${isActive}" style="background-image: url('${imageUrl}'); background-size: cover; background-position: center;">
+                <div class="cardContent">${title}</div>
+              </a>
+            `;
+            carouselContainer.insertAdjacentHTML('beforeend', cardHTML);
+          });
+
+          setupCarouselPhysics();
+        })
+        .catch(err => {
+            console.error(err);
+            if(searchTitle) searchTitle.textContent = "Erro na busca.";
+            carouselContainer.innerHTML = `
+              <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 320px;">
+                <span style="color: #ff4d4d; font-size: 16px;">Ocorreu um erro de conexão com o blog.</span>
+              </div>
+            `;
+        });
+      }, 600);
     });
   }
 
-  // 3. LÓGICA DO CARROSSEL
-  const carouselContainer = document.getElementById('carouselContainer');
-  if (carouselContainer) {
-    const originalCards = Array.from(document.querySelectorAll('.searchCard'));
+  // FÍSICA DO CARROSSEL
+  function setupCarouselPhysics() {
+    clearInterval(autoSlideInterval); 
+    const originalCards = Array.from(carouselContainer.querySelectorAll('.searchCard:not([aria-hidden="true"])'));
     const totalOriginal = originalCards.length;
 
-    originalCards.forEach(card => {
-      let clone = card.cloneNode(true);
-      clone.classList.remove('active');
-      carouselContainer.appendChild(clone);
-    });
+    if (totalOriginal > 2) {
+      originalCards.forEach(card => {
+        let clone = card.cloneNode(true);
+        clone.classList.remove('active');
+        clone.setAttribute('aria-hidden', 'true');
+        carouselContainer.appendChild(clone);
+      });
 
-    [...originalCards].reverse().forEach(card => {
-      let clone = card.cloneNode(true);
-      clone.classList.remove('active');
-      carouselContainer.prepend(clone);
-    });
+      [...originalCards].reverse().forEach(card => {
+        let clone = card.cloneNode(true);
+        clone.classList.remove('active');
+        clone.setAttribute('aria-hidden', 'true');
+        carouselContainer.prepend(clone);
+      });
 
-    const allCards = document.querySelectorAll('.searchCard');
-    let currentIndex = totalOriginal;
+      const allCards = carouselContainer.querySelectorAll('.searchCard');
+      let currentIndex = totalOriginal; 
 
-    allCards.forEach(c => c.classList.remove('active'));
-    allCards[currentIndex].classList.add('active');
-    carouselContainer.style.scrollBehavior = 'auto';
-    allCards[currentIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
-    carouselContainer.style.scrollBehavior = 'smooth';
+      allCards.forEach(c => c.classList.remove('active'));
+      if(allCards[currentIndex]) allCards[currentIndex].classList.add('active');
+      
+      carouselContainer.style.scrollBehavior = 'auto';
+      if(allCards[currentIndex]) allCards[currentIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
+      carouselContainer.style.scrollBehavior = 'smooth';
 
-    let isWheelOnCooldown = false;
-    let isAnimating = false;
+      function moveToNextCard() {
+        if (isSearchAnimating) return;
+        if(allCards[currentIndex]) allCards[currentIndex].classList.remove('active');
+        currentIndex++;
+        if(allCards[currentIndex]) {
+            allCards[currentIndex].classList.add('active');
+            allCards[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
 
-    function moveToNextCard() {
-      if (isAnimating) return;
-      allCards[currentIndex].classList.remove('active');
-      currentIndex++;
-      allCards[currentIndex].classList.add('active');
-      allCards[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-
-      if (currentIndex >= totalOriginal * 2) {
-        isAnimating = true;
-        setTimeout(() => {
-          carouselContainer.style.scrollBehavior = 'auto';
-          allCards[currentIndex].classList.remove('active');
-          currentIndex -= totalOriginal;
-          allCards[currentIndex].classList.add('active');
-          allCards[currentIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
-          void carouselContainer.offsetWidth;
-          carouselContainer.style.scrollBehavior = 'smooth';
-          isAnimating = false;
-        }, 400);
+        if (currentIndex >= totalOriginal * 2) {
+          isSearchAnimating = true;
+          setTimeout(() => {
+            carouselContainer.style.scrollBehavior = 'auto';
+            if(allCards[currentIndex]) allCards[currentIndex].classList.remove('active');
+            currentIndex -= totalOriginal;
+            if(allCards[currentIndex]) {
+                allCards[currentIndex].classList.add('active');
+                allCards[currentIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
+            }
+            void carouselContainer.offsetWidth; 
+            carouselContainer.style.scrollBehavior = 'smooth';
+            isSearchAnimating = false;
+          }, 400);
+        }
       }
-    }
 
-    function moveToPrevCard() {
-      if (isAnimating) return;
-      allCards[currentIndex].classList.remove('active');
-      currentIndex--;
-      allCards[currentIndex].classList.add('active');
-      allCards[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      function moveToPrevCard() {
+        if (isSearchAnimating) return;
+        if(allCards[currentIndex]) allCards[currentIndex].classList.remove('active');
+        currentIndex--;
+        if(allCards[currentIndex]) {
+            allCards[currentIndex].classList.add('active');
+            allCards[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
 
-      if (currentIndex < totalOriginal) {
-        isAnimating = true;
-        setTimeout(() => {
-          carouselContainer.style.scrollBehavior = 'auto';
-          allCards[currentIndex].classList.remove('active');
-          currentIndex += totalOriginal;
-          allCards[currentIndex].classList.add('active');
-          allCards[currentIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
-          void carouselContainer.offsetWidth;
-          carouselContainer.style.scrollBehavior = 'smooth';
-          isAnimating = false;
-        }, 400);
+        if (currentIndex < totalOriginal) {
+          isSearchAnimating = true;
+          setTimeout(() => {
+            carouselContainer.style.scrollBehavior = 'auto';
+            if(allCards[currentIndex]) allCards[currentIndex].classList.remove('active');
+            currentIndex += totalOriginal;
+            if(allCards[currentIndex]) {
+                allCards[currentIndex].classList.add('active');
+                allCards[currentIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
+            }
+            void carouselContainer.offsetWidth;
+            carouselContainer.style.scrollBehavior = 'smooth';
+            isSearchAnimating = false;
+          }, 400);
+        }
       }
-    }
 
-    carouselContainer.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      if (isWheelOnCooldown || isAnimating) return;
-      isWheelOnCooldown = true;
-      if (e.deltaY > 0 || e.deltaX > 0) {
-        moveToNextCard();
-        stopSlide();
-      } else {
-        moveToPrevCard();
-        stopSlide();
+      if (!carouselContainer.dataset.listenersBound) {
+          carouselContainer.dataset.listenersBound = "true";
+
+          carouselContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (isWheelOnCooldown || isSearchAnimating) return;
+            isWheelOnCooldown = true;
+            if (e.deltaY > 0 || e.deltaX > 0) { moveToNextCard(); clearInterval(autoSlideInterval); } 
+            else { moveToPrevCard(); clearInterval(autoSlideInterval); }
+            setTimeout(() => { 
+                isWheelOnCooldown = false; 
+                autoSlideInterval = setInterval(moveToNextCard, 3000); 
+            }, 500);
+          }, { passive: false });
+
+          carouselContainer.addEventListener('mouseenter', () => {
+            carouselContainer.classList.add('hoverMode');
+            clearInterval(autoSlideInterval);
+          });
+          
+          carouselContainer.addEventListener('mouseleave', () => {
+            carouselContainer.classList.remove('hoverMode');
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(moveToNextCard, 3000);
+          });
+
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+          
+          carouselContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            carouselContainer.style.cursor = 'grabbing';
+            startX = e.pageX - carouselContainer.offsetLeft;
+            scrollLeft = carouselContainer.scrollLeft;
+            clearInterval(autoSlideInterval);
+          });
+          
+          carouselContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            carouselContainer.style.cursor = 'auto';
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(moveToNextCard, 3000);
+          });
+
+          carouselContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carouselContainer.offsetLeft;
+            const walk = (x - startX) * 1.5; 
+            carouselContainer.scrollLeft = scrollLeft - walk;
+          });
+
+          carouselContainer.addEventListener('dragstart', (e) => {
+            if (e.target.tagName === 'A' || e.target.tagName === 'IMG') e.preventDefault();
+          });
       }
-      setTimeout(() => {
-        isWheelOnCooldown = false;
-        startSlide();
-      }, 500);
-    }, { passive: false });
 
-    function startSlide() {
-      clearInterval(autoSlideInterval);
       autoSlideInterval = setInterval(moveToNextCard, 3000);
     }
-
-    function stopSlide() {
-      clearInterval(autoSlideInterval);
-    }
-
-    carouselContainer.addEventListener('mouseenter', () => carouselContainer.classList.add('hoverMode'));
-    carouselContainer.addEventListener('mouseleave', () => carouselContainer.classList.remove('hoverMode'));
-    allCards.forEach(card => {
-      card.addEventListener('mouseenter', stopSlide);
-      card.addEventListener('mouseleave', startSlide);
-    });
   }
 
   // 4. LÓGICA DO MEGA MENU
@@ -832,7 +960,6 @@ function initHeaderLogic() {
       return;
     }
     
-    // MÁGICA: Busca as frases do dicionário em tempo real!
     const lang = localStorage.getItem('premiumMaxxLang') || 'pt';
     const frasesGlobais = [
       i18n[lang].search_ph_1,
@@ -860,7 +987,7 @@ function initHeaderLogic() {
   animarPlaceholder();
 
   // =======================================================
-  // 8. HEADER INTELIGENTE (AGORA PROTEGIDO AQUI DENTRO)
+  // 8. HEADER INTELIGENTE
   // =======================================================
   const siteHeaderWrapper = document.querySelector('.siteHeader');
   const topBarEl = document.querySelector('.topBar');
@@ -1825,7 +1952,7 @@ function initInfiniteCarousel() {
       isDown = true;
       isDragging = false;
       slider.style.cursor = 'grabbing';
-      slider.classList.add('is-dragging'); 
+      /* A classe 'is-dragging' foi removida daqui! Não bloqueamos o clique de imediato. */
       startX = e.pageX - slider.offsetLeft;
       scrollLeft = slider.scrollLeft;
     });
@@ -1841,7 +1968,12 @@ function initInfiniteCarousel() {
       e.preventDefault();
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX) * 1.5; 
-      if (Math.abs(walk) > 5) isDragging = true;
+      
+      /* A MÁGICA: Só bloqueia o clique (adiciona is-dragging) se o mouse arrastar mais de 5 pixels */
+      if (Math.abs(walk) > 5) {
+          isDragging = true;
+          slider.classList.add('is-dragging'); 
+      }
       let newScrollLeft = scrollLeft - walk;
 
       if(cards.length > 2) {
