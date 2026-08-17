@@ -169,6 +169,10 @@ const headerComponent = `
         <nav class="mainNav">
           <ul>
             <li><a href="/quem somos/index.html" data-i18n="nav_quem_somos">quem somos</a></li>
+            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">carreiras</a></li>
+            <li><a href="https://premiummaxx.blog.br/"  data-i18n="nav_temas" target="_blank" >temas atuais</a></li>
+            
+            <!-- O SERVIÇOS E O MEGA MENU AGORA FICAM AQUI NO FINAL -->
             <li class="hasDropdown">
               <a href="#"><span data-i18n="nav_servicos">serviços</span>
                 <svg class="setinha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -244,8 +248,6 @@ const headerComponent = `
                 </div>
               </div>
             </li>
-            <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">carreiras</a></li>
-            <li><a href="https://premiummaxx.blog.br/"  data-i18n="nav_temas" target="_blank" >temas atuais</a></li>
           </ul>
         </nav>
 
@@ -308,14 +310,14 @@ const headerComponent = `
         <div class="menuPainel ativo" id="painel-principal">
             <ul class="menuMobileItens">
                 <li><a href="/quem somos/index.html" data-i18n="nav_quem_somos">QUEM SOMOS</a></li>
+                <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">CARREIRAS</a></li>
+                <li><a href="https://premiummaxx.blog.br/" data-i18n="nav_temas" target="_blank">TEMAS ATUAIS</a></li>
                 
+                <!-- O SERVIÇOS AGORA FICA AQUI NO FINAL DO MOBILE -->
                 <li class="abre-submenu" data-alvo="painel-servicos">
                     <span data-i18n="nav_servicos">SERVIÇOS</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seta"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </li>
-
-                <li><a href="#" class="openDevModalTrigger" data-i18n="nav_carreiras">CARREIRAS</a></li>
-                <li><a href="https://premiummaxx.blog.br/" data-i18n="nav_temas" target="_blank">TEMAS ATUAIS</a></li>
             </ul>
             
             <div class="menuMobileCta">
