@@ -139,23 +139,29 @@ const i18n = {
     ibs_cta_btn: "Estruturar Plano de Transição",
 
     // --- SERVIÇO: ASSESSORIA FISCAL EM REPETRO ---
-    rep_hero_title: "Inteligência Tributária para o Setor de Óleo e Gás.",
-    rep_hero_subtitle: "Maximize a eficiência das suas operações de exploração e produção. Assessoramos a sua empresa na habilitação, gestão e compliance do regime especial Repetro-Sped.",
+    rep_hero_title: "Incentivo e Modernização para o Setor de Óleo e Gás.",
+    rep_hero_subtitle: "Reduza custos e modernize sua infraestrutura de E&P. Assessoramos sua empresa na habilitação e controle do regime aduaneiro especial Repetro, garantindo segurança jurídica até 2040.",
     rep_hero_btn: "Falar com Especialista em Repetro",
-    rep_pain_title: "A alta carga tributária e o rigor aduaneiro asfixiam operações offshore.",
-    rep_pain_p1: "A importação de equipamentos e embarcações para a indústria de óleo e gás sem o devido enquadramento em regimes especiais inviabiliza financeiramente grandes projetos de exploração.",
-    rep_pain_p2: "Por outro lado, a gestão inadequada do Repetro resulta na suspensão do benefício, exigência imediata dos tributos suspensos e multas aduaneiras milionárias que comprometem o caixa da companhia.",
-    rep_combined_title: "Conformidade Aduaneira e<br>Eficiência Operacional.",
-    rep_combined_p1: "Atuamos desde o planejamento logístico-tributário até a habilitação da sua empresa no Repetro-Sped e Repetro-Industrialização. Nossa equipe garante o enquadramento perfeito dos equipamentos nas estritas normativas da Receita Federal.",
-    rep_combined_p2: "Implementamos rotinas rígidas de controle aduaneiro e validação do SPED para assegurar a manutenção do benefício, convertendo conformidade regulatória em vantagem competitiva sustentável.",
-    rep_card1_title: "Habilitação Ágil",
-    rep_card1_desc: "Condução rápida e segura do processo de habilitação ao regime junto à Receita Federal e Fazendas Estaduais.",
-    rep_card2_title: "Gestão de Compliance",
-    rep_card2_desc: "Controle rigoroso de prazos, saldos e obrigações acessórias para blindar a empresa contra autuações.",
-    rep_card3_title: "Redução de Custos",
-    rep_card3_desc: "Desoneração expressiva do fluxo de caixa através da suspensão e isenção de tributos (II, IPI, PIS, COFINS, ICMS).",
-    rep_cta_title: "Blinde suas operações no setor de Óleo e Gás.",
-    rep_cta_desc: "Converse com nossos especialistas em tributação aduaneira e garanta a fruição segura dos benefícios do Repetro para a sua corporação.",
+    
+    rep_pain_title: "A complexidade regulatória e a alta carga tributária travam a expansão offshore.",
+    rep_pain_p1: "A importação e aquisição de bens de alto valor tecnológico para atividades de E&P exigem um planejamento tributário minucioso. Sem o amparo de regimes aduaneiros especiais, os custos com tributos federais e estaduais inviabilizam financeiramente grandes projetos.",
+    rep_pain_p2: "Além disso, a fruição do benefício exige habilitação prévia na Receita Federal e manutenção de um rigoroso controle contábil e de estoque, como o método PEPS. Falhas nesses controles colocam em risco a operação e geram passivos milionários.",
+    
+    rep_combined_title: "Amplo Domínio das Modalidades<br>e Máxima Eficiência Fiscal.",
+    rep_combined_p1: "Atuamos como um “guarda-chuva” estratégico para a sua operação, conduzindo o enquadramento ideal nas diversas modalidades do regime: Repetro-Permanente, Temporário, Nacional ou Repetro-Sped, garantindo segurança jurídica de longo prazo.",
+    rep_combined_p2: "Garantimos a habilitação da sua empresa e implementamos as rotinas de controle de estoque (PEPS) exigidas pelo Fisco, suspendendo tributos e convertendo a conformidade regulatória em viabilidade econômica e competitividade.",
+    
+    rep_card1_title: "Habilitação e Controle",
+    rep_card1_desc: "Assessoria completa para habilitação junto à RFB e estruturação do controle contábil de estoque exigido (método PEPS).",
+    
+    rep_card2_title: "Isenção Federal",
+    rep_card2_desc: "Suspensão, isenção ou alíquota zero para II, IPI, PIS e COFINS sobre equipamentos importados ou adquiridos internamente.",
+    
+    rep_card3_title: "Benefícios Estaduais (ICMS)",
+    rep_card3_desc: "Extensão estratégica dos benefícios ao imposto estadual (ICMS) por meio de convênios específicos de isenção, redução ou diferimento.",
+    
+    rep_cta_title: "Torne seus projetos de E&P mais competitivos e viáveis.",
+    rep_cta_desc: "Converse com nossos especialistas e garanta a correta aplicação do Repetro para proteger os investimentos de alto valor tecnológico da sua corporação.",
     rep_cta_btn: "Avaliar Viabilidade do Repetro",
 
     // --- NOMES DAS CATEGORIAS GERAIS ---
