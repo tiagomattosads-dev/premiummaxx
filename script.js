@@ -206,6 +206,8 @@ const headerComponent = `
                         <a href="/servicos/consultoria-tributaria/assessoria-em-defesa-administrativa.html" data-i18n="menu_tri_5">Assessoria em Defesa Administrativa</a>
                         <a href="/servicos/consultoria-tributaria/assessoria-tributaria-a-pessoa-fisica.html" data-i18n="menu_tri_6">Assessoria Tributária à Pessoa Física</a>
                         <a href="/servicos/consultoria-tributaria/assessoria-fiscal-em-repetro.html" data-i18n="menu_tri_7">Assessoria Fiscal em Repetro</a>
+                        <a href="/servicos/consultoria-tributaria/ifrs-18.html" data-i18n="menu_tri_8">Adequação à IFRS 18</a>
+                        <a href="/servicos/consultoria-tributaria/reforma-tributaria-ibs-cbs.html" data-i18n="menu_tri_9">IBS e CBS (Reforma Tributária)</a>
                       </div>
                     </div>
                     <div class="megaPane" id="panePlanejamento">
