@@ -510,6 +510,120 @@
   transform: translateY(0);
 }
 
+
+/* ==========================================
+   SECÇÃO DE GOVERNANÇA (ACORDEÃO COMPLIANCE)
+========================================== */
+.aboutGovSection {
+  padding: 100px 0;
+  background-color: #080808;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.govHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.govHeader h2 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
+}
+
+.govHeader p {
+  color: #b3b3b3;
+  font-size: 1.1rem;
+}
+
+.govAccordion {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.govAccItem {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.govAccItem:hover {
+  border-color: rgba(3, 250, 213, 0.3);
+}
+
+.govAccBtn {
+  width: 100%;
+  text-align: left;
+  padding: 24px 30px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-family: var(--font-main);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.govAccIcon {
+  width: 24px;
+  height: 24px;
+  stroke: #03FAD5;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+/* O conteúdo escondido com altura zerada */
+.govAccContent {
+  max-height: 0;
+  padding: 0 30px;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.govAccContent p {
+  color: #a0a0a0;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.govAccContent p:last-child {
+  margin-bottom: 24px; /* Respiro extra em baixo antes de fechar */
+}
+
+/* ESTADO ABERTO (ACTIVE) */
+.govAccItem.active {
+  border-color: #03FAD5;
+  box-shadow: 0 10px 30px rgba(3, 250, 213, 0.05);
+}
+
+.govAccItem.active .govAccBtn {
+  color: #03FAD5;
+  /* Separador elegante entre o título e o texto lido */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+}
+
+/* Transforma o (+) num (x) ao rodar 45 graus */
+.govAccItem.active .govAccIcon {
+  transform: rotate(45deg);
+}
+
+.govAccItem.active .govAccContent {
+  opacity: 1;
+  padding-top: 24px; /* Empurra o texto para baixo suavemente */
+}
+
 /* ========================================================
    AJUSTES RESPONSIVOS: PÁGINA QUEM SOMOS (CELULARES)
 ======================================================== */
@@ -650,4 +764,24 @@
     .cIconCard {
         height: 260px; /* Reduz a altura da caixa de texto para caber bonito na tela */
     }
+
+    /* --- 6. GOVERNANÇA ACORDEÃO NO MOBILE --- */
+    .aboutGovSection {
+        padding: 60px 20px;
+    }
+    
+    .govHeader h2 {
+        font-size: 2rem;
+    }
+
+    .govAccBtn {
+        padding: 20px;
+        font-size: 1rem; /* Diminui a fonte no celular */
+        gap: 15px; /* Para o ícone não colar no texto */
+    }
+
+    .govAccContent {
+        padding: 0 20px;
+    }
 }
+

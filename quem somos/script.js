@@ -72,3 +72,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// ==========================================
+// ACORDEÃO DE GOVERNANÇA (QUEM SOMOS)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    const govItems = document.querySelectorAll('.govAccItem');
+    
+    govItems.forEach(item => {
+        const btn = item.querySelector('.govAccBtn');
+        
+        btn.addEventListener('click', () => {
+            // Fecha os outros (Se quiser que apenas 1 fique aberto por vez)
+            govItems.forEach(otherItem => {
+                if(otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.govAccContent').style.maxHeight = '0px';
+                }
+            });
+
+            // Alterna o clicado
+            item.classList.toggle('active');
+            const content = item.querySelector('.govAccContent');
+            
+            if(item.classList.contains('active')) {
+                // A MÁGICA: Calcula a altura exata do parágrafo lá dentro e abre como uma cortina
+                content.style.maxHeight = content.scrollHeight + 48 + 'px'; 
+            } else {
+                content.style.maxHeight = '0px';
+            }
+        });
+    });
+});
