@@ -139,6 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
 const headerComponent = `
   <header class="siteHeader">
     
+    <div class="financialTicker">
+      <div class="tickerTrack" id="tickerTrack">
+         <span class="tickerItem" style="color: #03FAD5;">Conectando ao Banco Central e Bolsas Globais...</span>
+      </div>
+    </div>
+    
+    
     <div class="topBar">
       <div class="container">
         <ul class="topBarLinks">
@@ -2125,3 +2132,68 @@ function initInfiniteCarousel() {
     });
   }
 }
+
+// =======================================================
+// MOTOR DO TICKER FINANCEIRO (BCB + AWESOME API)
+// =======================================================
+async function initFinancialTicker() {
+  const track = document.getElementById('tickerTrack');
+  if (!track) return;
+
+  try {
+    // 1. Puxa as Moedas da AwesomeAPI (Tempo Real)
+    const moedasRes = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,JPY-BRL');
+    const moedas = await moedasRes.json();
+
+    // 2. Função Ninja para puxar as taxas oficiais do Banco Central (SGS)
+    const fetchBcb = async (codigo) => {
+        try {
+            const res = await fetch(`https://api.bcb.gov.br/dados/serie/bcdata.sgs.${codigo}/dados/ultimos/1?formato=json`);
+            const data = await res.json();
+            return data[0].valor;
+        } catch(e) { return "N/A"; }
+    };
+
+    // Códigos Oficiais da API do BCB (Selic, IPCA Anual, INPC Anual e TJLP)
+    const selic = await fetchBcb(432);
+    const ipca = await fetchBcb(13522);
+    const inpc = await fetchBcb(13521);
+    const tjlp = await fetchBcb(256);
+
+    // Formatação limpa: só o número com duas casas decimais, sem o R$
+    const formatMoeda = (val) => parseFloat(val).toFixed(2).replace('.', ',');
+    
+    // Nossos Ícones SVG em formato de texto (Leves e escaláveis)
+    const iconDollar = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg>`;
+    const iconEuro = `<svg viewBox="0 0 24 24"><path d="M15 18.5c-2.51 0-4.68-1.42-5.76-3.5H15v-2H8.58c-.05-.33-.08-.66-.08-1s.03-.67.08-1H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5c1.61 0 3.09.59 4.23 1.57L21 5.3C19.41 3.87 17.31 3 15 3c-3.92 0-7.24 2.51-8.48 6H3v2h3.06c-.04.33-.06.66-.06 1s.02.67.06 1H3v2h3.52c1.24 3.49 4.56 6 8.48 6 2.31 0 4.41-.87 6-2.3l-1.78-1.77c-1.13.98-2.6 1.57-4.22 1.57z"/></svg>`;
+    const iconPound = `<svg viewBox="0 0 24 24"><path d="M15.5 15.5v-2h-3v-4.5c0-1.65 1.35-3 3-3h1.5v-2h-1.5c-2.76 0-5 2.24-5 5v4.5H9v2h1.5V19h-2v2h8v-2h-3v-3.5h2z"/></svg>`;
+    const iconYen = `<svg viewBox="0 0 24 24"><path d="M13.5 11h2.5v2h-2.5v2h2.5v2h-2.5v3h-3v-3h-2.5v-2H10.5v-2h-2.5v-2h2.5v-1l-3-4h3.5l1.5 2 1.5-2h3.5l-3 4v1z"/></svg>`;
+    const iconBank = `<svg viewBox="0 0 24 24"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg>`;
+    const iconTrendingUp = `<svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>`;
+    const iconTrendingDown = `<svg viewBox="0 0 24 24"><path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"/></svg>`;
+
+    // Monta o visual estruturado com o novo CSS Flexbox (t-block)
+    const items = [
+        `<div class="t-block"><span class="t-icon">${iconDollar}</span> <span class="t-label">USD</span> <span class="t-val">${formatMoeda(moedas.USDBRL.bid)}</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconEuro}</span> <span class="t-label">EUR</span> <span class="t-val">${formatMoeda(moedas.EURBRL.bid)}</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconPound}</span> <span class="t-label">GBP</span> <span class="t-val">${formatMoeda(moedas.GBPBRL.bid)}</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconYen}</span> <span class="t-label">JPY</span> <span class="t-val">${formatMoeda(moedas.JPYBRL.bid)}</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconBank}</span> <span class="t-label">SELIC</span> <span class="t-val">${selic}% a.a.</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconTrendingUp}</span> <span class="t-label">IPCA (12m)</span> <span class="t-val">${ipca}%</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconTrendingDown}</span> <span class="t-label">INPC (12m)</span> <span class="t-val">${inpc}%</span></div>`,
+        `<div class="t-block"><span class="t-icon">${iconBank}</span> <span class="t-label">TJLP</span> <span class="t-val">${tjlp}% a.a.</span></div>`
+    ];
+
+    const tickerHTML = items.map(item => `<span class="tickerItem">${item}</span>`).join('');
+    
+    // A MÁGICA: Duplicamos a fita no HTML para criar a ilusão de rolagem infinita
+    track.innerHTML = tickerHTML + tickerHTML;
+
+  } catch (error) {
+      console.error("Erro ao carregar dados financeiros:", error);
+      track.innerHTML = `<span class="tickerItem" style="color:#ff4d4d;">Mercado financeiro temporariamente indisponível.</span>`;
+  }
+}
+
+// Dispara a ignição do motor financeiro instantaneamente
+initFinancialTicker();

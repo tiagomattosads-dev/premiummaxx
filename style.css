@@ -71,6 +71,97 @@ a {
   padding: 0 40px;
 }
 
+/* ==========================================
+   FINANCIAL TICKER (FAIXA DE MERCADO)
+========================================== */
+.financialTicker {
+  width: 100%;
+  background: #000000; /* Fundo preto absoluto para destacar os números */
+  height: 38px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1002;
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  /* Animação linear de 35s. Se achar rápido, aumente para 45s */
+  animation: tickerScroll 35s linear infinite; 
+}
+
+/* Pausa a rolagem quando o usuário colocar o mouse em cima para ler */
+.financialTicker:hover .tickerTrack {
+  animation-play-state: paused;
+  cursor: default;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 40px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e0e0e0;
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+/* O pontinho ciano divisório entre os índices */
+.tickerItem::after {
+  content: '•';
+  position: absolute;
+  right: 0;
+  color: #03FAD5;
+  opacity: 0.4;
+}
+
+/* --- ALINHAMENTO DO TICKER --- */
+.t-block {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço entre o ícone e o texto */
+  white-space: nowrap; /* IMPEDE que quebre de linha */
+}
+
+/* O container do ícone SVG */
+.t-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+/* Força os ícones SVG a usarem a cor que definirmos */
+.t-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: #888888; 
+}
+
+/* Textos */
+.t-label { 
+  color: #888888; 
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.t-val { 
+  color: #ffffff; 
+  font-weight: 600; 
+  font-size: 13px;
+}
+
+/* A Mágica do Loop Infinito: -50% porque duplicaremos os itens no JS */
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+
 /* --- TOP BAR --- */
 .siteHeader {
   position: relative;
