@@ -1991,6 +1991,80 @@ document.addEventListener("DOMContentLoaded", () => {
                 let excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
                 if (excerpt.length > 130) excerpt = excerpt.substring(0, 130) + "...";
 
+                // --- A MÁGICA DA PONTE DE IDIOMAS (GTRANSLATE) ---
+                const userLang = localStorage.getItem('premiumMaxxLang') || 'pt';
+                let finalLink = post.link;
+
+                if (userLang !== 'pt') {
+                    // Adiciona a hashtag mágica do GTranslate
+                    // O GTranslate costuma reconhecer links no formato /#en ou /#es 
+                    finalLink = `${post.link}#${userLang}`; 
+                }
+
+                // Monta o Card HTML usando o finalLink dinâmico
+                const cardHTML = `
+                    <a href="${finalLink}" class="blogCard" target="_blank" rel="noopener noreferrer">
+                        <div class="blogImageWrapper">
+                            <img src="${imageUrl}" alt="${post.title.rendered}" class="blogImg">
+                        </div>
+                        <div class="blogContent">
+                            <span class="blogCategory">${categoryName}</span>
+                            <h3>${post.title.rendered}</h3>
+                            <p>${excerpt}</p>
+                            <span class="blogReadMore"><span data-i18n="blog_read_more">Ler artigo</span> &rarr;</span>
+                        </div>
+                    </a>
+                `;
+                
+                // Joga o cartão dentro da pista (track)
+                track.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            // 7. Re-aplica as traduções do botão "Ler artigo"
+            changeLanguage(localStorage.getItem('premiumMaxxLang') || 'pt');
+            
+            // 8. Reinicializa o motor de Carrossel Infinito para os novos cards
+            initInfiniteCarousel();
+
+        })
+        .catch(error => {
+            console.error("Falha ao carregar o blog do WordPress:", error);
+            const track = document.getElementById('wp-blog-track');
+            track.innerHTML = `<p style="color: #fff; text-align: center; width: 100%;">Não foi possível carregar as matérias no momento. Tente novamente mais tarde.</p>`;
+        });
+    fetch(WP_API_URL)
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao acessar a API do WordPress");
+            return response.json();
+        })
+        .then(posts => {
+            const track = document.getElementById('wp-blog-track');
+            track.innerHTML = ""; // Limpa os skeletons
+            
+            // Se o WordPress não retornou nada
+            if (posts.length === 0) {
+                track.innerHTML = `<p style="color: #fff; text-align: center; width: 100%;">Nenhum artigo publicado ainda.</p>`;
+                return;
+            }
+
+            // 6. Montagem Dinâmica dos Cartões
+            posts.forEach(post => {
+                // Tenta extrair a imagem de capa. Se não tiver, usa o placeholder cinza padrão
+                let imageUrl = "../img/placeholder-1.jpg"; 
+                if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
+                    imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+                }
+
+                // Tenta extrair a categoria primária
+                let categoryName = "Insights";
+                if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0] && post._embedded['wp:term'][0][0]) {
+                    categoryName = post._embedded['wp:term'][0][0].name;
+                }
+
+                // Limpa o resumo (excerpt) que o WP manda com tags <p> e limita o tamanho
+                let excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                if (excerpt.length > 130) excerpt = excerpt.substring(0, 130) + "...";
+
                 // Monta o Card HTML igualzinho você construiu no Vanilla
                 const cardHTML = `
                     <a href="${post.link}" class="blogCard" target="_blank" rel="noopener noreferrer">
