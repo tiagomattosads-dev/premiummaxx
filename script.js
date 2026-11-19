@@ -569,7 +569,7 @@ const footerComponent = `
             </a>
             
             <!-- Novo ícone do WhatsApp adicionado -->
-            <a href="https://wa.me/5521993002165" aria-label="WhatsApp" target="_blank">
+            <a href="https://wa.me/5521991016330" aria-label="WhatsApp" target="_blank">
               <img src="/img/whatsapp.svg" alt="WhatsApp" style="width: 18px; transition: all 0.3s ease; filter: brightness(0) invert(1);">
             </a>
           </div>
