@@ -2523,7 +2523,7 @@ a.dynBtn.hidden {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   
   opacity: 1;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.35s ease 0.25s, transform 0.35s ease 0.25s;
   pointer-events: none; /* Deixa o clique passar reto para abrir o cartão */
 }
 
@@ -2531,6 +2531,7 @@ a.dynBtn.hidden {
 .hlAccCard.active .hlCollapsedPill {
   opacity: 0;
   transform: translate(-50%, 15px); 
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 /* --- CONTEÚDO EXPANDIDO --- */
@@ -2538,7 +2539,7 @@ a.dynBtn.hidden {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: min(580px, 56vw);
   padding: 40px;
   opacity: 0;
   transform: translateY(20px);
@@ -2546,14 +2547,17 @@ a.dynBtn.hidden {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* O delay(0.2s) garante que o texto só apareça depois que o cartão começou a abrir */
-  transition: all 0.5s ease 0.2s; 
+  will-change: opacity, transform;
+  /* Ao recolher, some rápido antes que o card estreite e empurre o texto */
+  transition: opacity 0.15s ease, transform 0.18s ease;
 }
 
 .hlAccCard.active .hlExpandedContent {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  /* Ao expandir, aguarda o card abrir para entrar suavemente */
+  transition: opacity 0.45s ease 0.25s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
 }
 
 .hlExpandedContent h3 {
@@ -2599,6 +2603,82 @@ a.dynBtn.hidden {
   transform: translateX(4px);
 }
 
+/* Controles de Autoplay dos Líderes (Play/Pause + Barra Efeito Lava) */
+.hlAutoplayControls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.hlPlayPauseBtn {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #03FAD5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.hlPlayPauseBtn:hover {
+  background: rgba(3, 250, 213, 0.14);
+  border-color: #03FAD5;
+  transform: scale(1.05);
+  box-shadow: 0 0 14px rgba(3, 250, 213, 0.25);
+}
+
+.hlPlayPauseBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.hlPlayPauseBtn .hlIconPlay {
+  display: none;
+  margin-left: 2px;
+}
+
+.hlAutoplayControls.is-paused .hlPlayPauseBtn .hlIconPause {
+  display: none;
+}
+
+.hlAutoplayControls.is-paused .hlPlayPauseBtn .hlIconPlay {
+  display: block;
+}
+
+.hlProgressTrack {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  position: relative;
+}
+
+.hlProgressBar {
+  height: 100%;
+  width: 0%;
+  opacity: 0;
+  background: linear-gradient(90deg, #014d42 0%, #014d42 20%, #00ffd9 50%, #09ddbd 80%, #014d42 100%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation:
+    lavaFlow 8s linear infinite,
+    breathingLight 8s ease-in-out infinite alternate;
+}
+
+.hlAccordionContainer.is-autoplay-paused .hlProgressBar {
+  animation-play-state: paused;
+}
+
 /* ==========================================
    AJUSTES RESPONSIVOS (MOBILE)
 ========================================== */
@@ -2624,6 +2704,7 @@ a.dynBtn.hidden {
   }
 
   .hlExpandedContent {
+    width: 100%;
     padding: 30px 24px;
   }
 
@@ -2633,6 +2714,17 @@ a.dynBtn.hidden {
   
   .hlAccDesc {
     font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .hlAutoplayControls {
+    margin-top: 16px;
+    max-width: 240px;
+  }
+
+  .hlPlayPauseBtn {
+    width: 36px;
+    height: 36px;
   }
 }
 

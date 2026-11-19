@@ -1888,23 +1888,183 @@ renderDevModal();
 
 
 // ==========================================
-// ACORDEÃO DA SEÇÃO DE LÍDERES
+// ACORDEÃO DA SEÇÃO DE LÍDERES + AUTOPLAY (5.5s)
 // ==========================================
+const LEADERS_AUTOPLAY_DURATION = 5500;
+let leaderAutoplayElapsed = 0;
+let leaderLastFrameTime = null;
+let isLeaderHovered = false;
+let isLeaderManuallyPaused = false;
+let bypassLeaderHoverOnce = false;
+let leaderRafId = null;
+
+function isLeadersAutoplayRunning() {
+    const isHoverBlocking = isLeaderHovered && !bypassLeaderHoverOnce;
+    return !isLeaderManuallyPaused && !isHoverBlocking;
+}
+
+function getLeaderPlayPauseLabel(isPaused) {
+    const lang = localStorage.getItem('premiumMaxxLang') || 'pt';
+    const labels = {
+        pt: isPaused ? 'Reproduzir rotação automática' : 'Pausar rotação automática',
+        en: isPaused ? 'Play automatic rotation' : 'Pause automatic rotation',
+        es: isPaused ? 'Reproducir rotación automática' : 'Pausar rotación automática'
+    };
+    return (labels[lang] || labels.pt);
+}
+
+function syncLeadersAutoplayUI(resetInactiveImmediately = false) {
+    const container = document.querySelector('.hlAccordionContainer');
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.hlAccCard');
+    const percent = Math.min((leaderAutoplayElapsed / LEADERS_AUTOPLAY_DURATION) * 100, 100);
+    const running = isLeadersAutoplayRunning();
+
+    container.classList.toggle('is-autoplay-paused', !running);
+
+    cards.forEach(card => {
+        const bar = card.querySelector('.hlProgressBar');
+        const controls = card.querySelector('.hlAutoplayControls');
+        const btn = card.querySelector('.hlPlayPauseBtn');
+
+        if (controls) {
+            controls.classList.toggle('is-paused', isLeaderManuallyPaused);
+        }
+
+        if (btn) {
+            btn.setAttribute('aria-pressed', String(isLeaderManuallyPaused));
+            btn.setAttribute('aria-label', getLeaderPlayPauseLabel(isLeaderManuallyPaused));
+        }
+
+        if (!bar) return;
+
+        if (card.classList.contains('active')) {
+            bar.style.width = `${percent}%`;
+            bar.style.opacity = percent > 0 ? '1' : '0';
+        } else if (resetInactiveImmediately) {
+            bar.style.width = '0%';
+            bar.style.opacity = '0';
+        }
+    });
+}
+
+function setActiveLeaderCard(targetCard) {
+    const cards = Array.from(document.querySelectorAll('.hlAccCard'));
+    if (!targetCard || cards.length === 0) return;
+
+    const previousCard = cards.find(card => card.classList.contains('active'));
+    cards.forEach(card => card.classList.remove('active'));
+    targetCard.classList.add('active');
+
+    leaderAutoplayElapsed = 0;
+    leaderLastFrameTime = null;
+    syncLeadersAutoplayUI(false);
+
+    // Aguarda o fade-out do conteúdo antigo antes de zerar a barra do card que fechou
+    if (previousCard && previousCard !== targetCard) {
+        const prevBar = previousCard.querySelector('.hlProgressBar');
+        if (prevBar) {
+            setTimeout(() => {
+                if (!previousCard.classList.contains('active')) {
+                    prevBar.style.width = '0%';
+                    prevBar.style.opacity = '0';
+                }
+            }, 220);
+        }
+    }
+}
+
+function stepLeadersAutoplay(now) {
+    if (!isLeadersAutoplayRunning()) {
+        leaderRafId = null;
+        leaderLastFrameTime = null;
+        return;
+    }
+
+    if (leaderLastFrameTime === null) {
+        leaderLastFrameTime = now;
+    }
+
+    const delta = Math.min(now - leaderLastFrameTime, 100);
+    leaderLastFrameTime = now;
+    leaderAutoplayElapsed += delta;
+
+    if (leaderAutoplayElapsed >= LEADERS_AUTOPLAY_DURATION) {
+        const cards = Array.from(document.querySelectorAll('.hlAccCard'));
+        if (cards.length > 1) {
+            const currentIndex = cards.findIndex(card => card.classList.contains('active'));
+            const nextIndex = (currentIndex + 1) % cards.length;
+            setActiveLeaderCard(cards[nextIndex]);
+        } else {
+            leaderAutoplayElapsed = 0;
+        }
+    }
+
+    syncLeadersAutoplayUI(false);
+    leaderRafId = requestAnimationFrame(stepLeadersAutoplay);
+}
+
+function updateLeadersAutoplayState() {
+    syncLeadersAutoplayUI(false);
+
+    if (isLeadersAutoplayRunning()) {
+        if (leaderRafId === null) {
+            leaderLastFrameTime = null;
+            leaderRafId = requestAnimationFrame(stepLeadersAutoplay);
+        }
+    } else if (leaderRafId !== null) {
+        cancelAnimationFrame(leaderRafId);
+        leaderRafId = null;
+        leaderLastFrameTime = null;
+    }
+}
+
 function toggleLeaderCard(clickedElement) {
     // Se clicar no cartão que já está aberto, não faz nada
     if (clickedElement.classList.contains('active')) return;
 
-    // Busca todos os cartões dentro do acordeão
-    const cards = document.querySelectorAll('.hlAccCard');
+    bypassLeaderHoverOnce = false;
+    setActiveLeaderCard(clickedElement);
+    updateLeadersAutoplayState();
+}
 
-    // Remove a classe 'active' de todos
-    cards.forEach(card => {
-        card.classList.remove('active');
+function toggleLeadersAutoplay(event) {
+    if (event) event.stopPropagation();
+
+    isLeaderManuallyPaused = !isLeaderManuallyPaused;
+
+    if (!isLeaderManuallyPaused && isLeaderHovered) {
+        // Permite retomar imediatamente ao clicar em Play com o cursor sobre o card
+        bypassLeaderHoverOnce = true;
+    } else if (isLeaderManuallyPaused) {
+        bypassLeaderHoverOnce = false;
+    }
+
+    leaderLastFrameTime = null;
+    updateLeadersAutoplayState();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.hlAccordionContainer');
+    if (!container) return;
+
+    container.addEventListener('pointerenter', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        isLeaderHovered = true;
+        updateLeadersAutoplayState();
     });
 
-    // Adiciona a classe 'active' apenas no clicado
-    clickedElement.classList.add('active');
-}
+    container.addEventListener('pointerleave', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        isLeaderHovered = false;
+        bypassLeaderHoverOnce = false;
+        updateLeadersAutoplayState();
+    });
+
+    syncLeadersAutoplayUI(true);
+    updateLeadersAutoplayState();
+});
 
 // =======================================================
 // MOTOR DE INTEGRAÇÃO WORDPRESS (HEADLESS CMS)
