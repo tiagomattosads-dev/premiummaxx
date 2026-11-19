@@ -1120,23 +1120,34 @@ function initHeaderLogic() {
   // 8. HEADER INTELIGENTE
   // =======================================================
   const siteHeaderWrapper = document.querySelector('.siteHeader');
+  const tickerEl = document.querySelector('.financialTicker');
   const topBarEl = document.querySelector('.topBar');
   const mainHeaderEl = document.querySelector('.mainHeader');
   const stickySection = document.querySelector('.stickyScrollSpace');
 
   if (siteHeaderWrapper && mainHeaderEl) {
-    window.addEventListener('scroll', () => {
-      const topBarHeight = topBarEl ? topBarEl.offsetHeight : 40;
+    const updateSmartHeader = () => {
+      const isSiteHeaderFixed = window.getComputedStyle(siteHeaderWrapper).position === 'fixed';
 
-      if (window.scrollY > topBarHeight) {
-        if (!mainHeaderEl.classList.contains('is-fixed')) {
-          siteHeaderWrapper.style.paddingBottom = `${mainHeaderEl.offsetHeight}px`;
-          mainHeaderEl.classList.add('is-fixed');
-        }
+      if (isSiteHeaderFixed) {
+        // No mobile, o .siteHeader já é fixo com o ticker empilhado acima do menu
+        siteHeaderWrapper.style.paddingBottom = '0px';
+        mainHeaderEl.classList.toggle('is-fixed', window.scrollY > 10);
       } else {
-        if (mainHeaderEl.classList.contains('is-fixed')) {
-          mainHeaderEl.classList.remove('is-fixed');
-          siteHeaderWrapper.style.paddingBottom = '0px';
+        const tickerHeight = tickerEl ? tickerEl.offsetHeight : 0;
+        const topBarHeight = topBarEl ? topBarEl.offsetHeight : 40;
+        const fixThreshold = tickerHeight + topBarHeight;
+
+        if (window.scrollY > fixThreshold) {
+          if (!mainHeaderEl.classList.contains('is-fixed')) {
+            siteHeaderWrapper.style.paddingBottom = `${mainHeaderEl.offsetHeight}px`;
+            mainHeaderEl.classList.add('is-fixed');
+          }
+        } else {
+          if (mainHeaderEl.classList.contains('is-fixed')) {
+            mainHeaderEl.classList.remove('is-fixed');
+            siteHeaderWrapper.style.paddingBottom = '0px';
+          }
         }
       }
 
@@ -1148,7 +1159,11 @@ function initHeaderLogic() {
           mainHeaderEl.classList.remove('is-hidden');
         }
       }
-    });
+    };
+
+    window.addEventListener('scroll', updateSmartHeader);
+    window.addEventListener('resize', updateSmartHeader);
+    updateSmartHeader();
   }
 
 } // <--- FIM DA FUNÇÃO initHeaderLogic()

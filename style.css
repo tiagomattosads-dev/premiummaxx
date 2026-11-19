@@ -2754,10 +2754,37 @@ a.dynBtn.hidden {
     display: none !important;
   }
 
+  .financialTicker {
+    height: 32px;
+    z-index: 2011;
+  }
+
+  .tickerItem {
+    padding: 0 24px;
+    font-size: 12px;
+  }
+
+  .t-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .t-label,
+  .t-val {
+    font-size: 12px;
+  }
+
   .logo {
-    width: 360px;
+    width: auto;
+    max-width: calc(100% - 56px);
     position: relative;
     z-index: 2001;
+  }
+
+  .logo img {
+    height: 26px;
+    width: auto;
+    display: block;
   }
 
   /* 2. O BOTÃO HAMBÚRGUER "ESCADINHA" */
@@ -2845,8 +2872,8 @@ a.dynBtn.hidden {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 100px 20px 40px;
-    /* Padding top compensa a altura do cabeçalho */
+    padding: 112px 20px 40px;
+    /* Padding top compensa a altura do ticker + cabeçalho */
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -3105,8 +3132,13 @@ a.dynBtn.hidden {
     z-index: 2000;
   }
 
-  /* 1. Tiramos o fundo do "Pai", senão a gaveta sobrepõe-se a ele */
-  .mainHeader {
+  /* 1. Tiramos o fundo do "Pai" e impedimos que .is-fixed sobreponha o ticker no mobile */
+  .mainHeader,
+  .mainHeader.is-fixed {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: auto !important;
     background-color: transparent !important;
     border-bottom: none !important;
     padding: 0 !important;
@@ -3117,7 +3149,7 @@ a.dynBtn.hidden {
   .mainHeaderFlex {
     background-color: #0a0a0a !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-    padding: 16px 20px !important; /* Dá o respiro e alinha o conteúdo no telemóvel */
+    padding: 14px 20px !important; /* Dá o respiro e alinha o conteúdo no telemóvel */
     position: relative;
     /* A MÁGICA REAL: Tem que ser MAIOR que os 2000 da gaveta! */
     z-index: 2010 !important; 
