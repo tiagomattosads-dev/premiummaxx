@@ -561,7 +561,7 @@ const footerComponent = `
         <div class="footerContact">
           <h4 data-i18n="footer_contact">Fale com um Sócio</h4>
           <p class="contactEmail">jorge@premiummaxx.com.br</p>
-          <p class="contactPhone">+55 21 99300-2165</p>
+          <p class="contactPhone">+55 21 99101-6330</p>
 
           <div class="socialLinks">
             <a href="https://www.instagram.com/premiummaxx/" aria-label="Instagram" target="_blank">
